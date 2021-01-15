@@ -6,13 +6,13 @@ import Redirect from '@components/redirect';
 import SignUp from '@components/sign-up';
 import SignIn from '@components/sign-in';
 
-type HomeProps = {};
+type LoginPageProps = {};
 
-const Home: NextPage<HomeProps> = () => {
+const LoginPage: NextPage<LoginPageProps> = () => {
   const { user } = useAuth();
 
   if (user) {
-    return <Redirect to="/dashboard" />;
+    return <Redirect to="/pokedex" />;
   }
 
   return (
@@ -24,4 +24,4 @@ const Home: NextPage<HomeProps> = () => {
   );
 };
 
-export default Home;
+export default LoginPage;

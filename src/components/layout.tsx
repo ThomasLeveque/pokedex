@@ -8,14 +8,14 @@ const Layout: React.FC = ({ children }) => {
   const { user, userLoaded } = useAuth();
 
   if (!user && userLoaded) {
-    return <Redirect to="/" />;
+    return <Redirect to="/login" />;
   }
 
   return (
-    <main>
+    <>
       <Header />
-      {children}
-    </main>
+      <main>{children}</main>
+    </>
   );
 };
 

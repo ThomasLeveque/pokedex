@@ -3,14 +3,14 @@ import { NextPage } from 'next';
 
 import Layout from '@components/layout';
 
-type DashboardProps = {};
+type HomePageProps = {};
 
-const Dashboard: NextPage<DashboardProps> = () => {
+const HomePage: NextPage<HomePageProps> = () => {
   return (
     <Layout>
-      <h1>Dashboard</h1>
+      <h1>Your pokedex</h1>
     </Layout>
   );
 };
 
-export default Dashboard;
+export default HomePage;

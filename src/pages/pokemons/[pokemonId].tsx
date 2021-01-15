@@ -4,18 +4,17 @@ import { useRouter } from 'next/router';
 
 import Layout from '@components/layout';
 
-type PostProps = {};
+type PokemonPageProps = {};
 
-const Post: NextPage<PostProps> = () => {
+const PokemonPage: NextPage<PokemonPageProps> = () => {
   const router = useRouter();
-  const { postId } = router.query;
+  const { pokemonId } = router.query;
 
   return (
     <Layout>
-      <h1>Post: {postId}</h1>
-      <p>This is a post</p>
+      <h1>Pokemon numero {pokemonId}</h1>
     </Layout>
   );
 };
 
-export default Post;
+export default PokemonPage;
