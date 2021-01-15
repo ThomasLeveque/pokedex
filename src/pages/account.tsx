@@ -11,9 +11,9 @@ const Account: NextPage<AccountProps> = () => {
 
   return (
     <Layout>
-      <h1 className="text-5xl">Account</h1>
-      <h2 className="text-3xl">Name: {user?.displayName}</h2>
-      <h3 className="text-xl">Email: {user?.email}</h3>
+      <h1>Account</h1>
+      <h2>Name: {user?.displayName}</h2>
+      <h3>Email: {user?.email}</h3>
     </Layout>
   );
 };

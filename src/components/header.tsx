@@ -1,26 +1,20 @@
-import React from 'react';
+import React, { memo } from 'react';
 import Link from 'next/link';
 
 import { signOut } from '@libs/client/auth';
 
-const Header: React.FC = () => {
-  const handleSignOut = () => {
-    signOut();
-  };
-
+const Header: React.FC = memo(() => {
   return (
-    <header className="py-3 px-6 flex justify-end">
+    <header>
       <Link href="/dashboard">
-        <a className="p-2">Dashboard</a>
+        <a>Dashboard</a>
       </Link>
       <Link href="/account">
-        <a className="p-2">Account</a>
+        <a>Account</a>
       </Link>
-      <button className="p-2" onClick={handleSignOut}>
-        Logout
-      </button>
+      <button onClick={signOut}>Logout</button>
     </header>
   );
-};
+});
 
 export default Header;

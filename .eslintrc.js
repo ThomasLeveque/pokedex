@@ -22,5 +22,6 @@ module.exports = {
     'react/prop-types': 'off',
     'jsx-a11y/anchor-is-valid': 'off',
     'react/display-name': 'off',
+    '@typescript-eslint/ban-types': 'off',
   },
-}
+};

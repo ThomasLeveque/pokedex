@@ -18,20 +18,15 @@ const SignIn: React.FC = () => {
   };
 
   return (
-    <div className="flex items-center flex-col mb-8">
-      <h2 className="text-3xl text-center mb-4">Sign in</h2>
+    <div>
+      <h2>Sign in</h2>
+      <input value={email} onChange={(event) => setEmail(event.target.value)} />
       <input
-        className="border-black border-2"
-        value={email}
-        onChange={(event) => setEmail(event.target.value)}
-      />
-      <input
-        className="border-black border-2"
         value={password}
         type="password"
         onChange={(event) => setPassword(event.target.value)}
       />
-      <button className="bg-black text-white p-2" onClick={handleSignInWithEmail}>
+      <button onClick={handleSignInWithEmail}>
         {loading ? 'loading...' : 'Sign in with email'}
       </button>
     </div>

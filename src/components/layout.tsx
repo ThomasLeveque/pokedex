@@ -12,7 +12,7 @@ const Layout: React.FC = ({ children }) => {
   }
 
   return (
-    <main className="xl:container xl:mx-auto">
+    <main>
       <Header />
       {children}
     </main>

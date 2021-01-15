@@ -8,7 +8,7 @@ type DashboardProps = {};
 const Dashboard: NextPage<DashboardProps> = () => {
   return (
     <Layout>
-      <h1 className="text-5xl">Dashboard</h1>
+      <h1>Dashboard</h1>
     </Layout>
   );
 };
