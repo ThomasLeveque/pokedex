@@ -1,35 +1,42 @@
 import React, { useState } from 'react';
+import { Button, Heading, Box, Input, Stack } from '@chakra-ui/react';
 
 import { signUpWithEmail } from '@libs/client/auth';
+import { fromPseudoToCredentials } from '@utils/format-string';
 
 const SignUp: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(false);
-  const [email, setEmail] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
+  const [pseudo, setPseudo] = useState<string>('');
 
   const handleSignUpWithEmail = async (): Promise<void> => {
+    const { email, password } = fromPseudoToCredentials(pseudo);
     try {
       setLoading(true);
       await signUpWithEmail(email, password);
       // Do not setLoading(false) because Signup will unmount this component.
     } catch (err) {
-      setLoading(true);
+      console.error(err);
+      setLoading(false);
     }
   };
 
   return (
-    <div>
-      <h2>Sign up</h2>
-      <input value={email} onChange={(event) => setEmail(event.target.value)} />
-      <input
-        value={password}
-        type="password"
-        onChange={(event) => setPassword(event.target.value)}
-      />
-      <button onClick={handleSignUpWithEmail}>
-        {loading ? 'loading...' : 'Sign up with email'}
-      </button>
-    </div>
+    <Box>
+      <Heading as="h2" textAlign="center" mb="6">
+        Sign up
+      </Heading>
+      <Stack direction="row">
+        <Input
+          mb="3"
+          placeholder="Enter a pseudo"
+          value={pseudo}
+          onChange={(event) => setPseudo(event.target.value)}
+        />
+        <Button onClick={handleSignUpWithEmail} isLoading={loading}>
+          Enter
+        </Button>
+      </Stack>
+    </Box>
   );
 };
 

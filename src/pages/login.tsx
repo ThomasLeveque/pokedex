@@ -1,5 +1,6 @@
 import React from 'react';
 import { NextPage } from 'next';
+import { Container, Heading } from '@chakra-ui/react';
 
 import { useAuth } from '@hooks/useAuth';
 import Redirect from '@components/redirect';
@@ -16,11 +17,13 @@ const LoginPage: NextPage<LoginPageProps> = () => {
   }
 
   return (
-    <main>
-      <h1>Welcome !</h1>
-      <SignUp />
+    <Container>
+      <Heading as="h1" size="3xl" textAlign="center" my="6">
+        Welcome !
+      </Heading>
       <SignIn />
-    </main>
+      <SignUp />
+    </Container>
   );
 };
 

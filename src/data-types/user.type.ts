@@ -1,9 +1,8 @@
 export type User = {
   email: string;
-  photoURL: string | null;
-  provider?: string;
   displayName: string;
   isAdmin: boolean;
+  totalPokemon: number;
   createdAt: number;
   updatedAt: number;
 };

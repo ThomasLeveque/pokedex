@@ -2,13 +2,16 @@ import React from 'react';
 import { NextPage } from 'next';
 
 import Layout from '@components/layout';
+import { useAuth } from '@hooks/useAuth';
 
 type HomePageProps = {};
 
 const HomePage: NextPage<HomePageProps> = () => {
+  const { user } = useAuth();
+
   return (
     <Layout>
-      <h1>Your pokedex</h1>
+      <h1>The pokedex of {user?.displayName}</h1>
     </Layout>
   );
 };
