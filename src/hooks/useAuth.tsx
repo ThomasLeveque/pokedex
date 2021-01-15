@@ -2,10 +2,11 @@ import React from 'react';
 import { createContext, useContext, memo, useEffect, useState } from 'react';
 import { User as AuthUser } from '@firebase/auth-types';
 
-import { createUser, getUser } from '@libs/db';
-import { auth } from '@libs/firebase';
-import { Document } from '@libs/types';
+import { createUser } from '@libs/client/db';
+import { auth } from '@libs/client/firebase';
+import { Document } from '@libs/firebase-types';
 import { User } from '@data-types/user.type';
+import { fetchDocument } from '@libs/client/fetchers';
 
 type AuthContextType = {
   user: Document<User> | null;
@@ -31,11 +32,11 @@ const useProvideAuth = () => {
 
   const handleUser = async (authUser: AuthUser | null): Promise<void> => {
     if (authUser) {
-      let userData = await getUser(authUser.uid);
+      let userData = await fetchDocument<User>(`users/${authUser.uid}`);
 
       if (!userData.exists) {
         await createUser(authUser.uid, authUser);
-        userData = await getUser(authUser.uid);
+        userData = await fetchDocument<User>(`users/${authUser.uid}`);
       }
       setUser(userData);
     } else {

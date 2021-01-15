@@ -5,7 +5,6 @@ import { useAuth } from '@hooks/useAuth';
 import Redirect from '@components/redirect';
 import SignUp from '@components/sign-up';
 import SignIn from '@components/sign-in';
-import SignInWithGoogle from '@components/sign-in-with-google';
 
 type HomeProps = {};
 
@@ -21,7 +20,6 @@ const Home: NextPage<HomeProps> = () => {
       <h1 className="text-5xl text-center mb-10">Welcome !</h1>
       <SignUp />
       <SignIn />
-      <SignInWithGoogle />
     </main>
   );
 };

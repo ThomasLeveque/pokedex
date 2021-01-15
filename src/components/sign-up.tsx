@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { signUpWithEmail } from '@libs/auth';
+import { signUpWithEmail } from '@libs/client/auth';
 
 const SignUp: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(false);
