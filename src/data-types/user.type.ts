@@ -1,8 +1,16 @@
-export type User = {
+export interface User extends AdditionalUserData {
   email: string;
-  displayName: string;
   isAdmin: boolean;
-  totalPokemon: number;
   createdAt: number;
   updatedAt: number;
-};
+
+  // TO DEFINE
+  starterId?: string;
+}
+
+export interface AdditionalUserData {
+  pseudo: string;
+
+  // TO DEFINE
+  character?: string;
+}

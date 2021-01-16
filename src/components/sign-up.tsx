@@ -1,18 +1,20 @@
 import React, { useState } from 'react';
 import { Button, Heading, Box, Input, Stack } from '@chakra-ui/react';
 
-import { signUpWithEmail } from '@libs/client/auth';
 import { fromPseudoToCredentials } from '@utils/format-string';
+import { useAuth } from '@hooks/useAuth';
 
 const SignUp: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [pseudo, setPseudo] = useState<string>('');
 
+  const { signUpWithEmail } = useAuth();
+
   const handleSignUpWithEmail = async (): Promise<void> => {
     const { email, password } = fromPseudoToCredentials(pseudo);
     try {
       setLoading(true);
-      await signUpWithEmail(email, password);
+      await signUpWithEmail(email, password, { pseudo });
       // Do not setLoading(false) because Signup will unmount this component.
     } catch (err) {
       console.error(err);

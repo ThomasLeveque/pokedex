@@ -11,7 +11,7 @@ const HomePage: NextPage<HomePageProps> = () => {
 
   return (
     <Layout>
-      <h1>The pokedex of {user?.displayName}</h1>
+      <h1>The pokedex of {user?.pseudo}</h1>
     </Layout>
   );
 };
