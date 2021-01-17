@@ -8,6 +8,7 @@ export const formatUser = ({ email }: AuthUser, additionalData: AdditionalUserDa
     isAdmin: false,
     createdAt: Date.now(),
     updatedAt: Date.now(),
+    starterId: null,
     ...additionalData,
   };
 };

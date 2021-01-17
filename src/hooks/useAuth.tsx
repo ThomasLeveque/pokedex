@@ -1,7 +1,7 @@
 import React, { createContext, useContext, memo, useEffect, useState } from 'react';
 import { User as AuthUser } from '@firebase/auth-types';
 
-import { createUser } from '@libs/client/db';
+import { createUser, updateUser } from '@libs/client/db';
 import { auth } from '@libs/client/firebase';
 import { Document } from '@libs/firebase-types';
 import { AdditionalUserData, User } from '@data-types/user.type';
@@ -17,6 +17,7 @@ type AuthContextType = {
   ) => Promise<void | null>;
   signInWithEmail: (email: string, password: string) => Promise<void | null>;
   signOut: () => Promise<void | null>;
+  setUserStarter: (userId: string, starterId: string) => Promise<void | null>;
 };
 
 const authContext = createContext<AuthContextType>({
@@ -25,6 +26,7 @@ const authContext = createContext<AuthContextType>({
   signUpWithEmail: async () => null,
   signInWithEmail: async () => null,
   signOut: async () => null,
+  setUserStarter: async () => null,
 });
 
 export const useAuth = (): AuthContextType => {
@@ -75,6 +77,11 @@ const AuthProvider = memo(({ children }) => {
     return handleUser(null);
   };
 
+  const setUserStarter = async (userId: string, starterId: string): Promise<void> => {
+    await updateUser(userId, { starterId });
+    setUser((prevUser) => ({ ...prevUser, starterId } as Document<User>));
+  };
+
   useEffect(() => {
     // Execut unsubscribe() inside onAuthStateChanged to fire it only at lauching time
     const unsubscribe = auth.onAuthStateChanged(async (authUser: AuthUser | null) => {
@@ -92,6 +99,7 @@ const AuthProvider = memo(({ children }) => {
     signUpWithEmail,
     signInWithEmail,
     signOut,
+    setUserStarter,
   };
 
   return <authContext.Provider value={authValue}>{children}</authContext.Provider>;

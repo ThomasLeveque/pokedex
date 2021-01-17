@@ -1,4 +1,4 @@
-import { AdditionalUserData } from '@data-types/user.type';
+import { AdditionalUserData, User } from '@data-types/user.type';
 import { User as AuthUser } from '@firebase/auth-types';
 
 import { clientDB } from './firebase';
@@ -12,4 +12,9 @@ export const createUser = async (
   const userRef = clientDB.collection('users').doc(userId);
   const newUser = formatUser(authUser, additionnalData);
   return userRef.set(newUser);
+};
+
+export const updateUser = async (userId: string, newUserData: Partial<User>): Promise<void> => {
+  const userRef = clientDB.collection('users').doc(userId);
+  return userRef.update(newUserData);
 };
