@@ -8,7 +8,7 @@ export interface User extends AdditionalUserData {
 
 export interface AdditionalUserData {
   pseudo: string;
-
-  // TO DEFINE
-  character?: string;
+  character: Character;
 }
+
+export type Character = 'blue' | 'red' | 'leaf';
