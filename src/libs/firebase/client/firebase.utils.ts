@@ -4,7 +4,7 @@ import {
   DocumentReference,
   Query,
 } from '@firebase/firestore-types';
-import { Document, Options } from '@libs/firebase-types';
+import { Document, Options } from '@libs/firebase/firebase-types';
 
 const formatDoc = <Data>(doc: DocumentSnapshot): Document<Data> => ({
   id: doc.id,

@@ -1,11 +1,11 @@
 import React, { createContext, useContext, memo, useEffect, useState } from 'react';
 import { User as AuthUser } from '@firebase/auth-types';
 
-import { createUser, updateUser } from '@libs/client/db';
-import { auth } from '@libs/client/firebase';
-import { Document } from '@libs/firebase-types';
+import { createUser, updateUser } from '@libs/firebase/client/db';
+import { auth } from '@libs/firebase/client/firebase';
+import { Document } from '@libs/firebase/firebase-types';
 import { AdditionalUserData, User } from '@data-types/user.type';
-import { fetchDocument } from '@libs/client/fetchers';
+import { fetchDocument } from '@libs/firebase/client/fetchers';
 
 type AuthContextType = {
   user: Document<User> | null;
@@ -17,7 +17,11 @@ type AuthContextType = {
   ) => Promise<void | null>;
   signInWithEmail: (email: string, password: string) => Promise<void | null>;
   signOut: () => Promise<void | null>;
-  setUserStarter: (userId: string, starterId: string) => Promise<void | null>;
+  setUserStarter: (
+    userId: string,
+    starterId: string,
+    starterAvatarUrl: string
+  ) => Promise<void | null>;
 };
 
 const authContext = createContext<AuthContextType>({
