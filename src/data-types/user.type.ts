@@ -4,6 +4,7 @@ export interface User extends AdditionalUserData {
   createdAt: number;
   updatedAt: number;
   starterId: string | null;
+  starterAvatarUrl: string | null;
 }
 
 export interface AdditionalUserData {

@@ -77,9 +77,13 @@ const AuthProvider = memo(({ children }) => {
     return handleUser(null);
   };
 
-  const setUserStarter = async (userId: string, starterId: string): Promise<void> => {
-    await updateUser(userId, { starterId });
-    setUser((prevUser) => ({ ...prevUser, starterId } as Document<User>));
+  const setUserStarter = async (
+    userId: string,
+    starterId: string,
+    starterAvatarUrl: string
+  ): Promise<void> => {
+    await updateUser(userId, { starterId, starterAvatarUrl });
+    setUser((prevUser) => ({ ...prevUser, starterId, starterAvatarUrl } as Document<User>));
   };
 
   useEffect(() => {

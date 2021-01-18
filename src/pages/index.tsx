@@ -1,11 +1,12 @@
 import React from 'react';
 import { NextPage } from 'next';
-import { Container, Heading } from '@chakra-ui/react';
+import { Center, Container } from '@chakra-ui/react';
 
 import { useAuth } from '@hooks/useAuth';
 import Redirect from '@components/redirect';
 import SignUp from '@components/sign-up';
 import SignIn from '@components/sign-in';
+import { PokemonLogo } from '@components/pokemon-logo';
 
 type LoginPageProps = {};
 
@@ -17,10 +18,10 @@ const LoginPage: NextPage<LoginPageProps> = () => {
   }
 
   return (
-    <Container>
-      <Heading as="h1" size="3xl" textAlign="center" my="6">
-        Welcome !
-      </Heading>
+    <Container py="6">
+      <Center mb="4">
+        <PokemonLogo />
+      </Center>
       <SignIn />
       <SignUp />
     </Container>

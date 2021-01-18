@@ -9,6 +9,7 @@ export const formatUser = ({ email }: AuthUser, additionalData: AdditionalUserDa
     createdAt: Date.now(),
     updatedAt: Date.now(),
     starterId: null,
+    starterAvatarUrl: null,
     ...additionalData,
   };
 };

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Heading, Box, Input, Stack } from '@chakra-ui/react';
+import { Button, Heading, Box, Input, FormControl, FormLabel } from '@chakra-ui/react';
 
 import { fromPseudoToCredentials } from '@utils/format-string';
 import { useAuth } from '@hooks/useAuth';
@@ -27,19 +27,18 @@ const SignIn: React.FC = () => {
       <Heading as="h2" textAlign="center" mb="6">
         Sign in
       </Heading>
-      <Stack direction="row">
+      <FormControl id="pseudo" isRequired mb="5">
+        <FormLabel>Pseudo</FormLabel>
         <Input
-          mb="3"
-          name="username"
-          placeholder="Enter your pseudo"
-          maxLength={100}
+          maxLength={40}
+          placeholder="Enter a pseudo"
           value={pseudo}
           onChange={(event) => setPseudo(event.target.value)}
         />
-        <Button onClick={handleSignInWithEmail} isLoading={loading}>
-          Enter
-        </Button>
-      </Stack>
+      </FormControl>
+      <Button onClick={handleSignInWithEmail} isLoading={loading}>
+        Enter
+      </Button>
     </Box>
   );
 };
