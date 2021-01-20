@@ -10,6 +10,7 @@ import {
   FormHelperText,
   useRadioGroup,
   Flex,
+  Link,
 } from '@chakra-ui/react';
 
 import { fromPseudoToCredentials } from '@utils/format-string';
@@ -17,7 +18,11 @@ import { useAuth } from '@hooks/useAuth';
 import { Character } from '@data-types/user.type';
 import RadioCharacter from './radio-character';
 
-const SignUp: React.FC = () => {
+type SignUpProps = {
+  toggleIsLogin: () => void;
+};
+
+const SignUp: React.FC<SignUpProps> = ({ toggleIsLogin }) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [pseudo, setPseudo] = useState<string>('');
   const [character, setCharacter] = useState<Character>('red');
@@ -58,7 +63,7 @@ const SignUp: React.FC = () => {
         />
         <FormHelperText>Never forget it !</FormHelperText>
       </FormControl>
-      <FormControl id="character" isRequired mb="5">
+      <FormControl id="character" isRequired mb="6">
         <FormLabel>Character</FormLabel>
         <Flex justify="space-between">
           {allCharacters.map((character) => {
@@ -72,11 +77,18 @@ const SignUp: React.FC = () => {
             );
           })}
         </Flex>
-        <FormHelperText mt="4">Choose your character well for this adventure !</FormHelperText>
       </FormControl>
       <Button onClick={handleSignUpWithEmail} isLoading={loading}>
         Enter
       </Button>
+      <Link
+        ml="4"
+        onClick={() => {
+          toggleIsLogin();
+        }}
+      >
+        Continue an existing adventure
+      </Link>
     </Box>
   );
 };

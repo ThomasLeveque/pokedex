@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
-import { Button, Heading, Box, Input, FormControl, FormLabel } from '@chakra-ui/react';
+import { Button, Heading, Box, Input, FormControl, FormLabel, Link } from '@chakra-ui/react';
 
 import { fromPseudoToCredentials } from '@utils/format-string';
 import { useAuth } from '@hooks/useAuth';
 
-const SignIn: React.FC = () => {
+type SignInProps = {
+  toggleIsLogin: () => void;
+};
+
+const SignIn: React.FC<SignInProps> = ({ toggleIsLogin }) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [pseudo, setPseudo] = useState<string>('');
 
@@ -24,7 +28,7 @@ const SignIn: React.FC = () => {
 
   return (
     <Box>
-      <Heading as="h2" textAlign="center" mb="6">
+      <Heading as="h2" textAlign="center" mb="8">
         Sign in
       </Heading>
       <FormControl id="pseudo" isRequired mb="5">
@@ -39,6 +43,14 @@ const SignIn: React.FC = () => {
       <Button onClick={handleSignInWithEmail} isLoading={loading}>
         Enter
       </Button>
+      <Link
+        ml="4"
+        onClick={() => {
+          toggleIsLogin();
+        }}
+      >
+        Start a new adventure
+      </Link>
     </Box>
   );
 };

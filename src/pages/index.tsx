@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { NextPage } from 'next';
 import { Center, Container } from '@chakra-ui/react';
 
@@ -12,18 +12,26 @@ type LoginPageProps = {};
 
 const LoginPage: NextPage<LoginPageProps> = () => {
   const { user } = useAuth();
+  const [isLogin, setIsLogin] = useState<boolean>(true);
 
   if (user) {
     return <Redirect to="/pokedex" />;
   }
+
+  const toggleIsLogin = (): void => {
+    setIsLogin((prevIsLogin) => !prevIsLogin);
+  };
 
   return (
     <Container py="6">
       <Center mb="4">
         <PokemonLogo />
       </Center>
-      <SignIn />
-      <SignUp />
+      {isLogin ? (
+        <SignIn toggleIsLogin={toggleIsLogin} />
+      ) : (
+        <SignUp toggleIsLogin={toggleIsLogin} />
+      )}
     </Container>
   );
 };
