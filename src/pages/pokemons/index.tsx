@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import useSWR from 'swr';
-import { NextPage } from 'next';
+import { NextPage, GetStaticProps } from 'next';
 import { InputGroup, SimpleGrid, InputLeftElement, Input } from '@chakra-ui/react';
 import { SearchIcon } from '@chakra-ui/icons';
 
@@ -10,18 +10,24 @@ import { Pokemon } from '@data-types/pokemon.type';
 import PokemonItem from '@components/pokemon-item';
 
 const generatePokemonToFetch = (): number[] =>
-  Array.from(
-    { length: process.env.NODE_ENV === 'development' ? 10 : 151 },
-    (_, index) => index + 1
-  );
+  Array.from({ length: process.env.NODE_ENV === 'development' ? 6 : 151 }, (_, index) => index + 1);
 
-type PokemonsPageProps = {};
-
-const PokemonsPage: NextPage<PokemonsPageProps> = () => {
-  const [search, setSearch] = useState<string>('');
-
+export const getStaticProps: GetStaticProps = async () => {
   const pokemonsToFetch = generatePokemonToFetch();
-  const { data: pokemons } = useSWR<Pokemon[]>('pokemons', () => getPokemons(pokemonsToFetch));
+  const pokemons = await getPokemons(pokemonsToFetch);
+  return {
+    props: {
+      pokemons,
+    },
+  };
+};
+
+type PokemonsPageProps = {
+  pokemons: Pokemon[];
+};
+
+const PokemonsPage: NextPage<PokemonsPageProps> = ({ pokemons }) => {
+  const [search, setSearch] = useState<string>('');
 
   const filteredPokemons = useMemo(
     () => pokemons?.filter((pokemon) => pokemon.name.includes(search)),
