@@ -10,7 +10,5 @@ export const getPokemons = async (pokemonsToFetch: number[]) => {
     const pokemon = formatPokemon(data);
     pokemons.push(pokemon);
   }
-
-  console.log(pokemons);
   return pokemons;
 };

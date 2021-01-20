@@ -19,7 +19,7 @@ const Header: React.FC = memo(() => {
   const { signOut, user } = useAuth();
 
   return (
-    <Flex as="header" py="4" mb="8" backgroundColor="white">
+    <Flex as="header" py="4" backgroundColor="white">
       <Container maxW="7xl">
         <Flex justify="space-between" align="center">
           <Link href="/pokedex" passHref>
@@ -28,10 +28,14 @@ const Header: React.FC = memo(() => {
             </ChakraLink>
           </Link>
           <Link href="/pokedex" passHref>
-            <ChakraLink p="2">Pokedex</ChakraLink>
+            <ChakraLink fontWeight="700" p="2">
+              Pokedex
+            </ChakraLink>
           </Link>
           <Link href="/pokemons" passHref>
-            <ChakraLink p="2">Pokemons</ChakraLink>
+            <ChakraLink fontWeight="700" p="2">
+              Pokemons
+            </ChakraLink>
           </Link>
           <Spacer />
           <Avatar mr="2" backgroundColor="white" src={`/images/${user?.character}-avatar.png`}>
