@@ -6,6 +6,7 @@ import { auth } from '@libs/firebase/client/firebase';
 import { Document } from '@libs/firebase/firebase-types';
 import { AdditionalUserData, User } from '@data-types/user.type';
 import { fetchDocument } from '@libs/firebase/client/fetchers';
+import { errorToast } from '@utils/toasts';
 
 type AuthContextType = {
   user: Document<User> | null;
@@ -92,11 +93,24 @@ const AuthProvider = memo(({ children }) => {
 
   useEffect(() => {
     // Execut unsubscribe() inside onAuthStateChanged to fire it only at lauching time
-    const unsubscribe = auth.onAuthStateChanged(async (authUser: AuthUser | null) => {
-      await handleUser(authUser);
-      setUserLoaded(true);
-      unsubscribe();
-    });
+    const unsubscribe = auth.onAuthStateChanged(
+      async (authUser: AuthUser | null) => {
+        try {
+          await handleUser(authUser);
+        } catch (err) {
+          console.error(err);
+          errorToast({ description: err.message });
+        }
+        setUserLoaded(true);
+        unsubscribe();
+      },
+      (err) => {
+        console.error(err);
+        errorToast({ description: err.message });
+        setUserLoaded(true);
+        unsubscribe();
+      }
+    );
 
     return () => unsubscribe();
   }, []);

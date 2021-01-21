@@ -17,6 +17,7 @@ import { fromPseudoToCredentials } from '@utils/format-string';
 import { useAuth } from '@hooks/useAuth';
 import { Character } from '@data-types/user.type';
 import RadioCharacter from './radio-character';
+import { errorToast } from '@utils/toasts';
 
 type SignUpProps = {
   toggleIsLogin: () => void;
@@ -26,6 +27,7 @@ const SignUp: React.FC<SignUpProps> = ({ toggleIsLogin }) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [pseudo, setPseudo] = useState<string>('');
   const [character, setCharacter] = useState<Character>('red');
+
   const { signUpWithEmail } = useAuth();
 
   const handleSignUpWithEmail = async (): Promise<void> => {
@@ -36,6 +38,7 @@ const SignUp: React.FC<SignUpProps> = ({ toggleIsLogin }) => {
       // Do not setLoading(false) because Signup will unmount this component.
     } catch (err) {
       console.error(err);
+      errorToast({ description: err.message });
       setLoading(false);
     }
   };

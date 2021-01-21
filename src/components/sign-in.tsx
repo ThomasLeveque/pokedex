@@ -3,6 +3,7 @@ import { Button, Heading, Box, Input, FormControl, FormLabel, Link } from '@chak
 
 import { fromPseudoToCredentials } from '@utils/format-string';
 import { useAuth } from '@hooks/useAuth';
+import { errorToast } from '@utils/toasts';
 
 type SignInProps = {
   toggleIsLogin: () => void;
@@ -22,6 +23,7 @@ const SignIn: React.FC<SignInProps> = ({ toggleIsLogin }) => {
       // Do not setLoading(false) because Signin will unmount this component.
     } catch (err) {
       console.error(err);
+      errorToast({ description: err.message });
       setLoading(false);
     }
   };

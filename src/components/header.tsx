@@ -14,9 +14,19 @@ import {
 
 import { useAuth } from '@hooks/useAuth';
 import { PokemonLogo } from './pokemon-logo';
+import { errorToast } from '@utils/toasts';
 
 const Header: React.FC = memo(() => {
   const { signOut, user } = useAuth();
+
+  const handleSignOut = async () => {
+    try {
+      await signOut();
+    } catch (err) {
+      console.error(err);
+      errorToast({ description: err.message });
+    }
+  };
 
   return (
     <Flex as="header" py="4" backgroundColor="white">
@@ -45,7 +55,7 @@ const Header: React.FC = memo(() => {
               </AvatarBadge>
             )}
           </Avatar>
-          <Button onClick={signOut}>Leave</Button>
+          <Button onClick={handleSignOut}>Leave</Button>
           <HStack direction="row"></HStack>
         </Flex>
       </Container>
