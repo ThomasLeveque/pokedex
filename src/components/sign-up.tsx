@@ -8,9 +8,8 @@ import {
   FormControl,
   FormLabel,
   FormHelperText,
-  useRadioGroup,
-  Flex,
   Link,
+  Grid,
 } from '@chakra-ui/react';
 
 import { fromPseudoToCredentials } from '@utils/format-string';
@@ -18,6 +17,7 @@ import { useAuth } from '@hooks/useAuth';
 import { Character } from '@data-types/user.type';
 import RadioCharacter from './radio-character';
 import { errorToast } from '@utils/toasts';
+import { useCheckbox } from '@hooks/useCheckbox';
 
 type SignUpProps = {
   toggleIsLogin: () => void;
@@ -26,8 +26,8 @@ type SignUpProps = {
 const SignUp: React.FC<SignUpProps> = ({ toggleIsLogin }) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [pseudo, setPseudo] = useState<string>('');
-  const [character, setCharacter] = useState<Character>('red');
 
+  const { data: character, onChange: setCharacter, isChecked } = useCheckbox<Character>('red');
   const { signUpWithEmail } = useAuth();
 
   const handleSignUpWithEmail = async (): Promise<void> => {
@@ -44,12 +44,6 @@ const SignUp: React.FC<SignUpProps> = ({ toggleIsLogin }) => {
   };
 
   const allCharacters: Character[] = ['red', 'leaf', 'blue'];
-
-  const { getRadioProps } = useRadioGroup({
-    name: 'character',
-    defaultValue: 'red',
-    onChange: (changedCharacter) => setCharacter(changedCharacter as Character),
-  });
 
   return (
     <Box>
@@ -68,18 +62,20 @@ const SignUp: React.FC<SignUpProps> = ({ toggleIsLogin }) => {
       </FormControl>
       <FormControl id="character" isRequired mb="6">
         <FormLabel>Character</FormLabel>
-        <Flex justify="space-between">
+        <Grid templateColumns="repeat(3, minmax(0, 1fr))" gap={5}>
           {allCharacters.map((character) => {
-            // Disable because, i got an error even when i pass string type to value.
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            const radio = getRadioProps({ value: character as string } as any);
+            const characterChecked = isChecked(character);
             return (
-              <RadioCharacter key={character} {...radio}>
+              <RadioCharacter
+                key={character}
+                onClick={() => setCharacter(character)}
+                isChecked={characterChecked}
+              >
                 <Image src={`/images/${character}.png`} width={500} height={500} />
               </RadioCharacter>
             );
           })}
-        </Flex>
+        </Grid>
       </FormControl>
       <Button onClick={handleSignUpWithEmail} isLoading={loading}>
         Enter

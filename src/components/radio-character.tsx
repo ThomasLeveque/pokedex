@@ -1,28 +1,22 @@
-import { Box, useRadio, UseRadioProps } from '@chakra-ui/react';
 import React from 'react';
+import { Box } from '@chakra-ui/react';
 
-const RadioCharacter: React.FC<UseRadioProps> = (props) => {
-  const { getInputProps, getCheckboxProps } = useRadio(props);
+interface RadioCharacterProps {
+  onClick: () => void;
+  isChecked: boolean;
+}
 
-  const input = getInputProps();
-  const checkbox = getCheckboxProps();
-
+const RadioCharacter: React.FC<RadioCharacterProps> = ({ onClick, isChecked, children }) => {
   return (
-    <Box as="label" w="calc((100% / 3) - 20px)">
-      <input {...input} />
-      <Box
-        {...checkbox}
-        cursor="pointer"
-        opacity="0.5"
-        borderWidth="1px"
-        borderRadius="full"
-        boxShadow="md"
-        _checked={{
-          opacity: '1',
-        }}
-      >
-        {props.children}
-      </Box>
+    <Box
+      onClick={onClick}
+      cursor="pointer"
+      opacity={isChecked ? '1' : '0.5'}
+      borderWidth="1px"
+      borderRadius="full"
+      boxShadow="md"
+    >
+      {children}
     </Box>
   );
 };
