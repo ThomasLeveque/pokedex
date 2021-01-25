@@ -2,7 +2,7 @@ import { FieldPath, OrderByDirection, WhereFilterOp } from '@firebase/firestore-
 
 export type Document<Data> = Data & {
   id: string;
-  exists: boolean;
+  exists?: boolean;
 };
 
 export type Options = {

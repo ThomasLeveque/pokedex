@@ -20,7 +20,7 @@ type AuthContextType = {
   signOut: () => Promise<void | null>;
   setUserStarter: (
     userId: string,
-    starterId: string,
+    starterId: number,
     starterAvatarUrl: string
   ) => Promise<void | null>;
 };
