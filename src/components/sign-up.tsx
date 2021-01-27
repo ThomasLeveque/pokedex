@@ -16,8 +16,9 @@ import { fromPseudoToCredentials } from '@utils/format-string';
 import { useAuth } from '@hooks/useAuth';
 import { Character } from '@data-types/user.type';
 import RadioCharacter from './radio-character';
-import { errorToast } from '@utils/toasts';
+import { errorToast, successToast } from '@utils/toasts';
 import { useCheckbox } from '@hooks/useCheckbox';
+import { formatAuthErrors } from '@utils/format-auth-errors';
 
 type SignUpProps = {
   toggleIsLogin: () => void;
@@ -31,14 +32,22 @@ const SignUp: React.FC<SignUpProps> = ({ toggleIsLogin }) => {
   const { signUpWithEmail } = useAuth();
 
   const handleSignUpWithEmail = async (): Promise<void> => {
-    const { email, password } = fromPseudoToCredentials(pseudo);
+    if (pseudo.length === 0 || character.length === 0) {
+      errorToast({ description: 'You must provide a pseudo and choose a character.' });
+      return;
+    }
+
     try {
+      const { email, password } = fromPseudoToCredentials(pseudo);
       setLoading(true);
       await signUpWithEmail(email, password, { pseudo, character });
+      successToast({ title: `Welcome ${pseudo}`, description: 'Catch them all !' });
       // Do not setLoading(false) because Signup will unmount this component.
     } catch (err) {
       console.error(err);
-      errorToast({ description: err.message });
+      errorToast({
+        description: formatAuthErrors(err),
+      });
       setLoading(false);
     }
   };

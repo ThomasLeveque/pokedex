@@ -3,7 +3,8 @@ import { Button, Heading, Box, Input, FormControl, FormLabel, Link } from '@chak
 
 import { fromPseudoToCredentials } from '@utils/format-string';
 import { useAuth } from '@hooks/useAuth';
-import { errorToast } from '@utils/toasts';
+import { errorToast, successToast } from '@utils/toasts';
+import { formatAuthErrors } from '@utils/format-auth-errors';
 
 type SignInProps = {
   toggleIsLogin: () => void;
@@ -16,14 +17,20 @@ const SignIn: React.FC<SignInProps> = ({ toggleIsLogin }) => {
   const { signInWithEmail } = useAuth();
 
   const handleSignInWithEmail = async (): Promise<void> => {
-    const { email, password } = fromPseudoToCredentials(pseudo);
+    if (pseudo.length === 0) {
+      errorToast({ description: 'You must provide a pseudo.' });
+      return;
+    }
+
     try {
+      const { email, password } = fromPseudoToCredentials(pseudo);
       setLoading(true);
       await signInWithEmail(email, password);
+      successToast({ title: `Welcome back ${pseudo}`, description: 'Catch them all !' });
       // Do not setLoading(false) because Signin will unmount this component.
     } catch (err) {
       console.error(err);
-      errorToast({ description: err.message });
+      errorToast({ description: formatAuthErrors(err) });
       setLoading(false);
     }
   };
