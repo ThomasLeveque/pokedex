@@ -30,7 +30,7 @@ const Header: React.FC = memo(() => {
 
   return (
     <Flex as="header" py="4" backgroundColor="white">
-      <Container maxW="7xl">
+      <Container maxW="6xl">
         <Flex justify="space-between" align="center">
           <Link href="/pokedex" passHref>
             <ChakraLink mr="4">
