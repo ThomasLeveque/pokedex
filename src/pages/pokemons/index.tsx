@@ -1,5 +1,4 @@
 import React, { useState, useMemo } from 'react';
-import useSWR from 'swr';
 import { NextPage, GetStaticProps } from 'next';
 import { InputGroup, SimpleGrid, InputLeftElement, Input } from '@chakra-ui/react';
 import { SearchIcon } from '@chakra-ui/icons';
@@ -8,9 +7,14 @@ import Layout from '@components/layout';
 import { getPokemons } from '@libs/pokeapi/db';
 import { Pokemon } from '@data-types/pokemon.type';
 import PokemonItem from '@components/pokemon-item';
+import useCollection from '@hooks/useCollection';
+import { useAuth } from '@hooks/useAuth';
 
 const generatePokemonToFetch = (): number[] =>
-  Array.from({ length: process.env.NODE_ENV === 'development' ? 6 : 151 }, (_, index) => index + 1);
+  Array.from(
+    { length: process.env.NODE_ENV === 'development' ? 10 : 151 },
+    (_, index) => index + 1
+  );
 
 export const getStaticProps: GetStaticProps = async () => {
   const pokemonsToFetch = generatePokemonToFetch();
@@ -28,6 +32,9 @@ type PokemonsPageProps = {
 
 const PokemonsPage: NextPage<PokemonsPageProps> = ({ pokemons }) => {
   const [search, setSearch] = useState<string>('');
+
+  const { user } = useAuth();
+  const { data: pokedex } = useCollection<Pokemon>(`users/${user?.id}/pokedex`);
 
   const filteredPokemons = useMemo(
     () => pokemons?.filter((pokemon) => pokemon.name.includes(search)),
@@ -47,10 +54,14 @@ const PokemonsPage: NextPage<PokemonsPageProps> = ({ pokemons }) => {
           onChange={(event) => setSearch(event.target.value)}
         />
       </InputGroup>
-      <SimpleGrid columns={4} spacing={8}>
-        {filteredPokemons &&
-          filteredPokemons.map((pokemon) => <PokemonItem key={pokemon.apiId} pokemon={pokemon} />)}
-      </SimpleGrid>
+      {pokedex && (
+        <SimpleGrid columns={4} spacing={8}>
+          {filteredPokemons &&
+            filteredPokemons.map((pokemon) => (
+              <PokemonItem key={pokemon.apiId} pokemon={pokemon} pokedex={pokedex} />
+            ))}
+        </SimpleGrid>
+      )}
     </Layout>
   );
 };

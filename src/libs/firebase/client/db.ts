@@ -1,3 +1,4 @@
+import { successToast } from './../../../utils/toasts';
 import { mutate } from 'swr';
 
 import { Pokemon } from '@data-types/pokemon.type';
@@ -5,6 +6,7 @@ import { AdditionalUserData, User } from '@data-types/user.type';
 import { User as AuthUser } from '@firebase/auth-types';
 import { clientDB } from './firebase';
 import { formatUser } from '@utils/format-user';
+import { Document } from '../firebase-types';
 
 export const createUser = async (
   userId: string,
@@ -22,7 +24,14 @@ export const updateUser = async (userId: string, newUserData: Partial<User>): Pr
 };
 
 export const saveInPokedex = async (userId: string, pokemon: Pokemon): Promise<void> => {
-  const snapshot = clientDB.doc(`users/${userId}/pokedex/${pokemon.apiId}`);
+  const pokedexPath = `users/${userId}/pokedex`;
+  const snapshot = clientDB.doc(`${pokedexPath}/${pokemon.apiId}`);
   await snapshot.set(pokemon);
-  mutate('pokedex', [{ id: snapshot.id, ...pokemon }]);
+  mutate(pokedexPath, (pokedex: Document<Pokemon>[]) => {
+    if (typeof pokedex === undefined || pokedex.length === 0) {
+      return [{ id: snapshot.id, ...pokemon }];
+    } else {
+      [{ id: snapshot.id, ...pokemon }, ...pokedex];
+    }
+  });
 };

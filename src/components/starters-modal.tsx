@@ -11,6 +11,7 @@ import {
   ModalCloseButton,
   Button,
   Grid,
+  Center,
 } from '@chakra-ui/react';
 
 import { Pokemon } from '@data-types/pokemon.type';
@@ -20,7 +21,7 @@ import { useCheckbox } from '@hooks/useCheckbox';
 import StarterItem from './starter-item';
 import { saveInPokedex } from '@libs/firebase/client/db';
 import { useAuth } from '@hooks/useAuth';
-import { errorToast } from '@utils/toasts';
+import { errorToast, successToast } from '@utils/toasts';
 
 const StartersModal: React.FC = () => {
   const { data: starters } = useSWR<Pokemon[]>('starters', () => getPokemons([1, 4, 7, 25]));
@@ -36,9 +37,18 @@ const StartersModal: React.FC = () => {
   );
 
   const handleChosenStarter = async () => {
+    if (!chosenStarter) {
+      errorToast({ description: 'You have to choose a starter' });
+      return;
+    }
+
     try {
       setLoading(true);
-      await saveInPokedex(user?.id as string, chosenStarter as Pokemon);
+      successToast({
+        title: `Well ${chosenStarter?.name} is a sweet choice !`,
+        description: `may ${chosenStarter.types.join(' and ')} be with you`,
+      });
+      await saveInPokedex(user?.id as string, chosenStarter);
       await setUserStarter(
         user?.id as string,
         chosenStarter?.apiId as number,
@@ -53,7 +63,10 @@ const StartersModal: React.FC = () => {
 
   return (
     <>
-      <Button onClick={onOpen}>Pick a starter</Button>
+      <Center bg="white" borderWidth="1px" borderRadius="md" padding="8">
+        <Button onClick={onOpen}>Pick a starter</Button>
+      </Center>
+
       <Modal isOpen={isOpen} size="3xl" closeOnEsc closeOnOverlayClick onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
