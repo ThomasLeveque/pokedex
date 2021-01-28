@@ -18,7 +18,13 @@ const PokedexItem: React.FC<PokedexItemProps> = ({ pokemon }) => {
       <Center flexDirection="column" mt="4">
         <Stack direction="row">
           {pokemon.types.map((type) => (
-            <Badge key={`${pokemon.name}-${type}`}>{type}</Badge>
+            <Badge
+              color={`${type}.text`}
+              bgGradient={`linear(to-r, ${type}.start, ${type}.end)`}
+              key={`${pokemon.name}-${type}`}
+            >
+              {type}
+            </Badge>
           ))}
         </Stack>
       </Center>

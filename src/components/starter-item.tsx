@@ -28,7 +28,13 @@ const StarterItem: React.FC<StarterItemProps> = ({ starter }) => {
           <StatLabel>
             <Stack direction="row">
               {starter.types.map((type) => (
-                <Badge key={`${starter.name}-${type}`}>{type}</Badge>
+                <Badge
+                  color={`${type}.text`}
+                  bgGradient={`linear(to-r, ${type}.start, ${type}.end)`}
+                  key={`${starter.name}-${type}`}
+                >
+                  {type}
+                </Badge>
               ))}
             </Stack>
           </StatLabel>
