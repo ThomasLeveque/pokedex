@@ -55,7 +55,9 @@ const Header: React.FC = memo(() => {
               </AvatarBadge>
             )}
           </Avatar>
-          <Button onClick={handleSignOut}>Leave</Button>
+          <Button variant="primary" onClick={handleSignOut}>
+            Leave
+          </Button>
           <HStack direction="row"></HStack>
         </Flex>
       </Container>

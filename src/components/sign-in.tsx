@@ -49,7 +49,7 @@ const SignIn: React.FC<SignInProps> = ({ toggleIsLogin }) => {
           onChange={(event) => setPseudo(event.target.value)}
         />
       </FormControl>
-      <Button onClick={handleSignInWithEmail} isLoading={loading}>
+      <Button variant="primary" onClick={handleSignInWithEmail} isLoading={loading}>
         Enter
       </Button>
       <Link

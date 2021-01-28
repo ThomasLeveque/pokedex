@@ -3,7 +3,7 @@ export const Button = {
     fontWeight: 'bold',
   },
   variants: {
-    solid: {
+    primary: {
       bg: 'primary',
       color: 'white',
       _hover: {

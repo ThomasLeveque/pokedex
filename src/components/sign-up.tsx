@@ -86,7 +86,7 @@ const SignUp: React.FC<SignUpProps> = ({ toggleIsLogin }) => {
           })}
         </Grid>
       </FormControl>
-      <Button onClick={handleSignUpWithEmail} isLoading={loading}>
+      <Button variant="primary" onClick={handleSignUpWithEmail} isLoading={loading}>
         Enter
       </Button>
       <Link

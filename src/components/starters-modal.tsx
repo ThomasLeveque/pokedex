@@ -64,7 +64,9 @@ const StartersModal: React.FC = () => {
   return (
     <>
       <Center bg="white" borderWidth="1px" borderRadius="md" padding="8">
-        <Button onClick={onOpen}>Pick a starter</Button>
+        <Button variant="primary" onClick={onOpen}>
+          Pick a starter
+        </Button>
       </Center>
 
       <Modal isOpen={isOpen} size="3xl" closeOnEsc closeOnOverlayClick onClose={onClose}>
@@ -91,6 +93,7 @@ const StartersModal: React.FC = () => {
           <ModalFooter>
             {chosenStarter && (
               <Button
+                variant="primary"
                 mr="4"
                 isLoading={loading}
                 onClick={async () => {

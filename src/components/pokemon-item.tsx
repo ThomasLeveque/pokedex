@@ -50,7 +50,7 @@ const PokemonItem: React.FC<PokemonItemProps> = ({ pokemon, pokedex }) => {
 
   return (
     <Box p="6" borderWidth="2px" borderRadius="lg" overflow="hidden" backgroundColor="white">
-      <Heading mb="2" as="h2" size="md" textAlign="center">
+      <Heading textTransform="capitalize" mb="2" as="h2" size="md" textAlign="center">
         {pokemon.name}
       </Heading>
       <Image width={475} height={475} src={pokemon.imageUrl} alt={pokemon.name} />
