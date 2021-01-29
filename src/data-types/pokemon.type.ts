@@ -14,15 +14,7 @@ export interface Stat {
   name: StatName;
 }
 
-export type StatName =
-  | 'hp'
-  | 'attack'
-  | 'defense'
-  | 'special-attack'
-  | 'special-defense'
-  | 'speed'
-  | 'accuracy'
-  | 'evasion';
+export type StatName = 'hp' | 'attack' | 'defense' | 'special-attack' | 'special-defense' | 'speed';
 export type Type =
   | 'normal'
   | 'fighting'

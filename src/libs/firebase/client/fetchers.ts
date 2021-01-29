@@ -4,7 +4,7 @@ import { handleCollectionData, handleDocumentData } from './firebase.utils';
 
 export const fetchCollection = async <Data>(
   path: string,
-  options: string | Options
+  options?: Options
 ): Promise<Document<Data>[]> => {
   const ref = clientDB.collection(path);
   return handleCollectionData<Data>(ref, options);

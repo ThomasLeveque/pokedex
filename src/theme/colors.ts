@@ -14,7 +14,7 @@ const typesColors: { [type in Type]: { start: string; end: string; text: string 
   flying: {
     start: '#3dc7ef',
     end: '#bdb9b8',
-    text: 'black',
+    text: 'white',
   },
   poison: {
     start: '#b97fc9',
@@ -74,7 +74,7 @@ const typesColors: { [type in Type]: { start: string; end: string; text: string 
   dragon: {
     start: '#53a4cf',
     end: '#f16e57',
-    text: 'black',
+    text: 'white',
   },
 };
 

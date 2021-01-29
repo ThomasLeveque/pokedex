@@ -3,7 +3,7 @@ export interface User extends AdditionalUserData {
   isAdmin: boolean;
   createdAt: number;
   updatedAt: number;
-  starterId: string | null;
+  starterId: number | null;
   starterAvatarUrl: string | null;
 }
 

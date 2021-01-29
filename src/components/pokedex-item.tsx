@@ -1,11 +1,13 @@
 import React from 'react';
 import Image from 'next/image';
-import { Box, Heading, Badge, Center, Stack, Button } from '@chakra-ui/react';
+import { Box, Heading, Badge, Center, Stack } from '@chakra-ui/react';
 
 import { Pokemon } from '@data-types/pokemon.type';
+import PokedexModal from './pokedex-modal';
+import { Document } from '@libs/firebase/firebase-types';
 
 type PokedexItemProps = {
-  pokemon: Pokemon;
+  pokemon: Document<Pokemon>;
 };
 
 const PokedexItem: React.FC<PokedexItemProps> = ({ pokemon }) => {
@@ -28,7 +30,7 @@ const PokedexItem: React.FC<PokedexItemProps> = ({ pokemon }) => {
             </Badge>
           ))}
         </Stack>
-        <Button>More details</Button>
+        <PokedexModal pokemon={pokemon} />
       </Center>
     </Box>
   );

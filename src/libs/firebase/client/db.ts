@@ -27,11 +27,15 @@ export const saveInPokedex = async (userId: string, pokemon: Pokemon): Promise<v
   const pokedexPath = `users/${userId}/pokedex`;
   const snapshot = clientDB.doc(`${pokedexPath}/${pokemon.apiId}`);
   await snapshot.set(pokemon);
-  mutate(pokedexPath, (pokedex: Document<Pokemon>[]) => {
-    if (typeof pokedex === undefined || pokedex.length === 0) {
-      return [{ id: snapshot.id, ...pokemon }];
-    } else {
-      [{ id: snapshot.id, ...pokemon }, ...pokedex];
-    }
-  });
+  mutate(
+    pokedexPath,
+    (pokedex: Document<Pokemon>[]) => {
+      if (!pokedex) {
+        return [{ id: snapshot.id, ...pokemon }];
+      } else {
+        return [{ id: snapshot.id, ...pokemon }, ...pokedex];
+      }
+    },
+    false
+  );
 };

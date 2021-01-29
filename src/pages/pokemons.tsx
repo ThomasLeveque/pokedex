@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { NextPage, GetStaticProps } from 'next';
-import { InputGroup, SimpleGrid, InputLeftElement, Input } from '@chakra-ui/react';
+import { InputGroup, SimpleGrid, InputLeftElement, Input, Center, Spinner } from '@chakra-ui/react';
 import { SearchIcon } from '@chakra-ui/icons';
 
 import Layout from '@components/layout';
@@ -54,7 +54,11 @@ const PokemonsPage: NextPage<PokemonsPageProps> = ({ pokemons }) => {
           onChange={(event) => setSearch(event.target.value)}
         />
       </InputGroup>
-      {pokedex && (
+      {!pokedex ? (
+        <Center>
+          <Spinner mt="8" />
+        </Center>
+      ) : (
         <SimpleGrid columns={4} spacing={8}>
           {filteredPokemons &&
             filteredPokemons.map((pokemon) => (

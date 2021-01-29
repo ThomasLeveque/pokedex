@@ -8,9 +8,7 @@ import SignUp from '@components/sign-up';
 import SignIn from '@components/sign-in';
 import { PokemonLogo } from '@components/pokemon-logo';
 
-type LoginPageProps = {};
-
-const LoginPage: NextPage<LoginPageProps> = () => {
+const LoginPage: NextPage = () => {
   const { user } = useAuth();
   const [isLogin, setIsLogin] = useState<boolean>(true);
 

@@ -84,7 +84,7 @@ const AuthProvider = memo(({ children }) => {
 
   const setUserStarter = async (
     userId: string,
-    starterId: string,
+    starterId: number,
     starterAvatarUrl: string
   ): Promise<void> => {
     await updateUser(userId, { starterId, starterAvatarUrl });

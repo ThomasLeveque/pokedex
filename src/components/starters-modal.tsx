@@ -12,6 +12,7 @@ import {
   Button,
   Grid,
   Center,
+  Spinner,
 } from '@chakra-ui/react';
 
 import { Pokemon } from '@data-types/pokemon.type';
@@ -45,15 +46,11 @@ const StartersModal: React.FC = () => {
     try {
       setLoading(true);
       successToast({
-        title: `Well ${chosenStarter?.name} is a sweet choice !`,
+        title: `Well ${chosenStarter.name} is a sweet choice !`,
         description: `may ${chosenStarter.types.join(' and ')} be with you`,
       });
       await saveInPokedex(user?.id as string, chosenStarter);
-      await setUserStarter(
-        user?.id as string,
-        chosenStarter?.apiId as number,
-        chosenStarter?.avatarUrl as string
-      );
+      await setUserStarter(user?.id as string, chosenStarter.apiId, chosenStarter.avatarUrl);
     } catch (err) {
       console.error(err);
       setLoading(false);
@@ -63,7 +60,7 @@ const StartersModal: React.FC = () => {
 
   return (
     <>
-      <Center bg="white" borderWidth="1px" borderRadius="md" padding="8">
+      <Center bg="white" borderWidth="2px" borderRadius="md" padding="8">
         <Button variant="primary" onClick={onOpen}>
           Pick a starter
         </Button>
@@ -75,20 +72,28 @@ const StartersModal: React.FC = () => {
           <ModalHeader textAlign="center">Choose your starter</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <Grid templateColumns="repeat(4, minmax(0, 1fr))" gap={4}>
-              {starters?.map((starter) => {
-                const starterChecked = isChecked(starter.apiId);
-                return (
-                  <RadioStarter
-                    key={starter.apiId}
-                    isChecked={starterChecked}
-                    onClick={() => (starterChecked ? setStarterId(0) : setStarterId(starter.apiId))}
-                  >
-                    <StarterItem starter={starter} />
-                  </RadioStarter>
-                );
-              })}
-            </Grid>
+            {starters ? (
+              <Grid templateColumns="repeat(4, minmax(0, 1fr))" gap={4}>
+                {starters.map((starter) => {
+                  const starterChecked = isChecked(starter.apiId);
+                  return (
+                    <RadioStarter
+                      key={starter.apiId}
+                      isChecked={starterChecked}
+                      onClick={() =>
+                        starterChecked ? setStarterId(0) : setStarterId(starter.apiId)
+                      }
+                    >
+                      <StarterItem starter={starter} />
+                    </RadioStarter>
+                  );
+                })}
+              </Grid>
+            ) : (
+              <Center w="100%">
+                <Spinner mt="8" />
+              </Center>
+            )}
           </ModalBody>
           <ModalFooter>
             {chosenStarter && (
