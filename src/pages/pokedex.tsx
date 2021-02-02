@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react';
 import { NextPage } from 'next';
-import { Heading, SimpleGrid, Box, Flex } from '@chakra-ui/react';
+import { Heading, SimpleGrid, Box, Flex, Button } from '@chakra-ui/react';
+import { useRouter } from 'next/router';
 
 import Layout from '@components/layout';
 import { useAuth } from '@hooks/useAuth';
@@ -16,6 +17,7 @@ const HomePage: NextPage = () => {
   const { data: pokedex } = useCollection<Pokemon>(`users/${user?.id}/pokedex`, {
     orderBy: ['apiId', 'asc'],
   });
+  const router = useRouter();
 
   const starter = useMemo(() => pokedex?.find((poke) => poke.apiId === user?.starterId), [
     user,
@@ -29,8 +31,13 @@ const HomePage: NextPage = () => {
       ) : starter ? (
         <Flex alignItems="start">
           <Box>
-            <Heading mb="8">The pokedex of {user?.pseudo}</Heading>
-            <SimpleGrid columns={3} spacing={8} mt="6">
+            <Flex alignItems="center" mb="8" justifyContent="space-between">
+              <Heading>The pokedex of {user?.pseudo}</Heading>
+              <Button variant="primary" onClick={() => router.push('/pokemons')}>
+                Fill your pokedex
+              </Button>
+            </Flex>
+            <SimpleGrid columns={3} spacing={8}>
               {pokedex.map((pokemon) => (
                 <PokedexItem key={pokemon.apiId} pokemon={pokemon} />
               ))}
