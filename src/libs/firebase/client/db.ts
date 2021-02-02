@@ -33,7 +33,7 @@ export const saveInPokedex = async (userId: string, pokemon: Pokemon): Promise<v
       if (!pokedex) {
         return [{ id: snapshot.id, ...pokemon }];
       } else {
-        return [{ id: snapshot.id, ...pokemon }, ...pokedex];
+        return [{ id: snapshot.id, ...pokemon }, ...pokedex].sort((a, b) => a.apiId - b.apiId);
       }
     },
     false

@@ -12,7 +12,6 @@ import {
   Button,
   Grid,
   Center,
-  Spinner,
 } from '@chakra-ui/react';
 
 import { Pokemon } from '@data-types/pokemon.type';
@@ -22,6 +21,7 @@ import { useCheckbox } from '@hooks/useCheckbox';
 import StarterItem from './starter-item';
 import { saveInPokedex } from '@libs/firebase/client/db';
 import { useAuth } from '@hooks/useAuth';
+import DataLoader from '@components/data-loader';
 import { errorToast, successToast } from '@utils/toasts';
 
 const StartersModal: React.FC = () => {
@@ -90,9 +90,7 @@ const StartersModal: React.FC = () => {
                 })}
               </Grid>
             ) : (
-              <Center w="100%">
-                <Spinner mt="8" />
-              </Center>
+              <DataLoader />
             )}
           </ModalBody>
           <ModalFooter>

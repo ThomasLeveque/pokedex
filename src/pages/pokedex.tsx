@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { NextPage } from 'next';
-import { Heading, SimpleGrid, Box, Flex, Spinner, Center } from '@chakra-ui/react';
+import { Heading, SimpleGrid, Box, Flex } from '@chakra-ui/react';
 
 import Layout from '@components/layout';
 import { useAuth } from '@hooks/useAuth';
@@ -9,6 +9,7 @@ import useCollection from '@hooks/useCollection';
 import { Pokemon } from '@data-types/pokemon.type';
 import PokedexItem from '@components/pokedex-item';
 import PokemonDetail from '@components/pokemon-detail';
+import DataLoader from '@components/data-loader';
 
 const HomePage: NextPage = () => {
   const { user } = useAuth();
@@ -24,9 +25,7 @@ const HomePage: NextPage = () => {
   return (
     <Layout>
       {!pokedex ? (
-        <Center>
-          <Spinner mt="8" />
-        </Center>
+        <DataLoader />
       ) : starter ? (
         <Flex alignItems="start">
           <Box>
