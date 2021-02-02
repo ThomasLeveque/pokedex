@@ -1,4 +1,3 @@
-import { successToast } from './../../../utils/toasts';
 import { mutate } from 'swr';
 
 import { Pokemon } from '@data-types/pokemon.type';

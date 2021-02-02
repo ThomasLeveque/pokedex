@@ -7,6 +7,7 @@ import { Document } from '@libs/firebase/firebase-types';
 import { AdditionalUserData, User } from '@data-types/user.type';
 import { fetchDocument } from '@libs/firebase/client/fetchers';
 import { errorToast } from '@utils/toasts';
+import { updateAuthUserDisplayName } from '@libs/firebase/client/auth';
 
 type AuthContextType = {
   user: Document<User> | null;
@@ -16,7 +17,7 @@ type AuthContextType = {
     password: string,
     additionalData: AdditionalUserData
   ) => Promise<void | null>;
-  signInWithEmail: (email: string, password: string) => Promise<void | null>;
+  signInWithEmail: (email: string, password: string) => Promise<string>;
   signOut: () => Promise<void | null>;
   setUserStarter: (
     userId: string,
@@ -29,7 +30,7 @@ const authContext = createContext<AuthContextType>({
   user: null,
   userLoaded: false,
   signUpWithEmail: async () => null,
-  signInWithEmail: async () => null,
+  signInWithEmail: async () => '',
   signOut: async () => null,
   setUserStarter: async () => null,
 });
@@ -69,12 +70,14 @@ const AuthProvider = memo(({ children }) => {
     additionalData: AdditionalUserData
   ): Promise<void> => {
     const { user: authUser } = await auth.createUserWithEmailAndPassword(email, password);
+    await updateAuthUserDisplayName(authUser, additionalData.pseudo);
     return handleUser(authUser, additionalData);
   };
 
-  const signInWithEmail = async (email: string, password: string): Promise<void> => {
+  const signInWithEmail = async (email: string, password: string): Promise<string> => {
     const { user: authUser } = await auth.signInWithEmailAndPassword(email, password);
-    return handleUser(authUser);
+    await handleUser(authUser);
+    return authUser?.displayName as string;
   };
 
   const signOut = async (): Promise<void> => {
