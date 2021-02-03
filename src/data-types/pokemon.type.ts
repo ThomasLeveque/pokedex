@@ -5,6 +5,7 @@ export interface Pokemon {
   name: string;
   imageUrl: string;
   avatarUrl: string;
+  metDate: number | null;
   stats: Stat[];
   types: Type[];
 }

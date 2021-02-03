@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import {
   Button,
-  Heading,
   Box,
   Input,
   FormControl,
@@ -20,6 +19,7 @@ import RadioCharacter from './radio-character';
 import { errorToast, successToast } from '@utils/toasts';
 import { useCheckbox } from '@hooks/useCheckbox';
 import { formatAuthErrors } from '@utils/format-auth-errors';
+import { allCharacters } from '@utils/all-characters';
 
 type SignUpProps = {
   toggleIsLogin: () => void;
@@ -51,7 +51,6 @@ const SignUp: React.FC<SignUpProps> = ({ toggleIsLogin }) => {
     try {
       setLoading(true);
       await signUpWithEmail(email, password, { pseudo, character });
-      successToast({ title: `Welcome ${pseudo}`, description: 'Catch them all !' });
       // Do not setLoading(false) because Signup will unmount this component.
     } catch (err) {
       console.error(err);
@@ -62,13 +61,8 @@ const SignUp: React.FC<SignUpProps> = ({ toggleIsLogin }) => {
     }
   };
 
-  const allCharacters: Character[] = ['red', 'leaf', 'blue'];
-
   return (
     <Box>
-      <Heading as="h2" textAlign="center" mb="8">
-        Sign up
-      </Heading>
       <FormControl id="pseudo" isRequired mb="4">
         <FormLabel>Pseudo</FormLabel>
         <Input
@@ -127,7 +121,7 @@ const SignUp: React.FC<SignUpProps> = ({ toggleIsLogin }) => {
         </Grid>
       </FormControl>
       <Button variant="primary" onClick={handleSignUpWithEmail} isLoading={loading}>
-        Enter
+        Start
       </Button>
       <Link
         ml="4"

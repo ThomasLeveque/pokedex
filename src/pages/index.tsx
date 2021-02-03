@@ -22,7 +22,7 @@ const LoginPage: NextPage = () => {
 
   return (
     <Container py="6">
-      <Center mb="4">
+      <Center mb="12">
         <PokemonLogo />
       </Center>
       {isLogin ? (

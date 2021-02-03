@@ -8,11 +8,15 @@ import AuthLoading from '@components/auth-loading';
 
 import { colors } from '@theme/colors';
 import { Button } from '@theme/button';
+import { Input } from '@theme/input';
+import { Divider } from '@theme/divider';
 
 const theme = extendTheme({
   colors,
   components: {
     Button,
+    Input,
+    Divider,
   },
 });
 

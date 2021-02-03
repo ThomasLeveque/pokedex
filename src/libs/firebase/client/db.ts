@@ -25,6 +25,7 @@ export const updateUser = async (userId: string, newUserData: Partial<User>): Pr
 export const saveInPokedex = async (userId: string, pokemon: Pokemon): Promise<void> => {
   const pokedexPath = `users/${userId}/pokedex`;
   const snapshot = clientDB.doc(`${pokedexPath}/${pokemon.apiId}`);
+  pokemon = { ...pokemon, metDate: Date.now() };
   await snapshot.set(pokemon);
   mutate(
     pokedexPath,

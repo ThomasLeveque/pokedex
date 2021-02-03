@@ -16,5 +16,14 @@ export const Button = {
         bg: 'primary',
       },
     },
+    google: {
+      bg: 'white',
+      color: 'gray.900',
+      border: 'gray.400',
+      borderWidth: '2px',
+      _hover: {
+        bg: 'gray.100',
+      },
+    },
   },
 };
