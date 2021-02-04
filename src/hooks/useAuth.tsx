@@ -67,6 +67,7 @@ export const useAuth = (): AuthContextType => {
 const AuthProvider = memo(({ children }) => {
   const [user, setUser] = useState<Document<User> | null>(null);
   const [userLoaded, setUserLoaded] = useState<boolean>(false);
+  const [providersDataLoading, setProvidersDataLoading] = useState<boolean>(false);
 
   const [providersPseudo, setProvidersPseudo] = useState<string>('');
   const { data: providersCharacter, onChange: setProvidersCharacter, isChecked } = useCheckbox<
@@ -237,18 +238,26 @@ const AuthProvider = memo(({ children }) => {
           <ModalFooter>
             <Button
               variant="primary"
+              isLoading={providersDataLoading}
               onClick={async () => {
                 if (providersPseudo.length === 0 || providersCharacter.length === 0) {
                   errorToast({ description: 'You must provide all the required data.' });
                   return;
                 }
-
-                onClose();
-                await updateAuthUserDisplayName(auth.currentUser, providersPseudo);
-                handleUser(auth.currentUser, {
-                  pseudo: providersPseudo,
-                  character: providersCharacter,
-                });
+                try {
+                  setProvidersDataLoading(true);
+                  await updateAuthUserDisplayName(auth.currentUser, providersPseudo);
+                  await handleUser(auth.currentUser, {
+                    pseudo: providersPseudo,
+                    character: providersCharacter,
+                  });
+                  setProvidersDataLoading(false);
+                  onClose();
+                } catch (err) {
+                  errorToast({ description: err.message });
+                  setProvidersDataLoading(false);
+                  console.error(err);
+                }
               }}
               ml={3}
             >
