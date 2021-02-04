@@ -36,8 +36,9 @@ type AuthContextType = {
     password: string,
     additionalData: AdditionalUserData
   ) => Promise<void | null>;
-  signInWithEmail: (email: string, password: string) => Promise<string>;
-  signInWithGoogle: () => Promise<string>;
+  signInWithEmail: (email: string, password: string) => Promise<void | null>;
+  signInWithGoogle: () => Promise<void | null>;
+  signInWithGithub: () => Promise<void | null>;
   signOut: () => Promise<void | null>;
   setUserStarter: (
     userId: string,
@@ -50,8 +51,9 @@ const authContext = createContext<AuthContextType>({
   user: null,
   userLoaded: false,
   signUpWithEmail: async () => null,
-  signInWithEmail: async () => '',
-  signInWithGoogle: async () => '',
+  signInWithEmail: async () => null,
+  signInWithGoogle: async () => null,
+  signInWithGithub: async () => null,
   signOut: async () => null,
   setUserStarter: async () => null,
 });
@@ -133,16 +135,19 @@ const AuthProvider = memo(({ children }) => {
     return handleUser(authUser, additionalData);
   };
 
-  const signInWithEmail = async (email: string, password: string): Promise<string> => {
+  const signInWithEmail = async (email: string, password: string): Promise<void> => {
     const { user: authUser } = await auth.signInWithEmailAndPassword(email, password);
-    await handleUser(authUser);
-    return authUser?.displayName as string;
+    return handleUser(authUser);
   };
 
-  const signInWithGoogle = async (): Promise<string> => {
+  const signInWithGoogle = async (): Promise<void> => {
     const { user: authUser } = await auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
-    await handleUser(authUser);
-    return authUser?.displayName as string;
+    return handleUser(authUser);
+  };
+
+  const signInWithGithub = async (): Promise<void> => {
+    const { user: authUser } = await auth.signInWithPopup(new firebase.auth.GithubAuthProvider());
+    return handleUser(authUser);
   };
 
   const signOut = async (): Promise<void> => {
@@ -189,6 +194,7 @@ const AuthProvider = memo(({ children }) => {
     signUpWithEmail,
     signInWithEmail,
     signInWithGoogle,
+    signInWithGithub,
     signOut,
     setUserStarter,
   };

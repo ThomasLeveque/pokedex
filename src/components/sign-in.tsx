@@ -14,9 +14,10 @@ import {
 } from '@chakra-ui/react';
 
 import { useAuth } from '@hooks/useAuth';
-import { errorToast, successToast } from '@utils/toasts';
+import { errorToast } from '@utils/toasts';
 import { formatAuthErrors } from '@utils/format-auth-errors';
 import GoogleIcon from './google-icon';
+import GithubIcon from './github-icon';
 
 type SignInProps = {
   toggleIsLogin: () => void;
@@ -25,11 +26,12 @@ type SignInProps = {
 const SignIn: React.FC<SignInProps> = ({ toggleIsLogin }) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [googleLoading, setGoogleLoading] = useState<boolean>(false);
+  const [githubLoading, setGithubLoading] = useState<boolean>(false);
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [showPassword, setShowPassword] = React.useState(false);
 
-  const { signInWithEmail, signInWithGoogle } = useAuth();
+  const { signInWithEmail, signInWithGoogle, signInWithGithub } = useAuth();
 
   const handleShowPassword = () => setShowPassword((prevShowPassword) => !prevShowPassword);
 
@@ -61,6 +63,17 @@ const SignIn: React.FC<SignInProps> = ({ toggleIsLogin }) => {
       setGoogleLoading(false);
     }
   };
+  const handleSignInWithGithub = async (): Promise<void> => {
+    try {
+      setGithubLoading(true);
+      await signInWithGithub();
+      // Do not setLoading(false) because Signin will unmount this component.
+    } catch (err) {
+      console.error(err);
+      errorToast({ description: formatAuthErrors(err) });
+      setGithubLoading(false);
+    }
+  };
 
   return (
     <Box>
@@ -70,6 +83,14 @@ const SignIn: React.FC<SignInProps> = ({ toggleIsLogin }) => {
           variant="google"
           onClick={handleSignInWithGoogle}
           rightIcon={<GoogleIcon />}
+        >
+          Continue with
+        </Button>
+        <Button
+          isLoading={githubLoading}
+          variant="github"
+          onClick={handleSignInWithGithub}
+          rightIcon={<GithubIcon />}
         >
           Continue with
         </Button>

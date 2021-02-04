@@ -25,5 +25,12 @@ export const Button = {
         bg: 'gray.100',
       },
     },
+    github: {
+      bg: 'gray.900',
+      color: 'white',
+      _hover: {
+        bg: 'gray.700',
+      },
+    },
   },
 };
