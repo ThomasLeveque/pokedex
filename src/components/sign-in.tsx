@@ -16,8 +16,8 @@ import {
 import { useAuth } from '@hooks/useAuth';
 import { errorToast } from '@utils/toasts';
 import { formatAuthErrors } from '@utils/format-auth-errors';
-import GoogleIcon from './google-icon';
-import GithubIcon from './github-icon';
+import SignInWithGoogle from './sign-in-with-google';
+import SignInWithGithub from './sign-in-with-github';
 
 type SignInProps = {
   toggleIsLogin: () => void;
@@ -25,13 +25,11 @@ type SignInProps = {
 
 const SignIn: React.FC<SignInProps> = ({ toggleIsLogin }) => {
   const [loading, setLoading] = useState<boolean>(false);
-  const [googleLoading, setGoogleLoading] = useState<boolean>(false);
-  const [githubLoading, setGithubLoading] = useState<boolean>(false);
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [showPassword, setShowPassword] = React.useState(false);
 
-  const { signInWithEmail, signInWithGoogle, signInWithGithub } = useAuth();
+  const { signInWithEmail } = useAuth();
 
   const handleShowPassword = () => setShowPassword((prevShowPassword) => !prevShowPassword);
 
@@ -52,48 +50,11 @@ const SignIn: React.FC<SignInProps> = ({ toggleIsLogin }) => {
     }
   };
 
-  const handleSignInWithGoogle = async (): Promise<void> => {
-    try {
-      setGoogleLoading(true);
-      await signInWithGoogle();
-      // Do not setLoading(false) because Signin will unmount this component.
-    } catch (err) {
-      console.error(err);
-      errorToast({ description: formatAuthErrors(err) });
-      setGoogleLoading(false);
-    }
-  };
-  const handleSignInWithGithub = async (): Promise<void> => {
-    try {
-      setGithubLoading(true);
-      await signInWithGithub();
-      // Do not setLoading(false) because Signin will unmount this component.
-    } catch (err) {
-      console.error(err);
-      errorToast({ description: formatAuthErrors(err) });
-      setGithubLoading(false);
-    }
-  };
-
   return (
     <Box>
       <HStack>
-        <Button
-          isLoading={googleLoading}
-          variant="google"
-          onClick={handleSignInWithGoogle}
-          rightIcon={<GoogleIcon />}
-        >
-          Continue with
-        </Button>
-        <Button
-          isLoading={githubLoading}
-          variant="github"
-          onClick={handleSignInWithGithub}
-          rightIcon={<GithubIcon />}
-        >
-          Continue with
-        </Button>
+        <SignInWithGoogle />
+        <SignInWithGithub />
       </HStack>
       <Divider my="6" />
       <FormControl id="email" isRequired mb="4">
@@ -129,12 +90,7 @@ const SignIn: React.FC<SignInProps> = ({ toggleIsLogin }) => {
       <Button variant="primary" onClick={handleSignInWithEmail} isLoading={loading}>
         Continue
       </Button>
-      <Link
-        ml="4"
-        onClick={() => {
-          toggleIsLogin();
-        }}
-      >
+      <Link ml="4" onClick={toggleIsLogin}>
         Start a new adventure
       </Link>
     </Box>

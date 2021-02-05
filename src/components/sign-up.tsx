@@ -123,12 +123,7 @@ const SignUp: React.FC<SignUpProps> = ({ toggleIsLogin }) => {
       <Button variant="primary" onClick={handleSignUpWithEmail} isLoading={loading}>
         Start
       </Button>
-      <Link
-        ml="4"
-        onClick={() => {
-          toggleIsLogin();
-        }}
-      >
+      <Link ml="4" onClick={toggleIsLogin}>
         Continue an existing adventure
       </Link>
     </Box>

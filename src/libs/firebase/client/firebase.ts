@@ -12,7 +12,13 @@ if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);
 }
 
+// Firestore
 export const clientDB = firebase.firestore();
+export const increment = firebase.firestore.FieldValue.increment;
+
+// Auth
 export const auth = firebase.auth();
+export const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
+export const githubAuthProvider = new firebase.auth.GithubAuthProvider();
 
 export default firebase;

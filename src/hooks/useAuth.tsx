@@ -17,13 +17,12 @@ import {
 } from '@chakra-ui/react';
 
 import { createUser, updateUser } from '@libs/firebase/client/db';
-import { auth } from '@libs/firebase/client/firebase';
+import { auth, githubAuthProvider, googleAuthProvider } from '@libs/firebase/client/firebase';
 import { Document } from '@libs/firebase/firebase-types';
 import { AdditionalUserData, Character, User } from '@data-types/user.type';
 import { fetchDocument } from '@libs/firebase/client/fetchers';
 import { errorToast, successToast } from '@utils/toasts';
 import { updateAuthUserDisplayName } from '@libs/firebase/client/auth';
-import firebase from '@libs/firebase/client/firebase';
 import RadioCharacter from '@components/radio-character';
 import { allCharacters } from '@utils/all-characters';
 import { useCheckbox } from './useCheckbox';
@@ -141,12 +140,12 @@ const AuthProvider = memo(({ children }) => {
   };
 
   const signInWithGoogle = async (): Promise<void> => {
-    const { user: authUser } = await auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
+    const { user: authUser } = await auth.signInWithPopup(googleAuthProvider);
     return handleUser(authUser);
   };
 
   const signInWithGithub = async (): Promise<void> => {
-    const { user: authUser } = await auth.signInWithPopup(new firebase.auth.GithubAuthProvider());
+    const { user: authUser } = await auth.signInWithPopup(githubAuthProvider);
     return handleUser(authUser);
   };
 
