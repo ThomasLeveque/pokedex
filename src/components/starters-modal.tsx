@@ -29,7 +29,7 @@ const StartersModal: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(false);
 
   const { onOpen, onClose, isOpen } = useDisclosure();
-  const { setUserStarter, user } = useAuth();
+  const { setUserStarter, updatePokedexCount, user } = useAuth();
   const { data: selectedStarterId, onChange: setStarterId, isChecked } = useCheckbox<number>(0);
 
   const chosenStarter = useMemo(
@@ -45,12 +45,13 @@ const StartersModal: React.FC = () => {
 
     try {
       setLoading(true);
+      await saveInPokedex(user?.id as string, chosenStarter);
+      await updatePokedexCount(user?.id as string, 1);
+      await setUserStarter(user?.id as string, chosenStarter.apiId, chosenStarter.avatarUrl);
       successToast({
         title: `Well ${chosenStarter.name} is a sweet choice !`,
         description: `may ${chosenStarter.types.join(' and ')} be with you`,
       });
-      await saveInPokedex(user?.id as string, chosenStarter);
-      await setUserStarter(user?.id as string, chosenStarter.apiId, chosenStarter.avatarUrl);
     } catch (err) {
       console.error(err);
       setLoading(false);

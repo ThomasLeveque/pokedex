@@ -17,7 +17,7 @@ type PokemonItemProps = {
 const PokemonItem: React.FC<PokemonItemProps> = ({ pokemon, pokedex }) => {
   const [loading, setLoading] = useState<boolean>(false);
 
-  const { user } = useAuth();
+  const { user, updatePokedexCount } = useAuth();
   const router = useRouter();
 
   const isInPokedex = useMemo(() => !!pokedex.find((poke) => poke.apiId === pokemon.apiId), [
@@ -34,6 +34,7 @@ const PokemonItem: React.FC<PokemonItemProps> = ({ pokemon, pokedex }) => {
     try {
       setLoading(true);
       await saveInPokedex(user?.id as string, pokemon);
+      await updatePokedexCount(user?.id as string, 1);
       successToast({
         title: `Congrats, you have seen ${pokemon.name}`,
         description: 'Catch them all !',

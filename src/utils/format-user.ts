@@ -14,6 +14,7 @@ export const formatUser = (
     provider: providerData[0]?.providerId,
     starterId: null,
     starterAvatarUrl: null,
+    pokedexCount: 0,
     ...additionalData,
   };
 };

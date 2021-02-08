@@ -17,7 +17,12 @@ import {
 } from '@chakra-ui/react';
 
 import { createUser, updateUser } from '@libs/firebase/client/db';
-import { auth, githubAuthProvider, googleAuthProvider } from '@libs/firebase/client/firebase';
+import {
+  auth,
+  githubAuthProvider,
+  googleAuthProvider,
+  increment,
+} from '@libs/firebase/client/firebase';
 import { Document } from '@libs/firebase/firebase-types';
 import { AdditionalUserData, Character, User } from '@data-types/user.type';
 import { fetchDocument } from '@libs/firebase/client/fetchers';
@@ -44,6 +49,7 @@ type AuthContextType = {
     starterId: number,
     starterAvatarUrl: string
   ) => Promise<void | null>;
+  updatePokedexCount: (userId: string, increment: number) => Promise<void | null>;
 };
 
 const authContext = createContext<AuthContextType>({
@@ -55,6 +61,7 @@ const authContext = createContext<AuthContextType>({
   signInWithGithub: async () => null,
   signOut: async () => null,
   setUserStarter: async () => null,
+  updatePokedexCount: async () => null,
 });
 
 export const useAuth = (): AuthContextType => {
@@ -130,7 +137,7 @@ const AuthProvider = memo(({ children }) => {
     additionalData: AdditionalUserData
   ): Promise<void> => {
     const { user: authUser } = await auth.createUserWithEmailAndPassword(email, password);
-    await updateAuthUserDisplayName(authUser, additionalData.pseudo);
+    await updateAuthUserDisplayName(authUser, { displayName: additionalData.pseudo });
     return handleUser(authUser, additionalData);
   };
 
@@ -161,6 +168,17 @@ const AuthProvider = memo(({ children }) => {
   ): Promise<void> => {
     await updateUser(userId, { starterId, starterAvatarUrl });
     setUser((prevUser) => ({ ...prevUser, starterId, starterAvatarUrl } as Document<User>));
+  };
+
+  const updatePokedexCount = async (userId: string, incrementValue: number): Promise<void> => {
+    await updateUser(userId, { pokedexCount: increment(incrementValue) });
+    setUser(
+      (prevUser) =>
+        ({
+          ...prevUser,
+          pokedexCount: (prevUser?.pokedexCount as number) + incrementValue,
+        } as Document<User>)
+    );
   };
 
   useEffect(() => {
@@ -196,6 +214,7 @@ const AuthProvider = memo(({ children }) => {
     signInWithGithub,
     signOut,
     setUserStarter,
+    updatePokedexCount,
   };
 
   return (
@@ -251,7 +270,9 @@ const AuthProvider = memo(({ children }) => {
                 }
                 try {
                   setProvidersDataLoading(true);
-                  await updateAuthUserDisplayName(auth.currentUser, providersPseudo);
+                  await updateAuthUserDisplayName(auth.currentUser, {
+                    displayName: providersPseudo,
+                  });
                   await handleUser(auth.currentUser, {
                     pseudo: providersPseudo,
                     character: providersCharacter,

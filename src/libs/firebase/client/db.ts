@@ -24,16 +24,16 @@ export const updateUser = async (userId: string, newUserData: Partial<User>): Pr
 
 export const saveInPokedex = async (userId: string, pokemon: Pokemon): Promise<void> => {
   const pokedexPath = `users/${userId}/pokedex`;
-  const snapshot = clientDB.doc(`${pokedexPath}/${pokemon.apiId}`);
+  const pokemonRef = clientDB.doc(`${pokedexPath}/${pokemon.apiId}`);
   pokemon = { ...pokemon, metDate: Date.now() };
-  await snapshot.set(pokemon);
+  await pokemonRef.set(pokemon);
   mutate(
     pokedexPath,
     (pokedex: Document<Pokemon>[]) => {
       if (!pokedex) {
-        return [{ id: snapshot.id, ...pokemon }];
+        return [{ id: pokemonRef.id, ...pokemon }];
       } else {
-        return [{ id: snapshot.id, ...pokemon }, ...pokedex].sort((a, b) => a.apiId - b.apiId);
+        return [{ id: pokemonRef.id, ...pokemon }, ...pokedex].sort((a, b) => a.apiId - b.apiId);
       }
     },
     false

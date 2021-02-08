@@ -1,3 +1,5 @@
+import { FieldValue } from '@firebase/firestore-types';
+
 export interface User extends AdditionalUserData {
   email: string;
   isAdmin: boolean;
@@ -6,6 +8,7 @@ export interface User extends AdditionalUserData {
   provider?: string;
   starterId: number | null;
   starterAvatarUrl: string | null;
+  pokedexCount: number | FieldValue;
 }
 
 export interface AdditionalUserData {

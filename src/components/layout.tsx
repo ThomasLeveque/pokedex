@@ -4,6 +4,7 @@ import Header from '@components/header';
 import { useAuth } from '@hooks/useAuth';
 import Redirect from './redirect';
 import { Box, Container } from '@chakra-ui/react';
+import Footer from './footer';
 
 const Layout: React.FC = ({ children }) => {
   const { user, userLoaded } = useAuth();
@@ -18,6 +19,7 @@ const Layout: React.FC = ({ children }) => {
       <Container maxW="6xl" py="8">
         {children}
       </Container>
+      <Footer />
     </Box>
   );
 };
