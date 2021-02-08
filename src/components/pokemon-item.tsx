@@ -6,7 +6,6 @@ import { Box, Heading, Button, Center } from '@chakra-ui/react';
 import { Pokemon } from '@data-types/pokemon.type';
 import { useAuth } from '@hooks/useAuth';
 import { errorToast, successToast, warningToast } from '@utils/toasts';
-import { saveInPokedex } from '@libs/firebase/client/db';
 import { Document } from '@libs/firebase/firebase-types';
 
 type PokemonItemProps = {
@@ -17,7 +16,7 @@ type PokemonItemProps = {
 const PokemonItem: React.FC<PokemonItemProps> = ({ pokemon, pokedex }) => {
   const [loading, setLoading] = useState<boolean>(false);
 
-  const { user, updatePokedexCount } = useAuth();
+  const { user, saveInPokedex } = useAuth();
   const router = useRouter();
 
   const isInPokedex = useMemo(() => !!pokedex.find((poke) => poke.apiId === pokemon.apiId), [
@@ -33,8 +32,7 @@ const PokemonItem: React.FC<PokemonItemProps> = ({ pokemon, pokedex }) => {
 
     try {
       setLoading(true);
-      await saveInPokedex(user?.id as string, pokemon);
-      await updatePokedexCount(user?.id as string, 1);
+      await saveInPokedex(user?.id as string, pokemon, 1);
       successToast({
         title: `Congrats, you have seen ${pokemon.name}`,
         description: 'Catch them all !',

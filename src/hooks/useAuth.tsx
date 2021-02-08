@@ -19,6 +19,7 @@ import {
 import { createUser, updateUser } from '@libs/firebase/client/db';
 import {
   auth,
+  clientDB,
   githubAuthProvider,
   googleAuthProvider,
   increment,
@@ -31,6 +32,8 @@ import { updateAuthUserDisplayName } from '@libs/firebase/client/auth';
 import RadioCharacter from '@components/radio-character';
 import { allCharacters } from '@utils/all-characters';
 import { useCheckbox } from './useCheckbox';
+import { Pokemon } from '@data-types/pokemon.type';
+import { mutate } from 'swr';
 
 type AuthContextType = {
   user: Document<User> | null;
@@ -49,7 +52,7 @@ type AuthContextType = {
     starterId: number,
     starterAvatarUrl: string
   ) => Promise<void | null>;
-  updatePokedexCount: (userId: string, increment: number) => Promise<void | null>;
+  saveInPokedex: (userId: string, pokemon: Pokemon, increment: number) => Promise<void | null>;
 };
 
 const authContext = createContext<AuthContextType>({
@@ -61,7 +64,7 @@ const authContext = createContext<AuthContextType>({
   signInWithGithub: async () => null,
   signOut: async () => null,
   setUserStarter: async () => null,
-  updatePokedexCount: async () => null,
+  saveInPokedex: async () => null,
 });
 
 export const useAuth = (): AuthContextType => {
@@ -166,12 +169,36 @@ const AuthProvider = memo(({ children }) => {
     starterId: number,
     starterAvatarUrl: string
   ): Promise<void> => {
-    await updateUser(userId, { starterId, starterAvatarUrl });
+    const batch = updateUser(userId, { starterId, starterAvatarUrl }, clientDB.batch());
+    await batch.commit();
     setUser((prevUser) => ({ ...prevUser, starterId, starterAvatarUrl } as Document<User>));
   };
 
-  const updatePokedexCount = async (userId: string, incrementValue: number): Promise<void> => {
-    await updateUser(userId, { pokedexCount: increment(incrementValue) });
+  const saveInPokedex = async (
+    userId: string,
+    pokemon: Pokemon,
+    incrementValue: number
+  ): Promise<void> => {
+    const pokedexPath = `users/${userId}/pokedex`;
+    const pokemonRef = clientDB.doc(`${pokedexPath}/${pokemon.apiId}`);
+    pokemon = { ...pokemon, metDate: Date.now() };
+
+    let batch = clientDB.batch();
+    batch.set(pokemonRef, pokemon);
+    batch = updateUser(userId, { pokedexCount: increment(incrementValue) }, batch);
+    await batch.commit();
+
+    mutate(
+      pokedexPath,
+      (pokedex: Document<Pokemon>[]) => {
+        if (!pokedex) {
+          return [{ id: pokemonRef.id, ...pokemon }];
+        } else {
+          return [{ id: pokemonRef.id, ...pokemon }, ...pokedex].sort((a, b) => a.apiId - b.apiId);
+        }
+      },
+      false
+    );
     setUser(
       (prevUser) =>
         ({
@@ -214,7 +241,7 @@ const AuthProvider = memo(({ children }) => {
     signInWithGithub,
     signOut,
     setUserStarter,
-    updatePokedexCount,
+    saveInPokedex,
   };
 
   return (

@@ -19,7 +19,6 @@ import { getPokemons } from '@libs/pokeapi/db';
 import RadioStarter from './radio-starter';
 import { useCheckbox } from '@hooks/useCheckbox';
 import StarterItem from './starter-item';
-import { saveInPokedex } from '@libs/firebase/client/db';
 import { useAuth } from '@hooks/useAuth';
 import DataLoader from '@components/data-loader';
 import { errorToast, successToast } from '@utils/toasts';
@@ -29,7 +28,7 @@ const StartersModal: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(false);
 
   const { onOpen, onClose, isOpen } = useDisclosure();
-  const { setUserStarter, updatePokedexCount, user } = useAuth();
+  const { setUserStarter, saveInPokedex, user } = useAuth();
   const { data: selectedStarterId, onChange: setStarterId, isChecked } = useCheckbox<number>(0);
 
   const chosenStarter = useMemo(
@@ -45,8 +44,7 @@ const StartersModal: React.FC = () => {
 
     try {
       setLoading(true);
-      await saveInPokedex(user?.id as string, chosenStarter);
-      await updatePokedexCount(user?.id as string, 1);
+      await saveInPokedex(user?.id as string, chosenStarter, 1);
       await setUserStarter(user?.id as string, chosenStarter.apiId, chosenStarter.avatarUrl);
       successToast({
         title: `Well ${chosenStarter.name} is a sweet choice !`,

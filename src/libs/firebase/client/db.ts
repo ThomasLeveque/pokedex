@@ -1,11 +1,9 @@
-import { mutate } from 'swr';
-
-import { Pokemon } from '@data-types/pokemon.type';
-import { AdditionalUserData, User } from '@data-types/user.type';
+import { WriteBatch } from '@firebase/firestore-types';
 import { User as AuthUser } from '@firebase/auth-types';
+
+import { AdditionalUserData, User } from '@data-types/user.type';
 import { clientDB } from './firebase';
 import { formatUser } from '@utils/format-user';
-import { Document } from '../firebase-types';
 
 export const createUser = async (
   userId: string,
@@ -17,25 +15,11 @@ export const createUser = async (
   return userRef.set(newUser);
 };
 
-export const updateUser = async (userId: string, newUserData: Partial<User>): Promise<void> => {
+export const updateUser = (
+  userId: string,
+  newUserData: Partial<User>,
+  batch: WriteBatch
+): WriteBatch => {
   const userRef = clientDB.collection('users').doc(userId);
-  return userRef.update(newUserData);
-};
-
-export const saveInPokedex = async (userId: string, pokemon: Pokemon): Promise<void> => {
-  const pokedexPath = `users/${userId}/pokedex`;
-  const pokemonRef = clientDB.doc(`${pokedexPath}/${pokemon.apiId}`);
-  pokemon = { ...pokemon, metDate: Date.now() };
-  await pokemonRef.set(pokemon);
-  mutate(
-    pokedexPath,
-    (pokedex: Document<Pokemon>[]) => {
-      if (!pokedex) {
-        return [{ id: pokemonRef.id, ...pokemon }];
-      } else {
-        return [{ id: pokemonRef.id, ...pokemon }, ...pokedex].sort((a, b) => a.apiId - b.apiId);
-      }
-    },
-    false
-  );
+  return batch.update(userRef, newUserData);
 };
