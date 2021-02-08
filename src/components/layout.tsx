@@ -16,7 +16,7 @@ const Layout: React.FC = ({ children }) => {
   return (
     <Box backgroundColor="gray.100" minH="100vh">
       <Header />
-      <Container maxW="6xl" py="8">
+      <Container maxW="6xl" pt="8" pb="12">
         {children}
       </Container>
       <Footer />

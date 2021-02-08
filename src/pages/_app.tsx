@@ -10,6 +10,7 @@ import { colors } from '@theme/colors';
 import { Button } from '@theme/button';
 import { Input } from '@theme/input';
 import { Divider } from '@theme/divider';
+import { Progress } from '@theme/progress';
 
 const theme = extendTheme({
   colors,
@@ -17,6 +18,7 @@ const theme = extendTheme({
     Button,
     Input,
     Divider,
+    Progress,
   },
 });
 
