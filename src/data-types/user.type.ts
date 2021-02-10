@@ -5,6 +5,9 @@ export interface User extends AdditionalUserData {
   isAdmin: boolean;
   createdAt: number;
   updatedAt: number;
+  chosenStarterDate: number | null;
+  lastPokemonSeenDate: number | null;
+  starterEvolveDate: number | null;
   provider?: string;
   starterId: number | null;
   starterAvatarUrl: string | null;

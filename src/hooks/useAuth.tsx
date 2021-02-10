@@ -169,9 +169,18 @@ const AuthProvider = memo(({ children }) => {
     starterId: number,
     starterAvatarUrl: string
   ): Promise<void> => {
-    const batch = updateUser(userId, { starterId, starterAvatarUrl }, clientDB.batch());
+    const batch = updateUser(
+      userId,
+      { starterId, starterAvatarUrl, chosenStarterDate: Date.now() },
+      clientDB.batch()
+    );
     await batch.commit();
-    setUser((prevUser) => ({ ...prevUser, starterId, starterAvatarUrl } as Document<User>));
+    setUser(
+      (prevUser) =>
+        ({ ...prevUser, starterId, starterAvatarUrl, chosenStarterDate: Date.now() } as Document<
+          User
+        >)
+    );
   };
 
   const saveInPokedex = async (
@@ -185,7 +194,11 @@ const AuthProvider = memo(({ children }) => {
 
     let batch = clientDB.batch();
     batch.set(pokemonRef, pokemon);
-    batch = updateUser(userId, { pokedexCount: increment(incrementValue) }, batch);
+    batch = updateUser(
+      userId,
+      { pokedexCount: increment(incrementValue), lastPokemonSeenDate: Date.now() },
+      batch
+    );
     await batch.commit();
 
     mutate(

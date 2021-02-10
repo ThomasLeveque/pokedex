@@ -1,6 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
-import { Box, Heading, Badge, Center, Stack } from '@chakra-ui/react';
+import { Box, Heading, Badge, Center, Stack, Text } from '@chakra-ui/react';
+import { formatDistanceToNow } from 'date-fns';
 
 import { Pokemon } from '@data-types/pokemon.type';
 import PokedexModal from './pokedex-modal';
@@ -31,6 +32,9 @@ const PokedexItem: React.FC<PokedexItemProps> = ({ pokemon }) => {
           ))}
         </Stack>
         <PokedexModal pokemon={pokemon} />
+        <Text mt="4" color="gray.500" fontSize="sm">
+          Met {formatDistanceToNow(new Date(pokemon.metDate as number))} ago
+        </Text>
       </Center>
     </Box>
   );

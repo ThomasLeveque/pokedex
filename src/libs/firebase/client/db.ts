@@ -21,5 +21,5 @@ export const updateUser = (
   batch: WriteBatch
 ): WriteBatch => {
   const userRef = clientDB.collection('users').doc(userId);
-  return batch.update(userRef, newUserData);
+  return batch.update(userRef, { ...newUserData, updatedAt: Date.now() } as Partial<User>);
 };
