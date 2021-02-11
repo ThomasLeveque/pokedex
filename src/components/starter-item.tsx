@@ -47,7 +47,7 @@ const StarterItem: React.FC<StarterItemProps> = ({ starter }) => {
       <Grid
         templateColumns="repeat(1, minmax(0, 1fr))"
         gap={1}
-        borderWidth="1px"
+        borderWidth="2px"
         borderRadius="md"
         boxShadow="md"
         padding="4"

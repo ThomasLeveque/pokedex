@@ -206,6 +206,7 @@ const AuthProvider = memo(({ children }) => {
         ({
           ...prevUser,
           pokedexCount: (prevUser?.pokedexCount as number) + incrementValue,
+          lastPokemonSeenDate: Date.now(),
         } as Document<User>)
     );
   };

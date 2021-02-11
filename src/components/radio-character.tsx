@@ -12,7 +12,7 @@ const RadioCharacter: React.FC<RadioCharacterProps> = ({ onClick, isChecked, chi
       onClick={onClick}
       cursor="pointer"
       opacity={isChecked ? '1' : '0.5'}
-      borderWidth="1px"
+      borderWidth="2px"
       borderRadius="full"
       boxShadow="md"
     >

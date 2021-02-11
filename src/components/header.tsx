@@ -1,35 +1,16 @@
 import React, { memo } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import {
-  HStack,
-  Link as ChakraLink,
-  Button,
-  Flex,
-  Avatar,
-  AvatarBadge,
-  Container,
-  Spacer,
-} from '@chakra-ui/react';
+import { Link as ChakraLink, Flex, Avatar, AvatarBadge, Container, Spacer } from '@chakra-ui/react';
 
 import { useAuth } from '@hooks/useAuth';
 import { PokemonLogo } from './pokemon-logo';
-import { errorToast } from '@utils/toasts';
 
 const Header: React.FC = memo(() => {
-  const { signOut, user } = useAuth();
-
-  const handleSignOut = async () => {
-    try {
-      await signOut();
-    } catch (err) {
-      console.error(err);
-      errorToast({ description: err.message });
-    }
-  };
+  const { user } = useAuth();
 
   return (
-    <Flex as="header" py="4" backgroundColor="white">
+    <Flex as="header" py="4" backgroundColor="white" borderBottomWidth="2px">
       <Container maxW="6xl">
         <Flex justify="space-between" align="center">
           <Link href="/pokedex" passHref>
@@ -48,22 +29,22 @@ const Header: React.FC = memo(() => {
             </ChakraLink>
           </Link>
           <Spacer />
-          <Avatar mr="2" backgroundColor="white" src={`/images/${user?.character}-avatar.png`}>
-            {user?.starterAvatarUrl && (
-              <AvatarBadge left="-30px" boxSize="2.25em" border="none">
-                <Image
-                  key={user?.starterAvatarUrl}
-                  src={user?.starterAvatarUrl}
-                  width={50}
-                  height={50}
-                />
-              </AvatarBadge>
-            )}
-          </Avatar>
-          <Button variant="primary" onClick={handleSignOut}>
-            Leave
-          </Button>
-          <HStack direction="row"></HStack>
+          <Link href="/profil">
+            <ChakraLink>
+              <Avatar mr="2" backgroundColor="white" src={`/images/${user?.character}-avatar.png`}>
+                {user?.starterAvatarUrl && (
+                  <AvatarBadge left="-30px" boxSize="2.25em" border="none">
+                    <Image
+                      key={user?.starterAvatarUrl}
+                      src={user?.starterAvatarUrl}
+                      width={50}
+                      height={50}
+                    />
+                  </AvatarBadge>
+                )}
+              </Avatar>
+            </ChakraLink>
+          </Link>
         </Flex>
       </Container>
     </Flex>
