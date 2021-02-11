@@ -22,7 +22,7 @@ interface StarterItemProps {
 const StarterItem: React.FC<StarterItemProps> = ({ starter }) => {
   return (
     <Box>
-      <Image width={475} height={475} src={starter.imageUrl} alt={starter.name} />
+      <Image priority width={475} height={475} src={starter.imageUrl} alt={starter.name} />
       <Stat mt="4">
         <Center flexDirection="column">
           <StatLabel>

@@ -11,6 +11,7 @@ export interface User extends AdditionalUserData {
   provider?: string;
   starterId: number | null;
   starterAvatarUrl: string | null;
+  hasStarterEvolution: boolean;
   pokedexCount: number | FieldValue;
 }
 

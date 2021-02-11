@@ -34,7 +34,13 @@ const PokemonDetail: React.FC<PokemonDetailProps> = ({ pokemon }) => {
             height="80%"
             rounded="full"
           />
-          <Image width={475} height={475} src={pokemon.imageUrl} alt={pokemon.name} />
+          <Image
+            key={`${pokemon.name}-detail-image`}
+            width={475}
+            height={475}
+            src={pokemon.imageUrl}
+            alt={pokemon.name}
+          />
         </Center>
         <Text color="gray.500" mt="3">
           {pokemon.height * 10} cm - {pokemon.weight / 10} kg

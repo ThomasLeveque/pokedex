@@ -33,7 +33,7 @@ export const warningToast = ({ title, description, duration, isClosable }: Toast
 
 export const infoToast = ({ title, description, duration, isClosable }: ToastProps): void => {
   toast({
-    position: 'top-right',
+    position: 'bottom',
     title: title || 'Info (i)',
     description: description || null,
     status: 'info',
@@ -44,7 +44,7 @@ export const infoToast = ({ title, description, duration, isClosable }: ToastPro
 
 export const successToast = ({ title, description, duration, isClosable }: ToastProps): void => {
   toast({
-    position: 'top-right',
+    position: 'bottom',
     title: title || 'Success (o)',
     description: description || null,
     status: 'success',

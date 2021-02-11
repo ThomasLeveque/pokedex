@@ -45,7 +45,11 @@ const StartersModal: React.FC = () => {
     try {
       setLoading(true);
       await saveInPokedex(user?.id as string, chosenStarter, 1);
-      await setUserStarter(user?.id as string, chosenStarter.apiId, chosenStarter.avatarUrl);
+      await setUserStarter(user?.id as string, {
+        starterId: chosenStarter.apiId,
+        starterAvatarUrl: chosenStarter.avatarUrl,
+        chosenStarterDate: Date.now(),
+      });
       successToast({
         title: `Well ${chosenStarter.name} is a sweet choice !`,
         description: `may ${chosenStarter.types.join(' and ')} be with you`,

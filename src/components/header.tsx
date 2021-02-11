@@ -51,7 +51,12 @@ const Header: React.FC = memo(() => {
           <Avatar mr="2" backgroundColor="white" src={`/images/${user?.character}-avatar.png`}>
             {user?.starterAvatarUrl && (
               <AvatarBadge left="-30px" boxSize="2.25em" border="none">
-                <Image src={user?.starterAvatarUrl} width={50} height={50} />
+                <Image
+                  key={user?.starterAvatarUrl}
+                  src={user?.starterAvatarUrl}
+                  width={50}
+                  height={50}
+                />
               </AvatarBadge>
             )}
           </Avatar>

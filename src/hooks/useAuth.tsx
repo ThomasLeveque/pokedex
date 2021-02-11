@@ -47,11 +47,7 @@ type AuthContextType = {
   signInWithGoogle: () => Promise<void | null>;
   signInWithGithub: () => Promise<void | null>;
   signOut: () => Promise<void | null>;
-  setUserStarter: (
-    userId: string,
-    starterId: number,
-    starterAvatarUrl: string
-  ) => Promise<void | null>;
+  setUserStarter: (userId: string, userToUpdate: Partial<User>) => Promise<void | null>;
   saveInPokedex: (userId: string, pokemon: Pokemon, increment: number) => Promise<void | null>;
 };
 
@@ -164,22 +160,15 @@ const AuthProvider = memo(({ children }) => {
     return handleUser(null);
   };
 
-  const setUserStarter = async (
-    userId: string,
-    starterId: number,
-    starterAvatarUrl: string
-  ): Promise<void> => {
-    const batch = updateUser(
-      userId,
-      { starterId, starterAvatarUrl, chosenStarterDate: Date.now() },
-      clientDB.batch()
-    );
+  const setUserStarter = async (userId: string, userToUpdate: Partial<User>): Promise<void> => {
+    const batch = updateUser(userId, userToUpdate, clientDB.batch());
     await batch.commit();
     setUser(
       (prevUser) =>
-        ({ ...prevUser, starterId, starterAvatarUrl, chosenStarterDate: Date.now() } as Document<
-          User
-        >)
+        ({
+          ...prevUser,
+          ...userToUpdate,
+        } as Document<User>)
     );
   };
 
