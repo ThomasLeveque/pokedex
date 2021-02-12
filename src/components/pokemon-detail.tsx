@@ -16,7 +16,7 @@ import { Document } from '@libs/firebase/firebase-types';
 import { Pokemon } from '@data-types/pokemon.type';
 
 interface PokemonDetailProps {
-  pokemon: Document<Pokemon>;
+  pokemon: Document<Pokemon> | Pokemon;
 }
 
 const PokemonDetail: React.FC<PokemonDetailProps> = ({ pokemon }) => {

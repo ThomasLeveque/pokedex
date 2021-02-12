@@ -17,7 +17,7 @@ const generatePokemonToFetch = (): number[] =>
     (_, index) => index + 1
   );
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getStaticProps: GetStaticProps<PokemonsPageProps> = async () => {
   const pokemonsToFetch = generatePokemonToFetch();
   const pokemons = await getPokemons(pokemonsToFetch);
   return {

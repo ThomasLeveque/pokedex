@@ -26,7 +26,7 @@ const PokemonItem: React.FC<PokemonItemProps> = ({ pokemon, pokedex }) => {
   const handleSeenPokemon = useCallback(async () => {
     if (!user?.starterId) {
       warningToast({ description: 'You must choose a starter before begin your adventure' });
-      router.push('pokedex');
+      router.push('/starter');
       return;
     }
 

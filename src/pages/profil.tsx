@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { NextPage } from 'next';
 import Image from 'next/image';
 import { Box, Button, Center, Divider, Flex, Heading, Text } from '@chakra-ui/react';
+import { useRouter } from 'next/router';
 
 import Layout from '@components/layout';
 import PokemonDetail from '@components/pokemon-detail';
@@ -17,7 +18,9 @@ import ProfilStarterWrapper from '@components/profil-starter-wrapper';
 
 const Profil: NextPage = () => {
   const [evolveLoading, setEvolveLoading] = useState<boolean>(false);
+
   const { signOut, user, setUserStarter, saveInPokedex } = useAuth();
+  const router = useRouter();
 
   const { data: starter } = useDocument<Pokemon>(`users/${user?.id}/pokedex/${user?.starterId}`);
   console.log(starter);
@@ -96,9 +99,9 @@ const Profil: NextPage = () => {
           </Center>
         )}
         {starter ? (
-          <>
-            {starter.exists && (
-              <ProfilStarterWrapper>
+          <ProfilStarterWrapper>
+            {starter.exists ? (
+              <>
                 <PokemonDetail pokemon={starter} />
                 {user?.hasStarterEvolution && (
                   <Button
@@ -110,9 +113,13 @@ const Profil: NextPage = () => {
                     {starter.name} has evolve
                   </Button>
                 )}
-              </ProfilStarterWrapper>
+              </>
+            ) : (
+              <Button variant="primary" onClick={() => router.push('/starter')}>
+                Choose your starter
+              </Button>
             )}
-          </>
+          </ProfilStarterWrapper>
         ) : (
           <ProfilStarterWrapper>
             <DataLoader />

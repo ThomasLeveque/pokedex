@@ -1,11 +1,10 @@
 import React, { useMemo } from 'react';
 import { NextPage } from 'next';
-import { Heading, SimpleGrid, Flex, Button } from '@chakra-ui/react';
+import { Heading, SimpleGrid, Flex, Button, Center } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 
 import Layout from '@components/layout';
 import { useAuth } from '@hooks/useAuth';
-import StartersModal from '@components/starters-modal';
 import useCollection from '@hooks/useCollection';
 import { Pokemon } from '@data-types/pokemon.type';
 import PokedexItem from '@components/pokedex-item';
@@ -31,7 +30,9 @@ const HomePage: NextPage = () => {
       ) : starter ? (
         <>
           <Flex alignItems="center" mb="8" justifyContent="space-between">
-            <Heading>The pokedex of {user?.pseudo}</Heading>
+            <Heading size="2xl" as="h1">
+              The pokedex of {user?.pseudo}
+            </Heading>
             <Button variant="primary" onClick={() => router.push('/pokemons')}>
               Fill your pokedex
             </Button>
@@ -43,7 +44,11 @@ const HomePage: NextPage = () => {
           </SimpleGrid>
         </>
       ) : (
-        <StartersModal />
+        <Center bg="white" borderWidth="2px" borderRadius="md" padding="8">
+          <Button variant="primary" onClick={() => router.push('/starter')}>
+            Pick a starter
+          </Button>
+        </Center>
       )}
     </Layout>
   );
