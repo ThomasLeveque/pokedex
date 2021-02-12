@@ -1,20 +1,5 @@
 import React, { createContext, useContext, memo, useEffect, useState } from 'react';
-import Image from 'next/image';
 import { User as AuthUser } from '@firebase/auth-types';
-import {
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  Button,
-  Input,
-  useDisclosure,
-  FormLabel,
-  FormControl,
-  Grid,
-} from '@chakra-ui/react';
 
 import { createUser, updateUser } from '@libs/firebase/client/db';
 import {
@@ -29,11 +14,12 @@ import { AdditionalUserData, Character, User } from '@data-types/user.type';
 import { fetchDocument } from '@libs/firebase/client/fetchers';
 import { errorToast, successToast } from '@utils/toasts';
 import { updateAuthUserDisplayName } from '@libs/firebase/client/auth';
-import RadioCharacter from '@components/radio-character';
-import { allCharacters } from '@utils/all-characters';
+
 import { useCheckbox } from './useCheckbox';
 import { Pokemon } from '@data-types/pokemon.type';
 import { mutate } from 'swr';
+import { useDisclosure } from '@chakra-ui/react';
+import ProvidersAdditionnalDataModal from '@components/providers-additionnal-data-modal';
 
 type AuthContextType = {
   user: Document<User> | null;
@@ -74,12 +60,7 @@ export const useAuth = (): AuthContextType => {
 const AuthProvider = memo(({ children }) => {
   const [user, setUser] = useState<Document<User> | null>(null);
   const [userLoaded, setUserLoaded] = useState<boolean>(false);
-  const [providersDataLoading, setProvidersDataLoading] = useState<boolean>(false);
 
-  const [providersPseudo, setProvidersPseudo] = useState<string>('');
-  const { data: providersCharacter, onChange: setProvidersCharacter, isChecked } = useCheckbox<
-    Character
-  >('red');
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const handleUser = async (
@@ -93,7 +74,6 @@ const AuthProvider = memo(({ children }) => {
       if (!userData.exists) {
         if (authUser.providerData[0]?.providerId !== 'password') {
           if (!isOpen) {
-            setProvidersPseudo(authUser.displayName as string);
             onOpen();
             return;
           } else {
@@ -250,79 +230,19 @@ const AuthProvider = memo(({ children }) => {
 
   return (
     <authContext.Provider value={authValue}>
-      <Modal
-        size="2xl"
-        isOpen={isOpen}
+      <ProvidersAdditionnalDataModal
         onClose={onClose}
-        closeOnOverlayClick={false}
-        closeOnEsc={false}
-      >
-        <ModalOverlay />
-        <ModalContent>
-          <ModalHeader textAlign="center">Confirm your pseudo and choose a character</ModalHeader>
-          <ModalBody>
-            <FormControl id="pseudo" isRequired mb="4">
-              <FormLabel>Pseudo</FormLabel>
-              <Input
-                maxLength={40}
-                placeholder="Enter a pseudo"
-                value={providersPseudo}
-                autoComplete="off"
-                onChange={(event) => setProvidersPseudo(event.target.value)}
-              />
-            </FormControl>
-            <FormControl id="character" isRequired mb="6">
-              <FormLabel>Character</FormLabel>
-              <Grid templateColumns="repeat(3, minmax(0, 1fr))" gap={5}>
-                {allCharacters.map((character) => {
-                  const characterChecked = isChecked(character);
-                  return (
-                    <RadioCharacter
-                      key={character}
-                      onClick={() => setProvidersCharacter(character)}
-                      isChecked={characterChecked}
-                    >
-                      <Image src={`/images/${character}.png`} width={500} height={500} />
-                    </RadioCharacter>
-                  );
-                })}
-              </Grid>
-            </FormControl>
-          </ModalBody>
-
-          <ModalFooter>
-            <Button
-              variant="primary"
-              isLoading={providersDataLoading}
-              onClick={async () => {
-                if (providersPseudo.length === 0 || providersCharacter.length === 0) {
-                  errorToast({ description: 'You must provide all the required data.' });
-                  return;
-                }
-                try {
-                  setProvidersDataLoading(true);
-                  await updateAuthUserDisplayName(auth.currentUser, {
-                    displayName: providersPseudo,
-                  });
-                  await handleUser(auth.currentUser, {
-                    pseudo: providersPseudo,
-                    character: providersCharacter,
-                  });
-                  setProvidersDataLoading(false);
-                  onClose();
-                } catch (err) {
-                  errorToast({ description: err.message });
-                  setProvidersDataLoading(false);
-                  console.error(err);
-                }
-              }}
-              ml={3}
-            >
-              Done
-            </Button>
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
+        isOpen={isOpen}
+        onSubmit={async (providersPseudo, providersCharacter) => {
+          await updateAuthUserDisplayName(auth.currentUser, {
+            displayName: providersPseudo,
+          });
+          await handleUser(auth.currentUser, {
+            pseudo: providersPseudo,
+            character: providersCharacter,
+          });
+        }}
+      />
       {children}
     </authContext.Provider>
   );
