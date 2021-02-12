@@ -29,7 +29,7 @@ const HomePage: NextPage = () => {
         <DataLoader />
       ) : starter ? (
         <>
-          <Flex alignItems="center" mb="8" justifyContent="space-between">
+          <Flex alignItems="start" mb="8" justifyContent="space-between">
             <Heading size="2xl" as="h1">
               The pokedex of {user?.pseudo}
             </Heading>

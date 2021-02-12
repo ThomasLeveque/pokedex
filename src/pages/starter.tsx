@@ -68,6 +68,7 @@ const Starter: NextPage<StarterPageProps> = ({ starters }) => {
         starterId: chosenStarter.apiId,
         starterAvatarUrl: chosenStarter.avatarUrl,
         chosenStarterDate: Date.now(),
+        updatedAt: Date.now(),
       });
       successToast({
         title: `Well ${chosenStarter.name} is a sweet choice !`,

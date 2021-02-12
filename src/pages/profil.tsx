@@ -60,6 +60,7 @@ const Profil: NextPage = () => {
         starterAvatarUrl: starterEvolution.avatarUrl,
         hasStarterEvolution: hasEvolution,
         starterEvolveDate: Date.now(),
+        updatedAt: Date.now(),
       });
       successToast({
         title: `Congrat ! ${oldStarterName} has evolve to ${starterEvolution.name}`,

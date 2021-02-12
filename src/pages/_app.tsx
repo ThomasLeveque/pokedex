@@ -10,9 +10,14 @@ import { colors } from '@theme/colors';
 import { Button } from '@theme/button';
 import { Input } from '@theme/input';
 import { Divider } from '@theme/divider';
+import { Fonts } from '@theme/fonts';
 
 const theme = extendTheme({
   colors,
+  fonts: {
+    heading: 'Work Sans',
+    body: 'Work Sans',
+  },
   components: {
     Button,
     Input,
@@ -23,6 +28,7 @@ const theme = extendTheme({
 const MyApp = ({ Component, pageProps }: AppProps): JSX.Element => {
   return (
     <ChakraProvider resetCSS theme={theme}>
+      <Fonts />
       <Head>
         <meta content="width=device-width, initial-scale=1" name="viewport" />
       </Head>
