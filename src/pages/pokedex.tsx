@@ -1,47 +1,149 @@
-import React, { useMemo } from 'react';
-import { NextPage } from 'next';
-import { Heading, SimpleGrid, Flex, Button, Center } from '@chakra-ui/react';
+import React, { useMemo, useState } from 'react';
+import { NextPage, GetStaticProps } from 'next';
+import {
+  Heading,
+  SimpleGrid,
+  Flex,
+  Button,
+  Center,
+  IconButton,
+  Spacer,
+  Text,
+  Badge,
+  useDisclosure,
+  Collapse,
+  Wrap,
+  WrapItem,
+  Box,
+} from '@chakra-ui/react';
+import { ChevronDownIcon, ChevronUpIcon, CloseIcon } from '@chakra-ui/icons';
 import { useRouter } from 'next/router';
 
 import Layout from '@components/layout';
 import { useAuth } from '@hooks/useAuth';
 import useCollection from '@hooks/useCollection';
-import { Pokemon } from '@data-types/pokemon.type';
+import { Pokemon, Type } from '@data-types/pokemon.type';
 import PokedexItem from '@components/pokedex-item';
 import DataLoader from '@components/data-loader';
+import { getTypes } from '@libs/pokeapi/db';
+import FilterIcon from '@components/filter-icon';
+import FilterSolidIcon from '@components/filter-solid-icon';
 
-const HomePage: NextPage = () => {
+export const getStaticProps: GetStaticProps<PokedexPageProps> = async () => {
+  const types = await getTypes();
+  return {
+    props: {
+      types,
+    },
+  };
+};
+
+type PokedexPageProps = {
+  types: Type[];
+};
+
+const PokedexPage: NextPage<PokedexPageProps> = ({ types }) => {
+  const [filteredType, setFilteredType] = useState<Type | null>(null);
+
   const { user } = useAuth();
   const { data: pokedex } = useCollection<Pokemon>(`users/${user?.id}/pokedex`, {
     orderBy: ['apiId', 'asc'],
   });
 
   const router = useRouter();
+  const { isOpen, onToggle } = useDisclosure();
 
-  const starter = useMemo(() => pokedex?.find((poke) => poke.apiId === user?.starterId), [
-    user,
-    pokedex,
-  ]);
+  const pokemonsByType = useMemo(
+    () => (filteredType ? pokedex?.filter((poke) => poke.types.includes(filteredType)) : pokedex),
+    [filteredType, pokedex]
+  );
+
+  const handleClearFilteredType = () => {
+    setFilteredType(null);
+  };
 
   return (
     <Layout>
-      {!pokedex ? (
+      {!pokemonsByType ? (
         <DataLoader />
-      ) : starter ? (
+      ) : user?.starterId ? (
         <>
-          <Flex alignItems="start" mb="8" justifyContent="space-between">
+          <Flex alignItems="start" mb="8">
             <Heading size="2xl" as="h1">
               The pokedex of {user?.pseudo}
             </Heading>
+            <Spacer />
+            <Flex alignItems="center">
+              {filteredType && (
+                <Badge
+                  mr="3"
+                  pr="0"
+                  display="flex"
+                  alignItems="center"
+                  color={`${filteredType}.text`}
+                  bgGradient={`linear(to-r, ${filteredType}.start, ${filteredType}.end)`}
+                  key={`filteredType-${filteredType}`}
+                >
+                  {filteredType}
+                  <CloseIcon
+                    h={2}
+                    w={2}
+                    p="1"
+                    boxSizing="content-box"
+                    cursor="pointer"
+                    onClick={handleClearFilteredType}
+                  />
+                </Badge>
+              )}
+              <Button
+                onClick={onToggle}
+                mr="4"
+                px="3"
+                bg="white"
+                variant="outline"
+                borderWidth="2px"
+                aria-label="Filter pokemons by types"
+              >
+                {filteredType ? <FilterSolidIcon /> : <FilterIcon strokeWidth={3} />}
+                {isOpen ? <ChevronUpIcon /> : <ChevronDownIcon />}
+              </Button>
+            </Flex>
             <Button variant="primary" onClick={() => router.push('/pokemons')}>
               Fill your pokedex
             </Button>
           </Flex>
+          <Collapse in={isOpen} animateOpacity>
+            <Wrap mb="6">
+              {types.map((type) => (
+                <WrapItem key={`${type}`}>
+                  <Badge
+                    cursor="pointer"
+                    onClick={() =>
+                      type === filteredType ? handleClearFilteredType() : setFilteredType(type)
+                    }
+                    color={`${type}.text`}
+                    bgGradient={`linear(to-r, ${type}.start, ${type}.end)`}
+                  >
+                    {type}
+                  </Badge>
+                </WrapItem>
+              ))}
+            </Wrap>
+          </Collapse>
           <SimpleGrid columns={4} spacing={8}>
-            {pokedex.map((pokemon) => (
+            {pokemonsByType.map((pokemon) => (
               <PokedexItem key={pokemon.apiId} pokemon={pokemon} />
             ))}
           </SimpleGrid>
+          {filteredType && pokemonsByType.length === 0 && (
+            <Text fontSize="xl">
+              You haven&apos;t seen a pokemon of type{' '}
+              <Box as="span" fontWeight="bold" color={`${filteredType}.start`}>
+                {filteredType}
+              </Box>{' '}
+              yet
+            </Text>
+          )}
         </>
       ) : (
         <Center bg="white" borderWidth="2px" borderRadius="md" padding="8">
@@ -54,4 +156,4 @@ const HomePage: NextPage = () => {
   );
 };
 
-export default HomePage;
+export default PokedexPage;

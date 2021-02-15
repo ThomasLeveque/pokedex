@@ -1,5 +1,5 @@
 import { EvolutionChain } from '@data-types/evolution-chain.type';
-import { Pokemon } from '@data-types/pokemon.type';
+import { Pokemon, Type } from '@data-types/pokemon.type';
 import { formatEvolutionChain } from '@utils/format-evolution-chain';
 import { formatPokemon } from './../../utils/format-pokemon';
 
@@ -62,4 +62,13 @@ export const getStarterEvolution = async (
   const { evolutionName, hasEvolution } = findStarterEvolutionName(starterName, evolutionChain);
   const evolution = await getPokemon(evolutionName);
   return { evolution, hasEvolution };
+};
+
+export const getTypes = async (): Promise<Type[]> => {
+  const generationResponse = await fetch(
+    `${process.env.NEXT_PUBLIC_POKEAPI_BASE_URL}/generation/1`
+  );
+  const generationsData = await generationResponse.json();
+  const types: { name: Type }[] = generationsData.types;
+  return types.map((type) => type.name);
 };

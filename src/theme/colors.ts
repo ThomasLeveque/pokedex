@@ -22,8 +22,8 @@ const typesColors: { [type in Type]: { start: string; end: string; text: string 
     text: 'black',
   },
   ground: {
-    start: '#f7de3f',
-    end: '#ab9842',
+    start: '#ab9842',
+    end: '#f7de3f',
     text: 'black',
   },
   rock: {
