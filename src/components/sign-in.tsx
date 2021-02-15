@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
+import Link from 'next/link';
 import {
   Button,
   Box,
   Input,
   FormControl,
   FormLabel,
-  Link,
   FormHelperText,
   InputGroup,
   InputRightElement,
   Divider,
   HStack,
+  Link as ChakraLink,
 } from '@chakra-ui/react';
 
 import { useAuth } from '@hooks/useAuth';
@@ -61,7 +62,7 @@ const SignIn: React.FC<SignInProps> = ({ toggleIsLogin }) => {
         <FormLabel>Email</FormLabel>
         <Input
           maxLength={255}
-          placeholder="Enter an email"
+          placeholder="Enter your email"
           value={email}
           autoComplete="email"
           onChange={(event) => setEmail(event.target.value)}
@@ -72,7 +73,7 @@ const SignIn: React.FC<SignInProps> = ({ toggleIsLogin }) => {
         <InputGroup>
           <Input
             maxLength={255}
-            placeholder="Enter a password"
+            placeholder="Enter your password"
             value={password}
             pr="5rem"
             type={showPassword ? 'text' : 'password'}
@@ -85,14 +86,19 @@ const SignIn: React.FC<SignInProps> = ({ toggleIsLogin }) => {
             </Button>
           </InputRightElement>
         </InputGroup>
-        <FormHelperText>At least 6 characters.</FormHelperText>
+        <FormHelperText>
+          At least 6 characters.{' '}
+          <Link href="/forgot" passHref>
+            <ChakraLink color="primary">Forgot your password?</ChakraLink>
+          </Link>
+        </FormHelperText>
       </FormControl>
       <Button variant="primary" onClick={handleSignInWithEmail} isLoading={loading}>
         Continue
       </Button>
-      <Link ml="4" onClick={toggleIsLogin}>
+      <ChakraLink ml="4" onClick={toggleIsLogin}>
         Start a new adventure
-      </Link>
+      </ChakraLink>
     </Box>
   );
 };
