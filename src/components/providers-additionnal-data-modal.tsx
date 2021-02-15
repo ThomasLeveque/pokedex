@@ -18,7 +18,7 @@ import RadioCharacter from '@components/radio-character';
 import { allCharacters } from '@utils/all-characters';
 import { useCheckbox } from '@hooks/useCheckbox';
 import { Character } from '@data-types/user.type';
-import { auth } from '@libs/firebase/client/firebase';
+import { auth } from '@libs/firebase/firebase';
 import { errorToast } from '@utils/toasts';
 
 interface ProvidersAdditionnalDataModalProps {

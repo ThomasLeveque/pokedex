@@ -1,7 +1,7 @@
 import useSWR, { ConfigInterface, responseInterface } from 'swr';
 
 import { Document, Options } from '@libs/firebase/firebase-types';
-import { fetchCollection } from '@libs/firebase/client/fetchers';
+import { fetchCollection } from '@libs/firebase/fetchers';
 
 const useCollection = <Data>(
   collectionPath: string,

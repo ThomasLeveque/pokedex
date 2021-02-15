@@ -13,7 +13,7 @@ if (!firebase.apps.length) {
 }
 
 // Firestore
-export const clientDB = firebase.firestore();
+export const db = firebase.firestore();
 export const increment = firebase.firestore.FieldValue.increment;
 
 // Auth

@@ -9,7 +9,7 @@ import PokemonDetail from '@components/pokemon-detail';
 import { useAuth } from '@hooks/useAuth';
 import { errorToast, successToast, warningToast } from '@utils/toasts';
 import { getStarterEvolution } from '@libs/pokeapi/db';
-import { fetchDocument } from '@libs/firebase/client/fetchers';
+import { fetchDocument } from '@libs/firebase/fetchers';
 import useDocument from '@hooks/useDocument';
 import DataLoader from '@components/data-loader';
 import { Pokemon } from '@data-types/pokemon.type';

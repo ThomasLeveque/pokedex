@@ -1,24 +1,22 @@
 import React, { createContext, useContext, memo, useEffect, useState } from 'react';
 import { User as AuthUser } from '@firebase/auth-types';
+import { useDisclosure } from '@chakra-ui/react';
+import { mutate } from 'swr';
 
-import { createUser, updateUser } from '@libs/firebase/client/db';
+import { createUser, updateUser } from '@libs/firebase/db';
 import {
   auth,
-  clientDB,
+  db,
   githubAuthProvider,
   googleAuthProvider,
   increment,
-} from '@libs/firebase/client/firebase';
+} from '@libs/firebase/firebase';
 import { Document } from '@libs/firebase/firebase-types';
-import { AdditionalUserData, Character, User } from '@data-types/user.type';
-import { fetchDocument } from '@libs/firebase/client/fetchers';
+import { AdditionalUserData, User } from '@data-types/user.type';
+import { fetchDocument } from '@libs/firebase/fetchers';
 import { errorToast, successToast } from '@utils/toasts';
-import { updateAuthUserDisplayName } from '@libs/firebase/client/auth';
-
-import { useCheckbox } from './useCheckbox';
+import { updateAuthUserDisplayName } from '@libs/firebase/auth';
 import { Pokemon } from '@data-types/pokemon.type';
-import { mutate } from 'swr';
-import { useDisclosure } from '@chakra-ui/react';
 import ProvidersAdditionnalDataModal from '@components/providers-additionnal-data-modal';
 
 type AuthContextType = {
@@ -141,7 +139,7 @@ const AuthProvider = memo(({ children }) => {
   };
 
   const setUserStarter = async (userId: string, userToUpdate: Partial<User>): Promise<void> => {
-    const batch = updateUser(userId, userToUpdate, clientDB.batch());
+    const batch = updateUser(userId, userToUpdate, db.batch());
     await batch.commit();
     setUser(
       (prevUser) =>
@@ -158,10 +156,10 @@ const AuthProvider = memo(({ children }) => {
     incrementValue: number
   ): Promise<void> => {
     const pokedexPath = `users/${userId}/pokedex`;
-    const pokemonRef = clientDB.doc(`${pokedexPath}/${pokemon.apiId}`);
+    const pokemonRef = db.doc(`${pokedexPath}/${pokemon.apiId}`);
     pokemon = { ...pokemon, metDate: Date.now() };
 
-    let batch = clientDB.batch();
+    let batch = db.batch();
     batch.set(pokemonRef, pokemon);
     batch = updateUser(
       userId,
