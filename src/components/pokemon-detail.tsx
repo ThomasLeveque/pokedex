@@ -10,6 +10,7 @@ import {
   StatLabel,
   StatNumber,
   Divider,
+  Kbd,
 } from '@chakra-ui/react';
 
 import { Document } from '@libs/firebase/firebase-types';
@@ -24,7 +25,7 @@ const PokemonDetail: React.FC<PokemonDetailProps> = ({ pokemon }) => {
     <>
       <Center flexDirection="column">
         <Heading as="h2" mb="4" size="md">
-          About {pokemon.name}
+          About {pokemon.name} <Kbd>#{pokemon.apiId}</Kbd>
         </Heading>
         <Center height="200px" w="200px" position="relative">
           <Box
