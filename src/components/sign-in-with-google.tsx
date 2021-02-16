@@ -1,13 +1,12 @@
-import { Button } from '@chakra-ui/react';
+import React, { useState } from 'react';
+import { Button, useColorModeValue } from '@chakra-ui/react';
 import { useAuth } from '@hooks/useAuth';
 import { formatAuthErrors } from '@utils/format-auth-errors';
 import { errorToast } from '@utils/toasts';
-import React, { useState } from 'react';
 import GoogleIcon from './google-icon';
 
 const SignInWithGoogle: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(false);
-
   const { signInWithGoogle } = useAuth();
 
   const handleSignInWithGoogle = async (): Promise<void> => {

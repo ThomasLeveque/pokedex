@@ -1,7 +1,7 @@
 import React, { useCallback, useState, useMemo } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { Box, Heading, Button, Center } from '@chakra-ui/react';
+import { Box, Heading, Button, Center, useColorModeValue } from '@chakra-ui/react';
 
 import { Pokemon } from '@data-types/pokemon.type';
 import { useAuth } from '@hooks/useAuth';
@@ -15,6 +15,7 @@ type PokemonItemProps = {
 
 const PokemonItem: React.FC<PokemonItemProps> = ({ pokemon, pokedex }) => {
   const [loading, setLoading] = useState<boolean>(false);
+  const bg = useColorModeValue('white', 'gray.800');
 
   const { user, saveInPokedex } = useAuth();
   const router = useRouter();
@@ -48,7 +49,7 @@ const PokemonItem: React.FC<PokemonItemProps> = ({ pokemon, pokedex }) => {
   }, []);
 
   return (
-    <Box p="6" borderWidth="2px" borderRadius="lg" overflow="hidden" backgroundColor="white">
+    <Box p="6" borderWidth="2px" borderRadius="lg" overflow="hidden" bg={bg}>
       <Heading textTransform="capitalize" mb="2" as="h2" size="md" textAlign="center">
         {pokemon.name}
       </Heading>

@@ -1,10 +1,12 @@
-import { Center } from '@chakra-ui/react';
 import React from 'react';
+import { Center, useColorModeValue } from '@chakra-ui/react';
 
 const ProfilStarterWrapper: React.FC = ({ children }) => {
+  const bg = useColorModeValue('white', 'gray.800');
+
   return (
     <Center
-      bg="white"
+      bg={bg}
       borderWidth="2px"
       borderRadius="md"
       padding="8"

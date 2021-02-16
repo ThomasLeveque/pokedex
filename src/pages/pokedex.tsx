@@ -15,6 +15,7 @@ import {
   Wrap,
   WrapItem,
   Box,
+  useColorModeValue,
 } from '@chakra-ui/react';
 import { ChevronDownIcon, ChevronUpIcon, CloseIcon } from '@chakra-ui/icons';
 import { useRouter } from 'next/router';
@@ -43,6 +44,8 @@ type PokedexPageProps = {
 };
 
 const PokedexPage: NextPage<PokedexPageProps> = ({ types }) => {
+  const bg = useColorModeValue('white', 'gray.800');
+
   const [filteredType, setFilteredType] = useState<Type | null>(null);
 
   const { user } = useAuth();
@@ -99,7 +102,7 @@ const PokedexPage: NextPage<PokedexPageProps> = ({ types }) => {
                 onClick={onToggle}
                 mr="4"
                 px="3"
-                bg="white"
+                bg={bg}
                 variant="outline"
                 borderWidth="2px"
                 aria-label="Filter pokemons by types"
@@ -146,7 +149,7 @@ const PokedexPage: NextPage<PokedexPageProps> = ({ types }) => {
           )}
         </>
       ) : (
-        <Center bg="white" borderWidth="2px" borderRadius="md" padding="8">
+        <Center bg={bg} borderWidth="2px" borderRadius="md" padding="8">
           <Button variant="primary" onClick={() => router.push('/starter')}>
             Pick a starter
           </Button>

@@ -1,8 +1,10 @@
 import React, { memo } from 'react';
-import { Box, Tooltip } from '@chakra-ui/react';
+import { Box, Tooltip, useColorModeValue } from '@chakra-ui/react';
 import { useAuth } from '@hooks/useAuth';
 
 const Footer: React.FC = memo(() => {
+  const bg = useColorModeValue('white', 'gray.800');
+
   const { user } = useAuth();
 
   const progress = ((user?.pokedexCount as number) / 151) * 100;
@@ -15,7 +17,7 @@ const Footer: React.FC = memo(() => {
       width="100%"
       borderTopWidth="2px"
       height="4"
-      backgroundColor="white"
+      bg={bg}
     >
       <Tooltip
         label={`${user?.pokedexCount} / 151`}

@@ -1,6 +1,12 @@
 import React, { useState, useMemo } from 'react';
 import { NextPage, GetStaticProps } from 'next';
-import { InputGroup, SimpleGrid, InputLeftElement, Input } from '@chakra-ui/react';
+import {
+  InputGroup,
+  SimpleGrid,
+  InputLeftElement,
+  Input,
+  useColorModeValue,
+} from '@chakra-ui/react';
 import { SearchIcon } from '@chakra-ui/icons';
 
 import Layout from '@components/layout';
@@ -32,6 +38,8 @@ type PokemonsPageProps = {
 };
 
 const PokemonsPage: NextPage<PokemonsPageProps> = ({ pokemons }) => {
+  const bg = useColorModeValue('white', 'gray.800');
+
   const [search, setSearch] = useState<string>('');
 
   const { user } = useAuth();
@@ -53,7 +61,7 @@ const PokemonsPage: NextPage<PokemonsPageProps> = ({ pokemons }) => {
         <Input
           placeholder="Search for a pokemon"
           borderWidth="2px"
-          backgroundColor="white"
+          bg={bg}
           onChange={(event) => setSearch(event.target.value)}
         />
       </InputGroup>

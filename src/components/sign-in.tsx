@@ -12,6 +12,7 @@ import {
   Divider,
   HStack,
   Link as ChakraLink,
+  Spacer,
 } from '@chakra-ui/react';
 
 import { useAuth } from '@hooks/useAuth';
@@ -19,6 +20,7 @@ import { errorToast } from '@utils/toasts';
 import { formatAuthErrors } from '@utils/format-auth-errors';
 import SignInWithGoogle from './sign-in-with-google';
 import SignInWithGithub from './sign-in-with-github';
+import ColorModeButton from './color-mode-button';
 
 type SignInProps = {
   toggleIsLogin: () => void;
@@ -56,6 +58,8 @@ const SignIn: React.FC<SignInProps> = ({ toggleIsLogin }) => {
       <HStack>
         <SignInWithGoogle />
         <SignInWithGithub />
+        <Spacer />
+        <ColorModeButton />
       </HStack>
       <Divider my="6" />
       <FormControl id="email" isRequired mb="4">

@@ -1,16 +1,26 @@
 import React, { memo } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Link as ChakraLink, Flex, Avatar, AvatarBadge, Container, Spacer } from '@chakra-ui/react';
+import {
+  Link as ChakraLink,
+  Flex,
+  Avatar,
+  AvatarBadge,
+  Container,
+  Spacer,
+  useColorModeValue,
+} from '@chakra-ui/react';
 
 import { useAuth } from '@hooks/useAuth';
 import { PokemonLogo } from './pokemon-logo';
+import ColorModeButton from './color-mode-button';
 
 const Header: React.FC = memo(() => {
   const { user } = useAuth();
+  const bg = useColorModeValue('white', 'gray.800');
 
   return (
-    <Flex as="header" py="4" backgroundColor="white" borderBottomWidth="2px">
+    <Flex as="header" py="4" bg={bg} borderBottomWidth="2px">
       <Container maxW="6xl">
         <Flex justify="space-between" align="center">
           <Link href="/pokedex" passHref>
@@ -31,7 +41,11 @@ const Header: React.FC = memo(() => {
           <Spacer />
           <Link href="/profil">
             <ChakraLink>
-              <Avatar mr="2" backgroundColor="white" src={`/images/${user?.character}-avatar.png`}>
+              <Avatar
+                mr="2"
+                backgroundColor="transparent"
+                src={`/images/${user?.character}-avatar.png`}
+              >
                 {user?.starterAvatarUrl && (
                   <AvatarBadge left="-30px" boxSize="2.25em" border="none">
                     <Image
@@ -45,6 +59,7 @@ const Header: React.FC = memo(() => {
               </Avatar>
             </ChakraLink>
           </Link>
+          <ColorModeButton />
         </Flex>
       </Container>
     </Flex>

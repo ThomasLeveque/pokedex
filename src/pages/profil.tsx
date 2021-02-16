@@ -1,7 +1,16 @@
 import React, { useState } from 'react';
 import { NextPage } from 'next';
 import Image from 'next/image';
-import { Box, Button, Center, Divider, Flex, Heading, Text } from '@chakra-ui/react';
+import {
+  Box,
+  Button,
+  Center,
+  Divider,
+  Flex,
+  Heading,
+  Text,
+  useColorModeValue,
+} from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 
 import Layout from '@components/layout';
@@ -17,6 +26,8 @@ import UserStats from '@components/user-stats';
 import ProfilStarterWrapper from '@components/profil-starter-wrapper';
 
 const Profil: NextPage = () => {
+  const bg = useColorModeValue('white', 'gray.800');
+
   const [evolveLoading, setEvolveLoading] = useState<boolean>(false);
 
   const { signOut, user, setUserStarter, saveInPokedex } = useAuth();
@@ -80,7 +91,7 @@ const Profil: NextPage = () => {
       <Flex alignItems="start">
         {user && (
           <Center width="100%" flexDirection="column">
-            <Box borderWidth="2px" borderRadius="full" width="150px" bg="white" p="1" mb="4">
+            <Box borderWidth="2px" borderRadius="full" width="150px" bg={bg} p="1" mb="4">
               <Image src={`/images/${user.character}.png`} width={500} height={500} />
             </Box>
             <Heading as="h1" size="2xl" mb="2">

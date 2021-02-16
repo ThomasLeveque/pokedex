@@ -1,6 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
-import { Box, Heading, Badge, Center, Stack, Text, Kbd } from '@chakra-ui/react';
+import { Box, Heading, Badge, Center, Stack, Text, Kbd, useColorModeValue } from '@chakra-ui/react';
 import { formatDistanceToNow } from 'date-fns';
 
 import { Pokemon } from '@data-types/pokemon.type';
@@ -12,8 +12,9 @@ type PokedexItemProps = {
 };
 
 const PokedexItem: React.FC<PokedexItemProps> = ({ pokemon }) => {
+  const bg = useColorModeValue('white', 'gray.800');
   return (
-    <Box p="6" borderWidth="2px" borderRadius="lg" overflow="hidden" backgroundColor="white">
+    <Box p="6" borderWidth="2px" borderRadius="lg" overflow="hidden" bg={bg}>
       <Center flexDirection="column">
         <Heading textTransform="capitalize" mb="2" as="h2" size="md">
           <Kbd>#{pokemon.apiId}</Kbd> {pokemon.name}

@@ -1,3 +1,5 @@
+import { StyleProps } from '.';
+
 export const Button = {
   baseStyle: {
     fontWeight: 'bold',
@@ -7,7 +9,7 @@ export const Button = {
       bg: 'primary',
       color: 'white',
       _hover: {
-        opacity: 0.85,
+        opacity: 0.9,
         bg: 'primary',
         _disabled: null,
       },
@@ -16,15 +18,15 @@ export const Button = {
         bg: 'primary',
       },
     },
-    google: {
-      bg: 'white',
+    google: ({ colorMode }: StyleProps): unknown => ({
+      bg: colorMode === 'light' ? 'white' : 'gray.400',
       color: 'gray.900',
-      border: 'gray.400',
+      borderColor: colorMode === 'light' ? 'gray.200' : 'gray.500',
       borderWidth: '2px',
       _hover: {
-        bg: 'gray.100',
+        bg: colorMode === 'light' ? 'gray.100' : 'gray.300',
       },
-    },
+    }),
     github: {
       bg: 'gray.900',
       color: 'white',
