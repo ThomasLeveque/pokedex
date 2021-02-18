@@ -1,6 +1,6 @@
 import React, { createContext, useContext, memo, useEffect, useState } from 'react';
 import { User as AuthUser } from '@firebase/auth-types';
-import { useDisclosure } from '@chakra-ui/react';
+import { useDisclosure, useToast, useColorMode } from '@chakra-ui/react';
 import { mutate } from 'swr';
 
 import { createUser, updateUser } from '@libs/firebase/db';
@@ -18,6 +18,8 @@ import { errorToast, successToast } from '@utils/toasts';
 import { updateAuthUserDisplayName } from '@libs/firebase/auth';
 import { Pokemon } from '@data-types/pokemon.type';
 import ProvidersAdditionnalDataModal from '@components/providers-additionnal-data-modal';
+import PokdexRewardToast from '@components/pokedex-reward-toast';
+import { formatPokedexReward } from '@utils/format-pokedex-reward';
 
 type AuthContextType = {
   user: Document<User> | null;
@@ -60,6 +62,8 @@ const AuthProvider = memo(({ children }) => {
   const [userLoaded, setUserLoaded] = useState<boolean>(false);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const toast = useToast();
+  const { colorMode } = useColorMode();
 
   const handleUser = async (
     authUser: AuthUser | null,
@@ -167,6 +171,15 @@ const AuthProvider = memo(({ children }) => {
       batch
     );
     await batch.commit();
+    const incrementedPokedexCount = (user?.pokedexCount as number) + incrementValue;
+    const pokedexReward = formatPokedexReward(incrementedPokedexCount, colorMode);
+    if (pokedexReward) {
+      toast({
+        position: 'bottom',
+        duration: 8000,
+        render: () => <PokdexRewardToast {...pokedexReward} />,
+      });
+    }
 
     mutate(
       pokedexPath,
@@ -179,15 +192,12 @@ const AuthProvider = memo(({ children }) => {
       },
       false
     );
-    setUser(
-      (prevUser) =>
-        ({
-          ...prevUser,
-          pokedexCount: (prevUser?.pokedexCount as number) + incrementValue,
-          lastPokemonSeenDate: Date.now(),
-          updatedAt: Date.now(),
-        } as Document<User>)
-    );
+    setUser({
+      ...user,
+      pokedexCount: incrementedPokedexCount,
+      lastPokemonSeenDate: Date.now(),
+      updatedAt: Date.now(),
+    } as Document<User>);
   };
 
   useEffect(() => {

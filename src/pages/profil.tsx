@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { NextPage } from 'next';
 import Image from 'next/image';
 import {
@@ -9,6 +9,8 @@ import {
   Flex,
   Heading,
   Text,
+  Tooltip,
+  useColorMode,
   useColorModeValue,
 } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
@@ -24,9 +26,12 @@ import DataLoader from '@components/data-loader';
 import { Pokemon } from '@data-types/pokemon.type';
 import UserStats from '@components/user-stats';
 import ProfilStarterWrapper from '@components/profil-starter-wrapper';
+import TrophyIcon from '@components/trophy-icon';
+import { formatPokedexReward, PokedexReward } from '@utils/format-pokedex-reward';
 
 const Profil: NextPage = () => {
   const bg = useColorModeValue('white', 'gray.800');
+  const { colorMode } = useColorMode();
 
   const [evolveLoading, setEvolveLoading] = useState<boolean>(false);
 
@@ -34,7 +39,7 @@ const Profil: NextPage = () => {
   const router = useRouter();
 
   const { data: starter } = useDocument<Pokemon>(`users/${user?.id}/pokedex/${user?.starterId}`);
-  console.log(starter);
+
   const handleSignOut = async () => {
     try {
       await signOut();
@@ -43,6 +48,23 @@ const Profil: NextPage = () => {
       errorToast({ description: err.message });
     }
   };
+
+  const pokedexReward = useMemo(() => {
+    const pokedexCount = user?.pokedexCount as number;
+    if (pokedexCount >= 1 && pokedexCount < 50) {
+      return formatPokedexReward(1, colorMode);
+    } else if (pokedexCount >= 50 && pokedexCount < 100) {
+      return formatPokedexReward(50, colorMode);
+    } else if (pokedexCount >= 100 && pokedexCount < 150) {
+      return formatPokedexReward(100, colorMode);
+    } else if (pokedexCount >= 150 && pokedexCount < 151) {
+      return formatPokedexReward(150, colorMode);
+    } else if (pokedexCount === 151) {
+      return formatPokedexReward(151, colorMode);
+    } else {
+      return null;
+    }
+  }, [user?.pokedexCount, colorMode]);
 
   const handleStarterEvolution = async (): Promise<void> => {
     if (!starter) {
@@ -95,7 +117,19 @@ const Profil: NextPage = () => {
               <Image src={`/images/${user.character}.png`} width={500} height={500} />
             </Box>
             <Heading as="h1" size="2xl" mb="2">
-              {user.pseudo}
+              {user.pseudo}{' '}
+              {pokedexReward && (
+                <Tooltip
+                  hasArrow
+                  placement="top"
+                  label={pokedexReward.description}
+                  aria-label="Pokedex reward message"
+                >
+                  <span>
+                    <TrophyIcon w="8" fill={pokedexReward.bg} />
+                  </span>
+                </Tooltip>
+              )}
             </Heading>
             <Text fontSize="lg" mb="2">
               {user.email}

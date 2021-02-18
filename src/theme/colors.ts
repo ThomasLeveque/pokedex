@@ -80,5 +80,8 @@ const typesColors: { [type in Type]: { start: string; end: string; text: string 
 
 export const colors = {
   primary: '#d35821',
+  silver: '#C0C0C0',
+  gold: '#FFD700',
+  bronze: '#CD7F32',
   ...typesColors,
 };
