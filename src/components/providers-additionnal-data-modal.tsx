@@ -1,5 +1,4 @@
 import React, { useState, useEffect, memo } from 'react';
-import Image from 'next/image';
 import {
   Modal,
   ModalOverlay,
@@ -11,15 +10,13 @@ import {
   Input,
   FormLabel,
   FormControl,
-  Grid,
 } from '@chakra-ui/react';
 
-import RadioCharacter from '@components/radio-character';
-import { allCharacters } from '@utils/all-characters';
 import { useCheckbox } from '@hooks/useCheckbox';
 import { Character } from '@data-types/user.type';
 import { auth } from '@libs/firebase/firebase';
 import { errorToast } from '@utils/toasts';
+import CharactersCheckboxList from './characters-checkbox-list';
 
 interface ProvidersAdditionnalDataModalProps {
   isOpen: boolean;
@@ -65,20 +62,10 @@ const ProvidersAdditionnalDataModal: React.FC<ProvidersAdditionnalDataModalProps
             </FormControl>
             <FormControl id="character" isRequired mb="6">
               <FormLabel>Character</FormLabel>
-              <Grid templateColumns="repeat(3, minmax(0, 1fr))" gap={5}>
-                {allCharacters.map((character) => {
-                  const characterChecked = isChecked(character);
-                  return (
-                    <RadioCharacter
-                      key={character}
-                      onClick={() => setProvidersCharacter(character)}
-                      isChecked={characterChecked}
-                    >
-                      <Image src={`/images/${character}.png`} width={500} height={500} />
-                    </RadioCharacter>
-                  );
-                })}
-              </Grid>
+              <CharactersCheckboxList
+                isChecked={isChecked}
+                onChecked={(character) => setProvidersCharacter(character)}
+              />
             </FormControl>
           </ModalBody>
 

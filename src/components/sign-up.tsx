@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import Image from 'next/image';
 import {
   Button,
   Box,
@@ -8,18 +7,16 @@ import {
   FormLabel,
   FormHelperText,
   Link,
-  Grid,
   InputGroup,
   InputRightElement,
 } from '@chakra-ui/react';
 
 import { useAuth } from '@hooks/useAuth';
 import { Character } from '@data-types/user.type';
-import RadioCharacter from './radio-character';
-import { errorToast, successToast } from '@utils/toasts';
+import { errorToast } from '@utils/toasts';
 import { useCheckbox } from '@hooks/useCheckbox';
 import { formatAuthErrors } from '@utils/format-auth-errors';
-import { allCharacters } from '@utils/all-characters';
+import CharactersCheckboxList from './characters-checkbox-list';
 
 type SignUpProps = {
   toggleIsLogin: () => void;
@@ -105,20 +102,10 @@ const SignUp: React.FC<SignUpProps> = ({ toggleIsLogin }) => {
       </FormControl>
       <FormControl id="character" isRequired mb="6">
         <FormLabel>Character</FormLabel>
-        <Grid templateColumns="repeat(3, minmax(0, 1fr))" gap={5}>
-          {allCharacters.map((character) => {
-            const characterChecked = isChecked(character);
-            return (
-              <RadioCharacter
-                key={character}
-                onClick={() => setCharacter(character)}
-                isChecked={characterChecked}
-              >
-                <Image src={`/images/${character}.png`} width={500} height={500} />
-              </RadioCharacter>
-            );
-          })}
-        </Grid>
+        <CharactersCheckboxList
+          isChecked={isChecked}
+          onChecked={(character) => setCharacter(character)}
+        />
       </FormControl>
       <Button variant="primary" onClick={handleSignUpWithEmail} isLoading={loading}>
         Start
