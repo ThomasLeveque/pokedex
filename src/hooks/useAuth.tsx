@@ -65,17 +65,6 @@ const AuthProvider = memo(({ children }) => {
   const toast = useToast();
   const { colorMode } = useColorMode();
 
-  useEffect(() => {
-    const pokedexReward = formatPokedexReward(user?.pokedexCount as number, colorMode);
-    if (pokedexReward) {
-      toast({
-        position: 'bottom',
-        duration: 8000,
-        render: () => <PokdexRewardToast {...pokedexReward} />,
-      });
-    }
-  }, [user?.pokedexCount]);
-
   const handleUser = async (
     authUser: AuthUser | null,
     additionalData?: AdditionalUserData,
@@ -194,15 +183,23 @@ const AuthProvider = memo(({ children }) => {
       },
       false
     );
-    setUser(
-      (prevUser) =>
-        ({
-          ...prevUser,
-          pokedexCount: (prevUser?.pokedexCount as number) + incrementValue,
-          lastPokemonSeenDate: Date.now(),
-          updatedAt: Date.now(),
-        } as Document<User>)
-    );
+    setUser((prevUser) => {
+      const incrementedPokedexCount = (prevUser?.pokedexCount as number) + incrementValue;
+      const pokedexReward = formatPokedexReward(incrementedPokedexCount, colorMode);
+      if (pokedexReward) {
+        toast({
+          position: 'bottom',
+          duration: 8000,
+          render: () => <PokdexRewardToast {...pokedexReward} />,
+        });
+      }
+      return {
+        ...prevUser,
+        pokedexCount: incrementedPokedexCount,
+        lastPokemonSeenDate: Date.now(),
+        updatedAt: Date.now(),
+      } as Document<User>;
+    });
   };
 
   useEffect(() => {
