@@ -68,7 +68,7 @@ const PokemonsPage: NextPage<PokemonsPageProps> = ({ pokemons }) => {
       {!pokedex ? (
         <DataLoader />
       ) : (
-        <SimpleGrid columns={4} spacing={8}>
+        <SimpleGrid columns={5} spacing={8}>
           {filteredPokemons &&
             filteredPokemons.map((pokemon) => (
               <PokemonItem key={pokemon.apiId} pokemon={pokemon} pokedex={pokedex} />

@@ -6,43 +6,59 @@ import {
   Flex,
   Avatar,
   AvatarBadge,
-  Container,
-  Spacer,
   useColorModeValue,
+  Tooltip,
+  Box,
 } from '@chakra-ui/react';
 
 import { useAuth } from '@hooks/useAuth';
-import { PokemonLogo } from './pokemon-logo';
 import ColorModeButton from './color-mode-button';
+import PokedexIcon from './pokedex-icon';
+import PokeballIcon from './pokeball-icon';
 
 const Header: React.FC = memo(() => {
   const { user } = useAuth();
   const bg = useColorModeValue('white', 'gray.800');
 
   return (
-    <Flex as="header" py="4" bg={bg} borderBottomWidth="2px">
-      <Container maxW="6xl">
-        <Flex justify="space-between" align="center">
+    <Flex
+      as="nav"
+      flexDirection="column"
+      alignItems="center"
+      justifyContent="top"
+      w="6rem"
+      h="100vh"
+      position="fixed"
+      top="0"
+      left="0"
+      py="8"
+      bg={bg}
+      borderRightWidth="2px"
+    >
+      <Tooltip label="Pokedex" aria-label="Pokedex link" placement="right">
+        <Box mb="3">
           <Link href="/pokedex" passHref>
-            <ChakraLink mr="4">
-              <PokemonLogo width="100px" height="100%" />
+            <ChakraLink display="block">
+              <PokedexIcon w="14" h="14" />
             </ChakraLink>
           </Link>
-          <Link href="/pokedex" passHref>
-            <ChakraLink fontWeight="700" p="2">
-              Pokedex
-            </ChakraLink>
-          </Link>
+        </Box>
+      </Tooltip>
+      <Tooltip label="All pokemon" aria-label="Pokemons link" placement="right">
+        <Box mb="3">
           <Link href="/pokemons" passHref>
-            <ChakraLink fontWeight="700" p="2">
-              Pokemons
+            <ChakraLink display="block" p="2">
+              <PokeballIcon w="2.25rem" h="2.25rem" />
             </ChakraLink>
           </Link>
-          <Spacer />
+        </Box>
+      </Tooltip>
+      <Tooltip label="Profil" aria-label="Profil link" placement="right">
+        <Box mb="8">
           <Link href="/profil">
-            <ChakraLink>
+            <ChakraLink display="block">
               <Avatar
-                mr="2"
+                ml={user?.starterId ? '4' : 0}
                 backgroundColor="transparent"
                 src={`/images/${user?.character}-avatar.png`}
               >
@@ -59,9 +75,9 @@ const Header: React.FC = memo(() => {
               </Avatar>
             </ChakraLink>
           </Link>
-          <ColorModeButton />
-        </Flex>
-      </Container>
+        </Box>
+      </Tooltip>
+      <ColorModeButton />
     </Flex>
   );
 });

@@ -133,7 +133,7 @@ const PokedexPage: NextPage<PokedexPageProps> = ({ types }) => {
               ))}
             </Wrap>
           </Collapse>
-          <SimpleGrid columns={4} spacing={8}>
+          <SimpleGrid columns={5} spacing={8}>
             {pokemonsByType.map((pokemon) => (
               <PokedexItem key={pokemon.apiId} pokemon={pokemon} />
             ))}

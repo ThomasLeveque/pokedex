@@ -3,7 +3,7 @@ import React from 'react';
 import Header from '@components/header';
 import { useAuth } from '@hooks/useAuth';
 import Redirect from './redirect';
-import { Box, Container, useColorModeValue } from '@chakra-ui/react';
+import { Box, useColorModeValue } from '@chakra-ui/react';
 import Footer from './footer';
 
 const Layout: React.FC = ({ children }) => {
@@ -17,9 +17,9 @@ const Layout: React.FC = ({ children }) => {
   return (
     <Box bg={bg} minH="100vh">
       <Header />
-      <Container maxW="6xl" pt="8" pb="12">
+      <Box as="main" ml="6rem" px="8" pt="8" pb="3rem">
         {children}
-      </Container>
+      </Box>
       <Footer />
     </Box>
   );

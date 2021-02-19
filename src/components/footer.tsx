@@ -14,9 +14,11 @@ const Footer: React.FC = memo(() => {
       as="footer"
       position="fixed"
       bottom="0"
-      width="100%"
+      right="0"
+      overflow="hidden"
+      width="calc(100% - 6rem)"
       borderTopWidth="2px"
-      height="4"
+      height="1rem"
       bg={bg}
     >
       <Tooltip
