@@ -79,7 +79,9 @@ const typesColors: { [type in Type]: { start: string; end: string; text: string 
 };
 
 export const colors = {
-  primary: '#d35821',
+  primary: '#FF3D00',
+  'primary-dark': '#DD2C00',
+  secondary: '#AEEA00',
   silver: '#C0C0C0',
   gold: '#FFD700',
   bronze: '#CD7F32',

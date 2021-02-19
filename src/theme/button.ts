@@ -9,8 +9,7 @@ export const Button = {
       bg: 'primary',
       color: 'white',
       _hover: {
-        opacity: 0.9,
-        bg: 'primary',
+        bg: 'primary-dark',
         _disabled: null,
       },
       _disabled: {

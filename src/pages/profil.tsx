@@ -27,7 +27,7 @@ import { Pokemon } from '@data-types/pokemon.type';
 import UserStats from '@components/user-stats';
 import ProfilStarterWrapper from '@components/profil-starter-wrapper';
 import TrophyIcon from '@components/trophy-icon';
-import { formatPokedexReward, PokedexReward } from '@utils/format-pokedex-reward';
+import { formatPokedexReward } from '@utils/format-pokedex-reward';
 
 const Profil: NextPage = () => {
   const bg = useColorModeValue('white', 'gray.800');
@@ -116,7 +116,7 @@ const Profil: NextPage = () => {
             <Box borderWidth="2px" borderRadius="full" width="150px" bg={bg} p="1" mb="4">
               <Image src={`/images/${user.character}.png`} width={500} height={500} />
             </Box>
-            <Heading as="h1" size="2xl" mb="2">
+            <Heading as="h1" size="2xl">
               {user.pseudo}{' '}
               {pokedexReward && (
                 <Tooltip
@@ -126,7 +126,7 @@ const Profil: NextPage = () => {
                   aria-label="Pokedex reward message"
                 >
                   <span>
-                    <TrophyIcon w="8" fill={pokedexReward.bg} />
+                    <TrophyIcon w="10" mb="2" fill={pokedexReward.bg} />
                   </span>
                 </Tooltip>
               )}
