@@ -33,7 +33,7 @@ const PokedexItem: React.FC<PokedexItemProps> = ({ pokemon }) => {
         </Stack>
         <PokedexModal pokemon={pokemon} />
         <Text mt="4" color="gray.500" fontSize="sm">
-          Met {formatDistanceToNow(new Date(pokemon.metDate as number))} ago
+          Met {formatDistanceToNow(new Date(pokemon.metDate as number), { addSuffix: true })}
         </Text>
       </Center>
     </Box>
