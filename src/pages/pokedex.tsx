@@ -111,7 +111,7 @@ const PokedexPage: NextPage<PokedexPageProps> = ({ types }) => {
                 {isOpen ? <ChevronUpIcon /> : <ChevronDownIcon />}
               </Button>
             </Flex>
-            <Button variant="primary" onClick={() => router.push('/pokemons')}>
+            <Button variant="primary" onClick={() => router.push('/all-pokemon')}>
               Fill your pokedex
             </Button>
           </Flex>

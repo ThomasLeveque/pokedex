@@ -9,14 +9,16 @@ import {
   useColorModeValue,
   Tooltip,
   Box,
+  Spacer,
 } from '@chakra-ui/react';
 
 import { useAuth } from '@hooks/useAuth';
 import ColorModeButton from './color-mode-button';
 import PokedexIcon from './pokedex-icon';
 import PokeballIcon from './pokeball-icon';
+import { navWidth } from '@utils/constants';
 
-const Header: React.FC = memo(() => {
+const Nav: React.FC = memo(() => {
   const { user } = useAuth();
   const bg = useColorModeValue('white', 'gray.800');
 
@@ -26,7 +28,7 @@ const Header: React.FC = memo(() => {
       flexDirection="column"
       alignItems="center"
       justifyContent="top"
-      w="6rem"
+      w={navWidth}
       h="100vh"
       position="fixed"
       top="0"
@@ -46,7 +48,7 @@ const Header: React.FC = memo(() => {
       </Tooltip>
       <Tooltip label="All pokemon" aria-label="Pokemons link" placement="right">
         <Box mb="3">
-          <Link href="/pokemons" passHref>
+          <Link href="/all-pokemon" passHref>
             <ChakraLink display="block" p="2">
               <PokeballIcon w="2.25rem" h="2.25rem" />
             </ChakraLink>
@@ -77,9 +79,10 @@ const Header: React.FC = memo(() => {
           </Link>
         </Box>
       </Tooltip>
+      <Spacer />
       <ColorModeButton />
     </Flex>
   );
 });
 
-export default Header;
+export default Nav;

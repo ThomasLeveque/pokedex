@@ -1,6 +1,7 @@
 import React, { memo } from 'react';
 import { Box, Tooltip, useColorModeValue } from '@chakra-ui/react';
 import { useAuth } from '@hooks/useAuth';
+import { progressBarHeight, navWidth } from '@utils/constants';
 
 const Footer: React.FC = memo(() => {
   const bg = useColorModeValue('white', 'gray.800');
@@ -16,9 +17,9 @@ const Footer: React.FC = memo(() => {
       bottom="0"
       right="0"
       overflow="hidden"
-      width="calc(100% - 6rem)"
+      width={`calc(100% - ${navWidth})`}
       borderTopWidth="2px"
-      height="1rem"
+      height={progressBarHeight}
       bg={bg}
     >
       <Tooltip
