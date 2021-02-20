@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import Image from 'next/image';
 import { Grid } from '@chakra-ui/react';
 
@@ -11,26 +11,25 @@ interface CharactersCheckboxListProps {
   onChecked: (item: Character) => void;
 }
 
-const CharactersCheckboxList: React.FC<CharactersCheckboxListProps> = ({
-  isChecked,
-  onChecked,
-}) => {
-  return (
-    <Grid templateColumns="repeat(3, minmax(0, 1fr))" gap={5}>
-      {allCharacters.map((character) => {
-        const characterChecked = isChecked(character);
-        return (
-          <RadioCharacter
-            key={character}
-            onClick={() => onChecked(character)}
-            isChecked={characterChecked}
-          >
-            <Image src={`/images/${character}.png`} width={500} height={500} />
-          </RadioCharacter>
-        );
-      })}
-    </Grid>
-  );
-};
+const CharactersCheckboxList: React.FC<CharactersCheckboxListProps> = memo(
+  ({ isChecked, onChecked }) => {
+    return (
+      <Grid templateColumns="repeat(3, minmax(0, 1fr))" gap={5}>
+        {allCharacters.map((character) => {
+          const characterChecked = isChecked(character);
+          return (
+            <RadioCharacter
+              key={character}
+              onClick={() => onChecked(character)}
+              isChecked={characterChecked}
+            >
+              <Image src={`/images/${character}.png`} width={500} height={500} />
+            </RadioCharacter>
+          );
+        })}
+      </Grid>
+    );
+  }
+);
 
 export default CharactersCheckboxList;

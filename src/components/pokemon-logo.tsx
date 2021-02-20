@@ -1,6 +1,6 @@
-import React, { SVGAttributes } from 'react';
+import React, { SVGAttributes, memo } from 'react';
 
-export const PokemonLogo: React.FC<SVGAttributes<SVGElement>> = ({ ...props }) => {
+export const PokemonLogo: React.FC<SVGAttributes<SVGElement>> = memo(({ ...props }) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -234,4 +234,4 @@ export const PokemonLogo: React.FC<SVGAttributes<SVGElement>> = ({ ...props }) =
       </g>
     </svg>
   );
-};
+});

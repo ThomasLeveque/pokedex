@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
-import { Button, useColorModeValue } from '@chakra-ui/react';
+import React, { useState, memo } from 'react';
+import { Button } from '@chakra-ui/react';
+
 import { useAuth } from '@hooks/useAuth';
 import { formatAuthErrors } from '@utils/format-auth-errors';
 import { errorToast } from '@utils/toasts';
 import GoogleIcon from './icons/google-icon';
 
-const SignInWithGoogle: React.FC = () => {
+const SignInWithGoogle: React.FC = memo(() => {
   const [loading, setLoading] = useState<boolean>(false);
   const { signInWithGoogle } = useAuth();
 
@@ -31,6 +32,6 @@ const SignInWithGoogle: React.FC = () => {
       Continue with
     </Button>
   );
-};
+});
 
 export default SignInWithGoogle;

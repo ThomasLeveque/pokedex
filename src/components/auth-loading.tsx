@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Center, Spinner } from '@chakra-ui/react';
 
 import { useAuth } from '@hooks/useAuth';
 
-const AuthLoading: React.FC = ({ children }) => {
+const AuthLoading: React.FC = memo(({ children }) => {
   const { userLoaded } = useAuth();
 
   return (
@@ -17,6 +17,6 @@ const AuthLoading: React.FC = ({ children }) => {
       )}
     </>
   );
-};
+});
 
 export default AuthLoading;

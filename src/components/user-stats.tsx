@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Grid, Stat, StatLabel, StatNumber } from '@chakra-ui/react';
 import { formatDistanceToNow } from 'date-fns';
 
 import { User } from '@data-types/user.type';
 import { Document } from '@libs/firebase/firebase-types';
 
-const UserStats: React.FC<{ user: Document<User> }> = ({ user }) => {
+const UserStats: React.FC<{ user: Document<User> }> = memo(({ user }) => {
   return (
     <Grid
       templateColumns={`repeat(${user.starterId ? 2 : 3}, minmax(0, 1fr))`}
@@ -52,7 +52,7 @@ const UserStats: React.FC<{ user: Document<User> }> = ({ user }) => {
       />
     </Grid>
   );
-};
+});
 
 const UserStat: React.FC<{ label: string; stat: string | null }> = ({ label, stat }) =>
   stat ? (

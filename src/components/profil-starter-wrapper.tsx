@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Center, useColorModeValue } from '@chakra-ui/react';
 
-const ProfilStarterWrapper: React.FC = ({ children }) => {
+const ProfilStarterWrapper: React.FC = memo(({ children }) => {
   const bg = useColorModeValue('white', 'gray.800');
 
   return (
@@ -18,6 +18,6 @@ const ProfilStarterWrapper: React.FC = ({ children }) => {
       {children}
     </Center>
   );
-};
+});
 
 export default ProfilStarterWrapper;

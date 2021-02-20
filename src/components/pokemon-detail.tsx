@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import Image from 'next/image';
 import {
   Center,
@@ -20,7 +20,7 @@ interface PokemonDetailProps {
   pokemon: Document<Pokemon> | Pokemon;
 }
 
-const PokemonDetail: React.FC<PokemonDetailProps> = ({ pokemon }) => {
+const PokemonDetail: React.FC<PokemonDetailProps> = memo(({ pokemon }) => {
   return (
     <>
       <Center flexDirection="column">
@@ -58,6 +58,6 @@ const PokemonDetail: React.FC<PokemonDetailProps> = ({ pokemon }) => {
       </Grid>
     </>
   );
-};
+});
 
 export default PokemonDetail;

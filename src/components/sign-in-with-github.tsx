@@ -1,11 +1,12 @@
+import React, { useState, memo } from 'react';
 import { Button } from '@chakra-ui/react';
+
 import { useAuth } from '@hooks/useAuth';
 import { formatAuthErrors } from '@utils/format-auth-errors';
 import { errorToast } from '@utils/toasts';
-import React, { useState } from 'react';
 import GithubIcon from './icons/github-icon';
 
-const SignInWithGithub: React.FC = () => {
+const SignInWithGithub: React.FC = memo(() => {
   const [loading, setLoading] = useState<boolean>(false);
 
   const { signInWithGithub } = useAuth();
@@ -32,6 +33,6 @@ const SignInWithGithub: React.FC = () => {
       Continue with
     </Button>
   );
-};
+});
 
 export default SignInWithGithub;
