@@ -2,7 +2,7 @@ import React from 'react';
 
 import { PokedexReward } from '@utils/format-pokedex-reward';
 import { Box, Text } from '@chakra-ui/react';
-import TrophyIcon from './trophy-icon';
+import TrophyIcon from './icons/trophy-icon';
 
 const PokdexRewardToast: React.FC<PokedexReward> = ({ color, bg, description }) => {
   return (

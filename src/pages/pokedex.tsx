@@ -27,8 +27,8 @@ import { Pokemon, Type } from '@data-types/pokemon.type';
 import PokedexItem from '@components/pokedex-item';
 import DataLoader from '@components/data-loader';
 import { getTypes } from '@libs/pokeapi/db';
-import FilterIcon from '@components/filter-icon';
-import FilterSolidIcon from '@components/filter-solid-icon';
+import FilterIcon from '@components/icons/filter-icon';
+import FilterSolidIcon from '@components/icons/filter-solid-icon';
 
 export const getStaticProps: GetStaticProps<PokedexPageProps> = async () => {
   const types = await getTypes();

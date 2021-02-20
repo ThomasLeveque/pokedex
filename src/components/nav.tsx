@@ -14,8 +14,8 @@ import {
 
 import { useAuth } from '@hooks/useAuth';
 import ColorModeButton from './color-mode-button';
-import PokedexIcon from './pokedex-icon';
-import PokeballIcon from './pokeball-icon';
+import PokedexIcon from './icons/pokedex-icon';
+import PokeballIcon from './icons/pokeball-icon';
 import { navWidth } from '@utils/constants';
 
 const Nav: React.FC = memo(() => {

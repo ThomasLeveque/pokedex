@@ -3,7 +3,7 @@ import { Button, useColorModeValue } from '@chakra-ui/react';
 import { useAuth } from '@hooks/useAuth';
 import { formatAuthErrors } from '@utils/format-auth-errors';
 import { errorToast } from '@utils/toasts';
-import GoogleIcon from './google-icon';
+import GoogleIcon from './icons/google-icon';
 
 const SignInWithGoogle: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(false);

@@ -3,7 +3,7 @@ import { useAuth } from '@hooks/useAuth';
 import { formatAuthErrors } from '@utils/format-auth-errors';
 import { errorToast } from '@utils/toasts';
 import React, { useState } from 'react';
-import GithubIcon from './github-icon';
+import GithubIcon from './icons/github-icon';
 
 const SignInWithGithub: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(false);

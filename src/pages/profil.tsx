@@ -26,7 +26,7 @@ import DataLoader from '@components/data-loader';
 import { Pokemon } from '@data-types/pokemon.type';
 import UserStats from '@components/user-stats';
 import ProfilStarterWrapper from '@components/profil-starter-wrapper';
-import TrophyIcon from '@components/trophy-icon';
+import TrophyIcon from '@components/icons/trophy-icon';
 import { formatPokedexReward } from '@utils/format-pokedex-reward';
 
 const Profil: NextPage = () => {
