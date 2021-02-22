@@ -10,9 +10,10 @@ import {
   InputGroup,
   InputRightElement,
   Divider,
-  HStack,
+  Stack,
   Link as ChakraLink,
   Spacer,
+  Flex,
 } from '@chakra-ui/react';
 
 import { useAuth } from '@hooks/useAuth';
@@ -55,12 +56,18 @@ const SignIn: React.FC<SignInProps> = ({ toggleIsLogin }) => {
 
   return (
     <Box>
-      <HStack>
-        <SignInWithGoogle />
-        <SignInWithGithub />
-        <Spacer />
+      <Stack
+        gridGap={3}
+        justifyContent="space-between"
+        alignItems="flex-end"
+        direction={{ base: 'column-reverse', md: 'row' }}
+      >
+        <Stack direction={{ base: 'column', md: 'row' }} gridGap={3} w="100%">
+          <SignInWithGoogle />
+          <SignInWithGithub />
+        </Stack>
         <ColorModeButton />
-      </HStack>
+      </Stack>
       <Divider my="6" />
       <FormControl id="email" isRequired mb="4">
         <FormLabel>Email</FormLabel>
@@ -97,12 +104,18 @@ const SignIn: React.FC<SignInProps> = ({ toggleIsLogin }) => {
           </Link>
         </FormHelperText>
       </FormControl>
-      <Button variant="primary" onClick={handleSignInWithEmail} isLoading={loading}>
-        Continue
-      </Button>
-      <ChakraLink ml="4" onClick={toggleIsLogin}>
-        Start a new adventure
-      </ChakraLink>
+      <Stack
+        gridGap={3}
+        alignItems={{ base: 'stretch', md: 'center' }}
+        direction={{ base: 'column', md: 'row' }}
+      >
+        <Button variant="primary" onClick={handleSignInWithEmail} isLoading={loading}>
+          Continue
+        </Button>
+        <ChakraLink alignSelf="center" onClick={toggleIsLogin}>
+          Start a new adventure
+        </ChakraLink>
+      </Stack>
     </Box>
   );
 };

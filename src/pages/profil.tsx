@@ -110,7 +110,7 @@ const Profil: NextPage = () => {
 
   return (
     <Layout>
-      <Flex alignItems="start">
+      <Flex alignItems="start" flexDirection={{ base: 'column', md: 'row' }}>
         {user && (
           <Center width="100%" flexDirection="column">
             <Box borderWidth="2px" borderRadius="full" width="150px" bg={bg} p="1" mb="4">

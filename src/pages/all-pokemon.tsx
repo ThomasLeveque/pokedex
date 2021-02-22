@@ -1,12 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { NextPage, GetStaticProps } from 'next';
-import {
-  InputGroup,
-  SimpleGrid,
-  InputLeftElement,
-  Input,
-  useColorModeValue,
-} from '@chakra-ui/react';
+import { InputGroup, InputLeftElement, Input, useColorModeValue } from '@chakra-ui/react';
 import { SearchIcon } from '@chakra-ui/icons';
 
 import Layout from '@components/layout';
@@ -16,6 +10,7 @@ import PokemonItem from '@components/pokemon-item';
 import useCollection from '@hooks/useCollection';
 import { useAuth } from '@hooks/useAuth';
 import DataLoader from '@components/data-loader';
+import PokemonListWrapper from '@components/pokemon-list-wrapper';
 
 const generatePokemonToFetch = (): number[] =>
   Array.from(
@@ -68,12 +63,12 @@ const PokemonsPage: NextPage<PokemonsPageProps> = ({ pokemons }) => {
       {!pokedex ? (
         <DataLoader />
       ) : (
-        <SimpleGrid columns={5} spacing={8}>
+        <PokemonListWrapper>
           {filteredPokemons &&
             filteredPokemons.map((pokemon) => (
               <PokemonItem key={pokemon.apiId} pokemon={pokemon} pokedex={pokedex} />
             ))}
-        </SimpleGrid>
+        </PokemonListWrapper>
       )}
     </Layout>
   );

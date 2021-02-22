@@ -188,7 +188,7 @@ const AuthProvider = memo(({ children }) => {
       const pokedexReward = formatPokedexReward(incrementedPokedexCount, colorMode);
       if (pokedexReward) {
         toast({
-          position: 'bottom',
+          position: 'top-right',
           duration: 8000,
           render: () => <PokdexRewardToast {...pokedexReward} />,
         });

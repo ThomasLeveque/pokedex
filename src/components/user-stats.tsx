@@ -8,7 +8,11 @@ import { Document } from '@libs/firebase/firebase-types';
 const UserStats: React.FC<{ user: Document<User> }> = memo(({ user }) => {
   return (
     <Grid
-      templateColumns={`repeat(${user.starterId ? 2 : 3}, minmax(0, 1fr))`}
+      templateColumns={{
+        base: '1fr',
+        lg: 'repeat(2, minmax(0, 1fr))',
+        '2xl': 'repeat(3, minmax(0, 1fr))',
+      }}
       gap={2}
       width="100%"
     >

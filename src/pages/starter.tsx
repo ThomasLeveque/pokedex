@@ -91,8 +91,12 @@ const Starter: NextPage<StarterPageProps> = ({ starters }) => {
       <Heading as="h1" mb="8" size="2xl">
         Choose your starter
       </Heading>
-      <Flex>
-        <Box maxW="200px" w="100%" mr="10">
+      <Center w="100%" flexDirection={{ base: 'column', md: 'row' }}>
+        <Box
+          w={{ base: '150px', md: '200px' }}
+          mr={{ base: '0', md: '10' }}
+          mb={{ base: '10', md: '0' }}
+        >
           <Image src="/images/chen.png" width={268} height={500} />
         </Box>
         <Center flexDirection="column">
@@ -145,7 +149,7 @@ const Starter: NextPage<StarterPageProps> = ({ starters }) => {
             })}
           </Grid>
         </Center>
-      </Flex>
+      </Center>
     </Layout>
   );
 };

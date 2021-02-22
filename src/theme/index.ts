@@ -4,6 +4,7 @@ import { colors } from '@theme/colors';
 import { Button } from '@theme/button';
 import { Input } from '@theme/input';
 import { Divider } from '@theme/divider';
+import { breakpoints } from '@theme/breakpoints';
 
 export interface StyleProps {
   colorMode: 'light' | 'dark';
@@ -11,6 +12,7 @@ export interface StyleProps {
 
 export const theme = extendTheme({
   colors,
+  breakpoints,
   fonts: {
     heading: 'Work Sans',
     body: 'Work Sans',

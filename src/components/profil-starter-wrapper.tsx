@@ -10,9 +10,10 @@ const ProfilStarterWrapper: React.FC = memo(({ children }) => {
       borderWidth="2px"
       borderRadius="md"
       padding="8"
-      maxW="300px"
+      maxW={{ md: '300px' }}
       w="100%"
-      ml="8"
+      ml={{ md: '8' }}
+      mt={{ base: '8', md: '0' }}
       flexDirection="column"
     >
       {children}

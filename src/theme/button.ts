@@ -25,6 +25,9 @@ export const Button = {
       _hover: {
         bg: colorMode === 'light' ? 'gray.100' : 'gray.300',
       },
+      _disabled: {
+        color: colorMode === 'light' ? 'gray.900' : 'white',
+      },
     }),
     github: {
       bg: 'gray.900',

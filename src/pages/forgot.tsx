@@ -10,6 +10,7 @@ import {
   FormLabel,
   Input,
   Link as ChakraLink,
+  Stack,
 } from '@chakra-ui/react';
 
 import { useAuth } from '@hooks/useAuth';
@@ -71,12 +72,18 @@ const ForgotPage: NextPage = () => {
           onChange={(event) => setEmail(event.target.value)}
         />
       </FormControl>
-      <Button variant="primary" onClick={handleResetPassword} isLoading={loading}>
-        Send
-      </Button>
-      <ChakraLink ml="4" onClick={() => router.push('/')}>
-        Go back
-      </ChakraLink>
+      <Stack
+        gridGap={3}
+        alignItems={{ base: 'stretch', md: 'center' }}
+        direction={{ base: 'column', md: 'row' }}
+      >
+        <Button variant="primary" onClick={handleResetPassword} isLoading={loading}>
+          Send
+        </Button>
+        <ChakraLink alignSelf="center" onClick={() => router.push('/')}>
+          Go back
+        </ChakraLink>
+      </Stack>
     </Container>
   );
 };

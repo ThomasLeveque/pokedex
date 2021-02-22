@@ -6,9 +6,11 @@ import {
   FormControl,
   FormLabel,
   FormHelperText,
-  Link,
+  Link as ChakraLink,
   InputGroup,
   InputRightElement,
+  Flex,
+  Stack,
 } from '@chakra-ui/react';
 
 import { useAuth } from '@hooks/useAuth';
@@ -107,12 +109,18 @@ const SignUp: React.FC<SignUpProps> = ({ toggleIsLogin }) => {
           onChecked={(character) => setCharacter(character)}
         />
       </FormControl>
-      <Button variant="primary" onClick={handleSignUpWithEmail} isLoading={loading}>
-        Start
-      </Button>
-      <Link ml="4" onClick={toggleIsLogin}>
-        Continue an existing adventure
-      </Link>
+      <Stack
+        gridGap={3}
+        alignItems={{ base: 'stretch', md: 'center' }}
+        direction={{ base: 'column', md: 'row' }}
+      >
+        <Button variant="primary" onClick={handleSignUpWithEmail} isLoading={loading}>
+          Start
+        </Button>
+        <ChakraLink alignSelf="center" onClick={toggleIsLogin}>
+          Continue an existing adventure
+        </ChakraLink>
+      </Stack>
     </Box>
   );
 };

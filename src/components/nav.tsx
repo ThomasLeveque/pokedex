@@ -16,7 +16,7 @@ import { useAuth } from '@hooks/useAuth';
 import ColorModeButton from './color-mode-button';
 import PokedexIcon from './icons/pokedex-icon';
 import PokeballIcon from './icons/pokeball-icon';
-import { navWidth } from '@utils/constants';
+import { navWidth, responsiveNavWidth } from '@utils/constants';
 
 const Nav: React.FC = memo(() => {
   const { user } = useAuth();
@@ -25,20 +25,23 @@ const Nav: React.FC = memo(() => {
   return (
     <Flex
       as="nav"
-      flexDirection="column"
+      flexDirection={{ base: 'row', lg: 'column' }}
       alignItems="center"
-      justifyContent="top"
-      w={navWidth}
-      h="100vh"
+      justifyContent={{ base: 'space-evenly', lg: 'top' }}
+      w={{ base: '100%', lg: navWidth }}
+      h={{ base: responsiveNavWidth, lg: '100vh' }}
       position="fixed"
-      top="0"
+      top={{ lg: '0' }}
+      bottom={{ base: '0', lg: 'none' }}
       left="0"
-      py="8"
+      py={{ lg: '8' }}
       bg={bg}
-      borderRightWidth="2px"
+      zIndex="110"
+      borderRightWidth={{ lg: '2px' }}
+      borderTopWidth={{ base: '2px', lg: '0' }}
     >
       <Tooltip label="Pokedex" aria-label="Pokedex link" placement="right">
-        <Box mb="3">
+        <Box mb={{ lg: '3' }}>
           <Link href="/pokedex" passHref>
             <ChakraLink display="block">
               <PokedexIcon w="14" h="14" />
@@ -47,7 +50,7 @@ const Nav: React.FC = memo(() => {
         </Box>
       </Tooltip>
       <Tooltip label="All pokemon" aria-label="Pokemons link" placement="right">
-        <Box mb="3">
+        <Box mb={{ lg: '3' }}>
           <Link href="/all-pokemon" passHref>
             <ChakraLink display="block" p="2">
               <PokeballIcon w="2.25rem" h="2.25rem" />
@@ -56,7 +59,7 @@ const Nav: React.FC = memo(() => {
         </Box>
       </Tooltip>
       <Tooltip label="Profil" aria-label="Profil link" placement="right">
-        <Box mb="8">
+        <Box mb={{ lg: '8' }}>
           <Link href="/profil">
             <ChakraLink display="block">
               <Avatar
@@ -79,7 +82,7 @@ const Nav: React.FC = memo(() => {
           </Link>
         </Box>
       </Tooltip>
-      <Spacer />
+      <Spacer display={{ base: 'none', lg: 'block' }} />
       <ColorModeButton />
     </Flex>
   );

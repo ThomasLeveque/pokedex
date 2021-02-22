@@ -14,7 +14,7 @@ interface CharactersCheckboxListProps {
 const CharactersCheckboxList: React.FC<CharactersCheckboxListProps> = memo(
   ({ isChecked, onChecked }) => {
     return (
-      <Grid templateColumns="repeat(3, minmax(0, 1fr))" gap={5}>
+      <Grid templateColumns="repeat(3, minmax(0, 1fr))" gap={{ base: 3, md: 5 }}>
         {allCharacters.map((character) => {
           const characterChecked = isChecked(character);
           return (

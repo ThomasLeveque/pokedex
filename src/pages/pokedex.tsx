@@ -2,12 +2,10 @@ import React, { useMemo, useState } from 'react';
 import { NextPage, GetStaticProps } from 'next';
 import {
   Heading,
-  SimpleGrid,
   Flex,
   Button,
   Center,
-  IconButton,
-  Spacer,
+  Stack,
   Text,
   Badge,
   useDisclosure,
@@ -16,6 +14,7 @@ import {
   WrapItem,
   Box,
   useColorModeValue,
+  HStack,
 } from '@chakra-ui/react';
 import { ChevronDownIcon, ChevronUpIcon, CloseIcon } from '@chakra-ui/icons';
 import { useRouter } from 'next/router';
@@ -29,6 +28,7 @@ import DataLoader from '@components/data-loader';
 import { getTypes } from '@libs/pokeapi/db';
 import FilterIcon from '@components/icons/filter-icon';
 import FilterSolidIcon from '@components/icons/filter-solid-icon';
+import PokemonListWrapper from '@components/pokemon-list-wrapper';
 
 export const getStaticProps: GetStaticProps<PokedexPageProps> = async () => {
   const types = await getTypes();
@@ -71,52 +71,60 @@ const PokedexPage: NextPage<PokedexPageProps> = ({ types }) => {
         <DataLoader />
       ) : user?.starterId ? (
         <>
-          <Flex alignItems="start" mb="8">
+          <Stack
+            justifyContent="space-between"
+            gridGap={5}
+            mb="10"
+            direction={{ base: 'column', md: 'row' }}
+          >
             <Heading size="2xl" as="h1">
               The pokedex of {user?.pseudo}
             </Heading>
-            <Spacer />
-            <Flex alignItems="center">
-              {filteredType && (
-                <Badge
-                  mr="3"
-                  pr="0"
-                  display="flex"
-                  alignItems="center"
-                  color={`${filteredType}.text`}
-                  bgGradient={`linear(to-r, ${filteredType}.start, ${filteredType}.end)`}
-                  key={`filteredType-${filteredType}`}
-                >
-                  {filteredType}
-                  <CloseIcon
-                    h={2}
-                    w={2}
-                    p="1"
-                    boxSizing="content-box"
-                    cursor="pointer"
-                    onClick={handleClearFilteredType}
-                  />
-                </Badge>
-              )}
-              <Button
-                onClick={onToggle}
-                mr="4"
-                px="3"
-                bg={bg}
-                variant="outline"
-                borderWidth="2px"
-                aria-label="Filter pokemons by types"
-              >
-                {filteredType ? <FilterSolidIcon /> : <FilterIcon strokeWidth={3} />}
-                {isOpen ? <ChevronUpIcon /> : <ChevronDownIcon />}
+            <Stack
+              alignSelf={{ base: 'flex-end', md: 'flex-start' }}
+              gridGap={3}
+              direction="column"
+            >
+              <Button variant="primary" onClick={() => router.push('/all-pokemon')}>
+                Fill your pokedex
               </Button>
-            </Flex>
-            <Button variant="primary" onClick={() => router.push('/all-pokemon')}>
-              Fill your pokedex
-            </Button>
-          </Flex>
+              <HStack justifyContent="flex-end" gridGap={2}>
+                {filteredType && (
+                  <Badge
+                    pr="0"
+                    display="flex"
+                    alignItems="center"
+                    color={`${filteredType}.text`}
+                    bgGradient={`linear(to-r, ${filteredType}.start, ${filteredType}.end)`}
+                    key={`filteredType-${filteredType}`}
+                  >
+                    {filteredType}
+                    <CloseIcon
+                      h={2}
+                      w={2}
+                      p="1"
+                      boxSizing="content-box"
+                      cursor="pointer"
+                      onClick={handleClearFilteredType}
+                    />
+                  </Badge>
+                )}
+                <Button
+                  onClick={onToggle}
+                  px="3"
+                  bg={bg}
+                  variant="outline"
+                  borderWidth="2px"
+                  aria-label="Filter pokemons by types"
+                >
+                  {filteredType ? <FilterSolidIcon /> : <FilterIcon strokeWidth={3} />}
+                  {isOpen ? <ChevronUpIcon /> : <ChevronDownIcon />}
+                </Button>
+              </HStack>
+            </Stack>
+          </Stack>
           <Collapse in={isOpen} animateOpacity>
-            <Wrap mb="6">
+            <Wrap mb="8">
               {types.map((type) => (
                 <WrapItem key={`${type}`}>
                   <Badge
@@ -133,11 +141,11 @@ const PokedexPage: NextPage<PokedexPageProps> = ({ types }) => {
               ))}
             </Wrap>
           </Collapse>
-          <SimpleGrid columns={5} spacing={8}>
+          <PokemonListWrapper>
             {pokemonsByType.map((pokemon) => (
               <PokedexItem key={pokemon.apiId} pokemon={pokemon} />
             ))}
-          </SimpleGrid>
+          </PokemonListWrapper>
           {filteredType && pokemonsByType.length === 0 && (
             <Text fontSize="xl">
               You haven&apos;t seen a pokemon of type{' '}
