@@ -117,7 +117,7 @@ const Profil: NextPage = () => {
               <Image src={`/images/${user.character}.png`} width={500} height={500} />
             </Box>
             <Heading as="h1" size="2xl">
-              {user.pseudo}{' '}
+              {user.pseudo}
               {pokedexReward && (
                 <Tooltip
                   hasArrow
@@ -126,7 +126,7 @@ const Profil: NextPage = () => {
                   aria-label="Pokedex reward message"
                 >
                   <span>
-                    <TrophyIcon w="10" mb="2" fill={pokedexReward.bg} />
+                    <TrophyIcon w="10" mb="2" ml="3" fill={pokedexReward.bg} />
                   </span>
                 </Tooltip>
               )}
