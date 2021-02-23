@@ -16,6 +16,7 @@ export const theme = extendTheme({
   fonts: {
     heading: 'Space Mono',
     body: 'Space Mono',
+    mono: 'Space Mono',
   },
   components: {
     Button,
