@@ -1,6 +1,15 @@
 import React, { useState, useMemo } from 'react';
 import { NextPage, GetStaticProps } from 'next';
-import { InputGroup, InputLeftElement, Input, useColorModeValue } from '@chakra-ui/react';
+import {
+  InputGroup,
+  InputLeftElement,
+  InputRightElement,
+  Input,
+  useColorModeValue,
+  Box,
+  Text,
+  CloseButton,
+} from '@chakra-ui/react';
 import { SearchIcon } from '@chakra-ui/icons';
 
 import Layout from '@components/layout';
@@ -53,22 +62,37 @@ const PokemonsPage: NextPage<PokemonsPageProps> = ({ pokemons }) => {
         <InputLeftElement pointerEvents="none">
           <SearchIcon color="gray.300" />
         </InputLeftElement>
+        {search.length > 0 && (
+          <InputRightElement>
+            <CloseButton onClick={() => setSearch('')} />
+          </InputRightElement>
+        )}
         <Input
+          maxLength={50}
           placeholder="Search for a pokemon"
           borderWidth="2px"
           bg={bg}
+          value={search}
           onChange={(event) => setSearch(event.target.value)}
         />
       </InputGroup>
       {!pokedex ? (
         <DataLoader />
-      ) : (
+      ) : filteredPokemons.length > 0 ? (
         <PokemonListWrapper>
-          {filteredPokemons &&
-            filteredPokemons.map((pokemon) => (
-              <PokemonItem key={pokemon.apiId} pokemon={pokemon} pokedex={pokedex} />
-            ))}
+          {filteredPokemons.map((pokemon) => (
+            <PokemonItem key={pokemon.apiId} pokemon={pokemon} pokedex={pokedex} />
+          ))}
         </PokemonListWrapper>
+      ) : (
+        search.length > 0 && (
+          <Text fontSize="xl">
+            There is no pokemon named{' '}
+            <Box as="span" fontWeight="bold">
+              {search}
+            </Box>
+          </Text>
+        )
       )}
     </Layout>
   );
