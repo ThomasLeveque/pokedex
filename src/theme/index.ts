@@ -14,8 +14,8 @@ export const theme = extendTheme({
   colors,
   breakpoints,
   fonts: {
-    heading: 'Work Sans',
-    body: 'Work Sans',
+    heading: 'Space Mono',
+    body: 'Space Mono',
   },
   components: {
     Button,
