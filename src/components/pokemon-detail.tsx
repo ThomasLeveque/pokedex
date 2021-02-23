@@ -27,7 +27,7 @@ const PokemonDetail: React.FC<PokemonDetailProps> = memo(({ pokemon }) => {
         <Heading as="h2" mb="4" size="md">
           About {pokemon.name} <Kbd>#{pokemon.apiId}</Kbd>
         </Heading>
-        <Center height="200px" w="200px" position="relative">
+        <Center height="200px" maxW="200px" w="100%" position="relative">
           <Box
             position="absolute"
             bgGradient={`linear(to-r, ${pokemon.types[0]}.start, ${pokemon.types[0]}.end)`}
@@ -48,7 +48,7 @@ const PokemonDetail: React.FC<PokemonDetailProps> = memo(({ pokemon }) => {
         </Text>
       </Center>
       <Divider my="5" />
-      <Grid templateColumns="repeat(2, minmax(0, 1fr))" gap={2}>
+      <Grid templateColumns="repeat(2, minmax(0, 1fr))" gap={2} w="100%">
         {pokemon.stats.map((stat) => (
           <Stat key={stat.name}>
             <StatLabel textTransform="capitalize">{stat.name}</StatLabel>
