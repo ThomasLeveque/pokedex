@@ -10,7 +10,7 @@ const ProfilStarterWrapper: React.FC = memo(({ children }) => {
       borderWidth="2px"
       borderRadius="md"
       padding="8"
-      maxW={{ md: '300px' }}
+      maxW={{ md: '300px', lg: '350px', '2xl': '400px' }}
       w="100%"
       ml={{ md: '8' }}
       mt={{ base: '8', md: '0' }}
