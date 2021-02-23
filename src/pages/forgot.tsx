@@ -5,10 +5,13 @@ import { useRouter } from 'next/router';
 import {
   Button,
   Center,
+  CloseButton,
   Container,
   FormControl,
   FormLabel,
   Input,
+  InputGroup,
+  InputRightElement,
   Link as ChakraLink,
   Stack,
 } from '@chakra-ui/react';
@@ -64,13 +67,20 @@ const ForgotPage: NextPage = () => {
       </Center>
       <FormControl id="email" isRequired mb="4">
         <FormLabel>Email</FormLabel>
-        <Input
-          maxLength={255}
-          placeholder="Enter your email"
-          value={email}
-          autoComplete="email"
-          onChange={(event) => setEmail(event.target.value)}
-        />
+        <InputGroup>
+          <Input
+            maxLength={255}
+            placeholder="Enter your email"
+            value={email}
+            autoComplete="email"
+            onChange={(event) => setEmail(event.target.value)}
+          />
+          {email.length > 0 && (
+            <InputRightElement>
+              <CloseButton variant="clear" onClick={() => setEmail('')} />
+            </InputRightElement>
+          )}
+        </InputGroup>
       </FormControl>
       <Stack
         gridGap={3}

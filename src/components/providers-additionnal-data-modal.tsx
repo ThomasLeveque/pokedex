@@ -10,6 +10,9 @@ import {
   Input,
   FormLabel,
   FormControl,
+  InputRightElement,
+  CloseButton,
+  InputGroup,
 } from '@chakra-ui/react';
 
 import { useCheckbox } from '@hooks/useCheckbox';
@@ -52,13 +55,20 @@ const ProvidersAdditionnalDataModal: React.FC<ProvidersAdditionnalDataModalProps
           <ModalBody>
             <FormControl id="pseudo" isRequired mb="4">
               <FormLabel>Pseudo</FormLabel>
-              <Input
-                maxLength={40}
-                placeholder="Enter a pseudo"
-                value={providersPseudo}
-                autoComplete="off"
-                onChange={(event) => setProvidersPseudo(event.target.value)}
-              />
+              <InputGroup>
+                <Input
+                  maxLength={40}
+                  placeholder="Enter a pseudo"
+                  value={providersPseudo}
+                  autoComplete="off"
+                  onChange={(event) => setProvidersPseudo(event.target.value)}
+                />
+                {providersPseudo.length > 0 && (
+                  <InputRightElement>
+                    <CloseButton variant="clear" onClick={() => setProvidersPseudo('')} />
+                  </InputRightElement>
+                )}
+              </InputGroup>
             </FormControl>
             <FormControl id="character" isRequired mb="6">
               <FormLabel>Character</FormLabel>

@@ -12,8 +12,7 @@ import {
   Divider,
   Stack,
   Link as ChakraLink,
-  Spacer,
-  Flex,
+  CloseButton,
 } from '@chakra-ui/react';
 
 import { useAuth } from '@hooks/useAuth';
@@ -71,13 +70,20 @@ const SignIn: React.FC<SignInProps> = ({ toggleIsLogin }) => {
       <Divider my="6" />
       <FormControl id="email" isRequired mb="4">
         <FormLabel>Email</FormLabel>
-        <Input
-          maxLength={255}
-          placeholder="Enter your email"
-          value={email}
-          autoComplete="email"
-          onChange={(event) => setEmail(event.target.value)}
-        />
+        <InputGroup>
+          <Input
+            maxLength={255}
+            placeholder="Enter your email"
+            value={email}
+            autoComplete="email"
+            onChange={(event) => setEmail(event.target.value)}
+          />
+          {email.length > 0 && (
+            <InputRightElement>
+              <CloseButton variant="clear" onClick={() => setEmail('')} />
+            </InputRightElement>
+          )}
+        </InputGroup>
       </FormControl>
       <FormControl id="password" isRequired mb="6">
         <FormLabel>Password</FormLabel>
@@ -86,13 +92,15 @@ const SignIn: React.FC<SignInProps> = ({ toggleIsLogin }) => {
             maxLength={255}
             placeholder="Enter your password"
             value={password}
-            pr="5rem"
+            pr="7rem"
             type={showPassword ? 'text' : 'password'}
             autoComplete="current-password"
             onChange={(event) => setPassword(event.target.value)}
           />
-          <InputRightElement width="4.5rem">
-            <Button h="1.75rem" size="sm" onClick={handleShowPassword}>
+
+          <InputRightElement display="flex" justifyContent="flex-end">
+            {password.length > 0 && <CloseButton variant="clear" onClick={() => setPassword('')} />}
+            <Button h="1.75rem" minW="auto" mx="2" size="sm" onClick={handleShowPassword}>
               {showPassword ? 'Hide' : 'Show'}
             </Button>
           </InputRightElement>

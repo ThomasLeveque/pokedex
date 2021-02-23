@@ -4,6 +4,7 @@ import { colors } from '@theme/colors';
 import { Button } from '@theme/button';
 import { Input } from '@theme/input';
 import { Divider } from '@theme/divider';
+import { CloseButton } from '@theme/close-button';
 import { breakpoints } from '@theme/breakpoints';
 
 export interface StyleProps {
@@ -22,6 +23,7 @@ export const theme = extendTheme({
     Button,
     Input,
     Divider,
+    CloseButton,
   },
   config: {
     initialColorMode: 'system',

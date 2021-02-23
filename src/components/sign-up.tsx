@@ -11,6 +11,7 @@ import {
   InputRightElement,
   Flex,
   Stack,
+  CloseButton,
 } from '@chakra-ui/react';
 
 import { useAuth } from '@hooks/useAuth';
@@ -64,23 +65,37 @@ const SignUp: React.FC<SignUpProps> = ({ toggleIsLogin }) => {
     <Box>
       <FormControl id="pseudo" isRequired mb="4">
         <FormLabel>Pseudo</FormLabel>
-        <Input
-          maxLength={40}
-          placeholder="Enter a pseudo"
-          value={pseudo}
-          autoComplete="username"
-          onChange={(event) => setPseudo(event.target.value)}
-        />
+        <InputGroup>
+          <Input
+            maxLength={40}
+            placeholder="Enter a pseudo"
+            value={pseudo}
+            autoComplete="username"
+            onChange={(event) => setPseudo(event.target.value)}
+          />
+          {pseudo.length > 0 && (
+            <InputRightElement>
+              <CloseButton variant="clear" onClick={() => setPseudo('')} />
+            </InputRightElement>
+          )}
+        </InputGroup>
       </FormControl>
       <FormControl id="email" isRequired mb="4">
         <FormLabel>Email</FormLabel>
-        <Input
-          maxLength={255}
-          placeholder="Enter an email"
-          value={email}
-          autoComplete="email"
-          onChange={(event) => setEmail(event.target.value)}
-        />
+        <InputGroup>
+          <Input
+            maxLength={255}
+            placeholder="Enter an email"
+            value={email}
+            autoComplete="email"
+            onChange={(event) => setEmail(event.target.value)}
+          />
+          {email.length > 0 && (
+            <InputRightElement>
+              <CloseButton variant="clear" onClick={() => setEmail('')} />
+            </InputRightElement>
+          )}
+        </InputGroup>
       </FormControl>
       <FormControl id="password" isRequired mb="4">
         <FormLabel>Password</FormLabel>
@@ -94,8 +109,9 @@ const SignUp: React.FC<SignUpProps> = ({ toggleIsLogin }) => {
             autoComplete="current-password"
             onChange={(event) => setPassword(event.target.value)}
           />
-          <InputRightElement width="4.5rem">
-            <Button h="1.75rem" size="sm" onClick={handleShowPassword}>
+          <InputRightElement display="flex" justifyContent="flex-end">
+            {password.length > 0 && <CloseButton variant="clear" onClick={() => setPassword('')} />}
+            <Button h="1.75rem" minW="auto" mx="2" size="sm" onClick={handleShowPassword}>
               {showPassword ? 'Hide' : 'Show'}
             </Button>
           </InputRightElement>

@@ -64,13 +64,12 @@ const PokemonsPage: NextPage<PokemonsPageProps> = ({ pokemons }) => {
         </InputLeftElement>
         {search.length > 0 && (
           <InputRightElement>
-            <CloseButton onClick={() => setSearch('')} />
+            <CloseButton variant="clear" onClick={() => setSearch('')} />
           </InputRightElement>
         )}
         <Input
           maxLength={50}
           placeholder="Search for a pokemon"
-          borderWidth="2px"
           bg={bg}
           value={search}
           onChange={(event) => setSearch(event.target.value)}
