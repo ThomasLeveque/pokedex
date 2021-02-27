@@ -13,7 +13,6 @@ export const Button = {
         _disabled: null,
       },
       _disabled: {
-        opacity: 0.4,
         bg: 'primary',
       },
     },

@@ -18,7 +18,7 @@ import {
 
 import { useAuth } from '@hooks/useAuth';
 import Redirect from '@components/redirect';
-import { PokemonLogo } from '@components/pokemon-logo';
+import { PokemonLogo } from '@components/icons/pokemon-logo-icon';
 import { errorToast, successToast } from '@utils/toasts';
 import { formatAuthErrors } from '@utils/format-auth-errors';
 import { auth } from '@libs/firebase/firebase';
@@ -61,7 +61,7 @@ const ForgotPage: NextPage = () => {
       <Center mb="12">
         <Link href="/" passHref>
           <ChakraLink>
-            <PokemonLogo />
+            <PokemonLogo w="80" />
           </ChakraLink>
         </Link>
       </Center>

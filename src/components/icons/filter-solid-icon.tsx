@@ -1,5 +1,5 @@
-import { Icon, IconProps } from '@chakra-ui/react';
 import React from 'react';
+import { Icon, IconProps } from '@chakra-ui/react';
 
 const FilterSolidIcon: React.FC<IconProps> = (iconProps) => (
   <Icon stroke="currentColor" viewBox="0 0 20 20" {...iconProps}>

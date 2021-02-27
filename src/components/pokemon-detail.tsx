@@ -24,8 +24,17 @@ const PokemonDetail: React.FC<PokemonDetailProps> = memo(({ pokemon }) => {
   return (
     <>
       <Center flexDirection="column">
-        <Heading as="h2" mb="4" size="md">
-          About {pokemon.name} <Kbd>#{pokemon.apiId}</Kbd>
+        <Heading
+          display="flex"
+          flexWrap="wrap"
+          gridGap="2"
+          textTransform="capitalize"
+          justifyContent="center"
+          as="h2"
+          mb="4"
+          size="md"
+        >
+          About <Kbd>#{pokemon.apiId}</Kbd> {pokemon.name}
         </Heading>
         <Center height="200px" maxW="200px" w="100%" position="relative">
           <Box

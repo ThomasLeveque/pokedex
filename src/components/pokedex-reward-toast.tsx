@@ -14,10 +14,10 @@ const PokdexRewardToast: React.FC<PokedexReward> = ({ color, bg, description }) 
       w="auto"
       borderRadius="0.375rem"
       display="flex"
-      alignItems="start"
+      alignItems="flex-end"
       boxShadow="0 10px 15px -3px rgb(0 0 0 / 10%), 0 4px 6px -2px rgb(0 0 0 / 5%)"
     >
-      <TrophyIcon mr="3" mt="1" w="8" h="8" />
+      <TrophyIcon mr="3" w="10" />
       <Box>
         <Text fontWeight="bold">Well done !</Text>
         <Text>{description}</Text>

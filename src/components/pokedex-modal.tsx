@@ -27,7 +27,7 @@ const PokedexModal: React.FC<PokedexModalProps> = ({ pokemon }) => {
         <ModalOverlay />
         <ModalContent>
           <ModalCloseButton />
-          <ModalBody padding="8">
+          <ModalBody px="8" pb="8" pt="12">
             <PokemonDetail pokemon={pokemon} />
           </ModalBody>
         </ModalContent>

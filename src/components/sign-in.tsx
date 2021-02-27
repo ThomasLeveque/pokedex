@@ -65,7 +65,7 @@ const SignIn: React.FC<SignInProps> = ({ toggleIsLogin }) => {
           <SignInWithGoogle />
           <SignInWithGithub />
         </Stack>
-        <ColorModeButton />
+        <ColorModeButton aria-label="Login toggle color mode" />
       </Stack>
       <Divider my="6" />
       <FormControl id="email" isRequired mb="4">

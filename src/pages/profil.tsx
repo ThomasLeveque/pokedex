@@ -126,7 +126,7 @@ const Profil: NextPage = () => {
                   aria-label="Pokedex reward message"
                 >
                   <span>
-                    <TrophyIcon w="10" mb="2" ml="3" fill={pokedexReward.bg} />
+                    <TrophyIcon w="12" mb="3" ml="3" fill={pokedexReward.bg} />
                   </span>
                 </Tooltip>
               )}

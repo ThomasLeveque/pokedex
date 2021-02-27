@@ -1,14 +1,9 @@
-import React, { SVGAttributes, memo } from 'react';
+import React, { memo } from 'react';
+import { Icon, IconProps } from '@chakra-ui/react';
 
-export const PokemonLogo: React.FC<SVGAttributes<SVGElement>> = memo(({ ...props }) => {
+export const PokemonLogo: React.FC<IconProps> = memo((iconProps) => {
   return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 269.469 98.814"
-      height="98.814"
-      width="269.469"
-      {...props}
-    >
+    <Icon viewBox="0 0 269.469 98.814" h="auto" {...iconProps}>
       <linearGradient
         gradientTransform="translate(-408 -677.5)"
         y2="714.0413"
@@ -232,6 +227,6 @@ export const PokemonLogo: React.FC<SVGAttributes<SVGElement>> = memo(({ ...props
           fill="url(#i)"
         />
       </g>
-    </svg>
+    </Icon>
   );
 });

@@ -6,7 +6,7 @@ import { useAuth } from '@hooks/useAuth';
 import Redirect from '@components/redirect';
 import SignUp from '@components/sign-up';
 import SignIn from '@components/sign-in';
-import { PokemonLogo } from '@components/pokemon-logo';
+import { PokemonLogo } from '@components/icons/pokemon-logo-icon';
 
 const LoginPage: NextPage = () => {
   const { user } = useAuth();
@@ -23,7 +23,7 @@ const LoginPage: NextPage = () => {
   return (
     <Container py="6">
       <Center mb="12">
-        <PokemonLogo />
+        <PokemonLogo w="80" />
       </Center>
       {isLogin ? (
         <SignIn toggleIsLogin={toggleIsLogin} />

@@ -32,7 +32,17 @@ const PokedexItem: React.FC<PokedexItemProps> = ({ pokemon }) => {
       overflow="hidden"
       bg={bg}
     >
-      <Heading textTransform="capitalize" mb="2" as="h2" size="md" textAlign="center">
+      <Heading
+        display="flex"
+        flexWrap="wrap"
+        gridGap="2"
+        justifyContent="center"
+        textTransform="capitalize"
+        mb="3"
+        as="h2"
+        size="md"
+        textAlign="center"
+      >
         <Kbd>#{pokemon.apiId}</Kbd> {pokemon.name}
       </Heading>
       <Image width={475} height={475} src={pokemon.imageUrl} alt={pokemon.name} />
