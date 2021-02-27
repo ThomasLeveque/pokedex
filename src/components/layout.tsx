@@ -21,7 +21,7 @@ const Layout: React.FC = ({ children }) => {
       <Box
         as="main"
         ml={{ lg: navWidth }}
-        px="8"
+        px={{ base: '6', md: '8' }}
         pt="8"
         pb={{
           base: `calc(2rem + ${progressBarHeight} + ${responsiveNavWidth})`,
