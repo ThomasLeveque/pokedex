@@ -4,17 +4,16 @@ import { formatEvolutionChain } from '@utils/format-evolution-chain';
 import { formatPokemon } from './../../utils/format-pokemon';
 
 export const getPokemons = async (pokemonsToFetch: number[]): Promise<Pokemon[]> => {
-  const pokemons = [];
-
-  for (const pokemonId of pokemonsToFetch) {
+  const promisePokemons = pokemonsToFetch.map(async (pokemonId) => {
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_POKEAPI_BASE_URL}/pokemon/${pokemonId}`
     );
     const data = await response.json();
-    const pokemon = formatPokemon(data);
-    pokemons.push(pokemon);
-  }
-  return pokemons;
+    return formatPokemon(data);
+  });
+
+  const pokemons = await Promise.all(promisePokemons);
+  return pokemons.sort((a, b) => a.apiId - b.apiId);
 };
 
 export const getPokemon = async (pokemonIdName: number | string): Promise<Pokemon> => {
