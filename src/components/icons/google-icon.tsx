@@ -1,5 +1,5 @@
-import { Icon, IconProps } from '@chakra-ui/react';
 import React from 'react';
+import { Icon, IconProps } from '@chakra-ui/react';
 
 const GoogleIcon: React.FC<IconProps> = (iconProps) => (
   <Icon viewBox="0 0 533.5 544.3" {...iconProps}>

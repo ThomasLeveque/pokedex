@@ -7,7 +7,7 @@ const useCollection = <Data>(
   collectionPath: string,
   dbOptions?: Options,
   swrOptions?: ConfigInterface<Document<Data>[]>
-): responseInterface<Document<Data>[], any> => {
+): responseInterface<Document<Data>[], unknown> => {
   return useSWR<Document<Data>[]>(
     collectionPath,
     (path: string) => fetchCollection(path, dbOptions),

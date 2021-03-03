@@ -1,6 +1,5 @@
 import React from 'react';
 import Image from 'next/image';
-import { Pokemon } from '@data-types/pokemon.type';
 import {
   Box,
   Stat,
@@ -14,6 +13,8 @@ import {
   Text,
   Heading,
 } from '@chakra-ui/react';
+
+import { Pokemon } from '@data-types/pokemon.type';
 
 interface StarterItemProps {
   starter: Pokemon;

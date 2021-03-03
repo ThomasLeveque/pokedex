@@ -4,7 +4,6 @@ import Image from 'next/image';
 import {
   Box,
   Button,
-  Flex,
   Grid,
   Center,
   Heading,

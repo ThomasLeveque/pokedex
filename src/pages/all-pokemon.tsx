@@ -27,7 +27,7 @@ const generatePokemonToFetch = (): number[] =>
     (_, index) => index + 1
   );
 
-export const getStaticProps: GetStaticProps<PokemonsPageProps> = async () => {
+export const getStaticProps: GetStaticProps<AllPokemonPageProps> = async () => {
   const pokemonsToFetch = generatePokemonToFetch();
   const pokemons = await getPokemons(pokemonsToFetch);
   return {
@@ -37,11 +37,11 @@ export const getStaticProps: GetStaticProps<PokemonsPageProps> = async () => {
   };
 };
 
-type PokemonsPageProps = {
+type AllPokemonPageProps = {
   pokemons: Pokemon[];
 };
 
-const PokemonsPage: NextPage<PokemonsPageProps> = ({ pokemons }) => {
+const AllPokemonPage: NextPage<AllPokemonPageProps> = ({ pokemons }) => {
   const bg = useColorModeValue('white', 'gray.800');
 
   const [search, setSearch] = useState<string>('');
@@ -97,4 +97,4 @@ const PokemonsPage: NextPage<PokemonsPageProps> = ({ pokemons }) => {
   );
 };
 
-export default PokemonsPage;
+export default AllPokemonPage;

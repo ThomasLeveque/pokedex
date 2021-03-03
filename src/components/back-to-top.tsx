@@ -1,6 +1,6 @@
 import React from 'react';
-import { Box, IconButton, useColorModeValue, Fade } from '@chakra-ui/react';
 import { useInView } from 'react-intersection-observer';
+import { Box, IconButton, useColorModeValue, Fade } from '@chakra-ui/react';
 
 import ArrowUpIcon from '@components/icons/arrow-up-icon';
 import { progressBarHeight, responsiveNavWidth } from '@utils/constants';

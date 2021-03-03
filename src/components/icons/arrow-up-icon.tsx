@@ -1,5 +1,5 @@
-import { Icon, IconProps } from '@chakra-ui/react';
 import React from 'react';
+import { Icon, IconProps } from '@chakra-ui/react';
 
 const ArrowUpIcon: React.FC<IconProps> = (iconProps) => (
   <Icon fill="none" stroke="currentColor" strokeWidth={3} viewBox="0 0 24 24" {...iconProps}>

@@ -28,25 +28,25 @@ type AuthContextType = {
     email: string,
     password: string,
     additionalData: AdditionalUserData
-  ) => Promise<void | null>;
-  signInWithEmail: (email: string, password: string) => Promise<void | null>;
-  signInWithGoogle: () => Promise<void | null>;
-  signInWithGithub: () => Promise<void | null>;
-  signOut: () => Promise<void | null>;
-  setUserStarter: (userId: string, userToUpdate: Partial<User>) => Promise<void | null>;
-  saveInPokedex: (userId: string, pokemon: Pokemon, increment: number) => Promise<void | null>;
+  ) => Promise<void>;
+  signInWithEmail: (email: string, password: string) => Promise<void>;
+  signInWithGoogle: () => Promise<void>;
+  signInWithGithub: () => Promise<void>;
+  signOut: () => Promise<void>;
+  setUserStarter: (userId: string, userToUpdate: Partial<User>) => Promise<void>;
+  saveInPokedex: (userId: string, pokemon: Pokemon, increment: number) => Promise<void>;
 };
 
 const authContext = createContext<AuthContextType>({
   user: null,
   userLoaded: false,
-  signUpWithEmail: async () => null,
-  signInWithEmail: async () => null,
-  signInWithGoogle: async () => null,
-  signInWithGithub: async () => null,
-  signOut: async () => null,
-  setUserStarter: async () => null,
-  saveInPokedex: async () => null,
+  signUpWithEmail: async () => undefined,
+  signInWithEmail: async () => undefined,
+  signInWithGoogle: async () => undefined,
+  signInWithGithub: async () => undefined,
+  signOut: async () => undefined,
+  setUserStarter: async () => undefined,
+  saveInPokedex: async () => undefined,
 });
 
 export const useAuth = (): AuthContextType => {

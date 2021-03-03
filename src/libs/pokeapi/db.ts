@@ -1,7 +1,7 @@
 import { EvolutionChain } from '@data-types/evolution-chain.type';
 import { Pokemon, Type } from '@data-types/pokemon.type';
 import { formatEvolutionChain } from '@utils/format-evolution-chain';
-import { formatPokemon } from './../../utils/format-pokemon';
+import { formatPokemon } from '@utils/format-pokemon';
 
 export const getPokemons = async (pokemonsToFetch: number[]): Promise<Pokemon[]> => {
   const promisePokemons = pokemonsToFetch.map(async (pokemonId) => {

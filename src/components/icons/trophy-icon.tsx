@@ -1,5 +1,5 @@
-import { Icon, IconProps } from '@chakra-ui/react';
 import React from 'react';
+import { Icon, IconProps } from '@chakra-ui/react';
 
 const TrophyIcon: React.FC<IconProps> = (iconProps) => (
   <Icon fill="currentColor" h="auto" viewBox="0 0 127.391 127.391" {...iconProps}>

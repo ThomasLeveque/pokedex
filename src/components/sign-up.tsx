@@ -9,7 +9,6 @@ import {
   Link as ChakraLink,
   InputGroup,
   InputRightElement,
-  Flex,
   Stack,
   CloseButton,
 } from '@chakra-ui/react';

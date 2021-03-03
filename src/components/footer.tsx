@@ -1,5 +1,6 @@
 import React, { memo } from 'react';
 import { Box, Tooltip, useColorModeValue } from '@chakra-ui/react';
+
 import { useAuth } from '@hooks/useAuth';
 import { progressBarHeight, navWidth, responsiveNavWidth } from '@utils/constants';
 

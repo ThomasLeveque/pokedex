@@ -7,6 +7,6 @@ export type Document<Data> = Data & {
 
 export type Options = {
   orderBy?: [string | FieldPath, OrderByDirection];
-  where?: [string | FieldPath, WhereFilterOp, any];
+  where?: [string | FieldPath, WhereFilterOp, unknown];
   limit?: number;
 };

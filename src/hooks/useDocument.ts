@@ -6,7 +6,7 @@ import { fetchDocument } from '@libs/firebase/fetchers';
 const useDocument = <Data>(
   documenPath: string,
   swrOptions?: ConfigInterface<Document<Data>>
-): responseInterface<Document<Data>, any> => {
+): responseInterface<Document<Data>, unknown> => {
   return useSWR<Document<Data>>(documenPath, fetchDocument, swrOptions);
 };
 

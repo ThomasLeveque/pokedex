@@ -1,4 +1,5 @@
 import React from 'react';
+import Head from 'next/head';
 import { Box, useColorModeValue } from '@chakra-ui/react';
 
 import Nav from '@components/nav';
@@ -6,7 +7,6 @@ import { useAuth } from '@hooks/useAuth';
 import Redirect from './redirect';
 import Footer from './footer';
 import { navWidth, progressBarHeight, responsiveNavWidth } from '@utils/constants';
-import Head from 'next/head';
 
 interface PrivateLayoutProps {
   title: string;
