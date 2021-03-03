@@ -1,14 +1,12 @@
-# Next.js Firebase auth template
+# Pokedex app
 
-[![forthebadge](https://forthebadge.com/images/badges/built-with-love.svg)](http://forthebadge.com) [![forthebadge](https://forthebadge.com/images/badges/made-with-javascript.svg)](http://forthebadge.com) [![forthebadge](https://forthebadge.com/images/badges/for-you.svg)](https://forthebadge.com)
+[![pokemon-logo](./public/images/pokemon-logo.svg)](http://forthebadge.com)
 
-A template to start a new project using Next.js with Firebase auth
+A pokedex to remember all pokemon you have seen during your adventure
 
 ## Install
 
-- Clone with the following command `npx degit git@github.com:ThomasLeveque/next.js-firebase-auth-template.git#branch-name <folder-name>`
-  - Branch `main` using [firebase](https://firebase.google.com/)
-  - Branch `with-swr-firestore` using [firebase](https://firebase.google.com/) + [swr-firestore](https://github.com/nandorojo/swr-firestore)
+- Clone with the following command `git clone git@github.com:ThomasLeveque/pokedex.git`
 - Rename `.env.exemple` by `.env.local` and paste your firebase config
 - Run `yarn` command to install all the dependencies
 
@@ -18,7 +16,7 @@ A template to start a new project using Next.js with Firebase auth
 - Run `yarn start` command to start the project
 - Run `yarn build` command to build the project
 
-Finally you can start using Next.js with Firebase auth to create awesome, scallable and ready for production apps 🔥🔥🔥
+Finally you can start catching some pokemon 🔥🔥🔥
 
 ## Made with
 
@@ -26,9 +24,9 @@ Finally you can start using Next.js with Firebase auth to create awesome, scalla
   for Production.
 - [react](https://reactjs.org) - A JavaScript library for building user interfaces.
 - [typescript](https://www.typescriptlang.org) - Typed JavaScript at Any Scale.
-- [firebase](https://firebase.google.com/) - Firebase helps you build and run successful apps
-- [firestore-swr](https://github.com/nandorojo/swr-firestore) - Implement Vercel's useSWR for querying Firestore in React/React Native/Expo apps. 👩‍🚒🔥
-- [tailwindcss](https://tailwindcss.com/) - A utility-first CSS framework for rapidly building custom designs.
+- [firebase](https://firebase.google.com/) - Firebase helps you build and run successful apps.
+- [swr](https://swr.vercel.app/) - React Hooks library for data fetching.
+- [chakra-ui](https://chakra-ui.com/) - Build accessible React apps with speed.
 
 ## Authors
 
