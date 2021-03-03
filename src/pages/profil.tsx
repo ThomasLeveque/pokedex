@@ -114,7 +114,7 @@ const Profil: NextPage = () => {
         {user && (
           <Center width="100%" flexDirection="column">
             <Box borderWidth="2px" borderRadius="full" width="150px" bg={bg} p="1" mb="4">
-              <Image src={`/images/${user.character}.png`} width={500} height={500} />
+              <Image priority src={`/images/${user.character}.png`} width={500} height={500} />
             </Box>
             <Heading as="h1" size="2xl">
               {user.pseudo}

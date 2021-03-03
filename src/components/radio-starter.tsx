@@ -14,7 +14,7 @@ const RadioStarter: React.FC<RadioStarterProps> = ({ onClick, isChecked, childre
         children
       ) : (
         <Box>
-          <Image src="/images/pokeball.png" width={200} height={200} alt="Pokeball" />
+          <Image priority src="/images/pokeball.png" width={200} height={200} alt="Pokeball" />
         </Box>
       )}
     </Box>

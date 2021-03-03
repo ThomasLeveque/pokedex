@@ -45,6 +45,7 @@ const PokemonDetail: React.FC<PokemonDetailProps> = memo(({ pokemon }) => {
             rounded="full"
           />
           <Image
+            priority
             key={`${pokemon.name}-detail-image`}
             width={475}
             height={475}
