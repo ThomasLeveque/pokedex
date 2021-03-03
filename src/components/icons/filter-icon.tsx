@@ -2,7 +2,7 @@ import { Icon, IconProps } from '@chakra-ui/react';
 import React from 'react';
 
 const FilterIcon: React.FC<IconProps> = (iconProps) => (
-  <Icon fill="none" stroke="currentColor" viewBox="0 0 24 24" {...iconProps}>
+  <Icon fill="none" strokeWidth={3} stroke="currentColor" viewBox="0 0 24 24" {...iconProps}>
     <path
       strokeLinecap="round"
       strokeLinejoin="round"

@@ -1,14 +1,15 @@
 import React from 'react';
+import { Box, useColorModeValue } from '@chakra-ui/react';
 
 import Nav from '@components/nav';
 import { useAuth } from '@hooks/useAuth';
 import Redirect from './redirect';
-import { Box, useColorModeValue } from '@chakra-ui/react';
 import Footer from './footer';
 import { navWidth, progressBarHeight, responsiveNavWidth } from '@utils/constants';
 
 const Layout: React.FC = ({ children }) => {
   const { user, userLoaded } = useAuth();
+
   const bg = useColorModeValue('gray.100', 'gray.900');
 
   if (!user && userLoaded) {

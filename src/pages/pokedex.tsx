@@ -2,7 +2,6 @@ import React, { useMemo, useState } from 'react';
 import { NextPage, GetStaticProps } from 'next';
 import {
   Heading,
-  Flex,
   Button,
   Center,
   Stack,
@@ -117,7 +116,7 @@ const PokedexPage: NextPage<PokedexPageProps> = ({ types }) => {
                   borderWidth="2px"
                   aria-label="Filter pokemons by types"
                 >
-                  {filteredType ? <FilterSolidIcon /> : <FilterIcon strokeWidth={3} />}
+                  {filteredType ? <FilterSolidIcon /> : <FilterIcon />}
                   {isOpen ? <ChevronUpIcon /> : <ChevronDownIcon />}
                 </Button>
               </HStack>
