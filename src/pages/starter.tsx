@@ -19,7 +19,7 @@ import {
 } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 
-import Layout from '@components/layout';
+import PrivateLayout from '@components/private-layout';
 import RadioStarter from '@components/radio-starter';
 import { Pokemon } from '@data-types/pokemon.type';
 import { useAuth } from '@hooks/useAuth';
@@ -87,7 +87,7 @@ const Starter: NextPage<StarterPageProps> = ({ starters }) => {
   }
 
   return (
-    <Layout>
+    <PrivateLayout title="Pick your starter for this adventure">
       <Heading as="h1" mb="8" size="2xl">
         Choose your starter
       </Heading>
@@ -150,7 +150,7 @@ const Starter: NextPage<StarterPageProps> = ({ starters }) => {
           </Grid>
         </Center>
       </Center>
-    </Layout>
+    </PrivateLayout>
   );
 };
 

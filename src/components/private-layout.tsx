@@ -6,8 +6,13 @@ import { useAuth } from '@hooks/useAuth';
 import Redirect from './redirect';
 import Footer from './footer';
 import { navWidth, progressBarHeight, responsiveNavWidth } from '@utils/constants';
+import Head from 'next/head';
 
-const Layout: React.FC = ({ children }) => {
+interface PrivateLayoutProps {
+  title: string;
+}
+
+const PrivateLayout: React.FC<PrivateLayoutProps> = ({ title, children }) => {
   const { user, userLoaded } = useAuth();
 
   const bg = useColorModeValue('gray.100', 'gray.900');
@@ -18,6 +23,9 @@ const Layout: React.FC = ({ children }) => {
 
   return (
     <Box bg={bg} minH="100vh">
+      <Head>
+        <title>{title}</title>
+      </Head>
       <Nav />
       <Box
         as="main"
@@ -36,4 +44,4 @@ const Layout: React.FC = ({ children }) => {
   );
 };
 
-export default Layout;
+export default PrivateLayout;

@@ -1,12 +1,9 @@
 import React, { useState } from 'react';
 import { NextPage } from 'next';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 import {
   Button,
-  Center,
   CloseButton,
-  Container,
   FormControl,
   FormLabel,
   Input,
@@ -16,18 +13,15 @@ import {
   Stack,
 } from '@chakra-ui/react';
 
-import { useAuth } from '@hooks/useAuth';
-import Redirect from '@components/redirect';
-import { PokemonLogo } from '@components/icons/pokemon-logo-icon';
 import { errorToast, successToast } from '@utils/toasts';
 import { formatAuthErrors } from '@utils/format-auth-errors';
 import { auth } from '@libs/firebase/firebase';
+import PublicLayout from '@components/public-layout';
 
 const ForgotPage: NextPage = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [email, setEmail] = useState<string>('');
 
-  const { user } = useAuth();
   const router = useRouter();
 
   const handleResetPassword = async (): Promise<void> => {
@@ -52,19 +46,8 @@ const ForgotPage: NextPage = () => {
     }
   };
 
-  if (user) {
-    return <Redirect to="/pokedex" />;
-  }
-
   return (
-    <Container py="6">
-      <Center mb="12">
-        <Link href="/" passHref>
-          <ChakraLink>
-            <PokemonLogo w="80" />
-          </ChakraLink>
-        </Link>
-      </Center>
+    <PublicLayout title="Recover your password to continue or start an adventure.">
       <FormControl id="email" isRequired mb="4">
         <FormLabel>Email</FormLabel>
         <InputGroup>
@@ -94,7 +77,7 @@ const ForgotPage: NextPage = () => {
           Go back
         </ChakraLink>
       </Stack>
-    </Container>
+    </PublicLayout>
   );
 };
 

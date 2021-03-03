@@ -15,7 +15,7 @@ import {
 } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 
-import Layout from '@components/layout';
+import PrivateLayout from '@components/private-layout';
 import PokemonDetail from '@components/pokemon-detail';
 import { useAuth } from '@hooks/useAuth';
 import { errorToast, successToast, warningToast } from '@utils/toasts';
@@ -109,7 +109,7 @@ const Profil: NextPage = () => {
   };
 
   return (
-    <Layout>
+    <PrivateLayout title="Explore your profil.">
       <Flex alignItems="start" flexDirection={{ base: 'column', md: 'row' }}>
         {user && (
           <Center width="100%" flexDirection="column">
@@ -172,7 +172,7 @@ const Profil: NextPage = () => {
           </ProfilStarterWrapper>
         )}
       </Flex>
-    </Layout>
+    </PrivateLayout>
   );
 };
 

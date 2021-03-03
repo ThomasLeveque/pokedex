@@ -22,6 +22,7 @@ const NavLink: React.FC<NavLinkProps> = ({ href, label, children }) => {
         display="flex"
         alignItems="center"
         justifyContent="center"
+        p="2"
       >
         {isActive && (
           <Box
@@ -34,7 +35,7 @@ const NavLink: React.FC<NavLinkProps> = ({ href, label, children }) => {
           />
         )}
         <Link href={href} passHref>
-          <ChakraLink display="block" p="2" my={{ lg: '2' }} transition="color 0.2s ease-out">
+          <ChakraLink display="block" my={{ lg: '2' }} maxW="100%">
             {children}
           </ChakraLink>
         </Link>

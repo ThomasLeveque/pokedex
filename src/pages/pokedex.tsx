@@ -18,7 +18,7 @@ import {
 import { ChevronDownIcon, ChevronUpIcon, CloseIcon } from '@chakra-ui/icons';
 import { useRouter } from 'next/router';
 
-import Layout from '@components/layout';
+import PrivateLayout from '@components/private-layout';
 import { useAuth } from '@hooks/useAuth';
 import useCollection from '@hooks/useCollection';
 import { Pokemon, Type } from '@data-types/pokemon.type';
@@ -65,7 +65,7 @@ const PokedexPage: NextPage<PokedexPageProps> = ({ types }) => {
   };
 
   return (
-    <Layout>
+    <PrivateLayout title="Learn more about all pokemon you have seen.">
       {!pokemonsByType ? (
         <DataLoader />
       ) : user?.starterId ? (
@@ -162,7 +162,7 @@ const PokedexPage: NextPage<PokedexPageProps> = ({ types }) => {
           </Button>
         </Center>
       )}
-    </Layout>
+    </PrivateLayout>
   );
 };
 

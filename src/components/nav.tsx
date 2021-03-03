@@ -1,14 +1,14 @@
 import React, { memo } from 'react';
-import { Flex, useColorModeValue, Spacer } from '@chakra-ui/react';
+import Image from 'next/image';
+import { Flex, useColorModeValue, Spacer, Box } from '@chakra-ui/react';
 
 import ColorModeButton from './color-mode-button';
-import PokedexNavIcon from './icons/pokedex-nav-icon';
-import AllPokemonNavIcon from './icons/all-pokemon-nav-icon';
-import ProfilNavIcon from './icons/profil-nav-icon';
 import { navWidth, responsiveNavWidth } from '@utils/constants';
 import NavLink from './nav-link';
+import { useAuth } from '@hooks/useAuth';
 
 const Nav: React.FC = memo(() => {
+  const { user } = useAuth();
   const bg = useColorModeValue('white', 'gray.800');
 
   return (
@@ -29,13 +29,19 @@ const Nav: React.FC = memo(() => {
       borderTopWidth={{ base: '2px', lg: '0' }}
     >
       <NavLink href="/pokedex" label="Pokedex">
-        <PokedexNavIcon w="12" />
+        <Box w="12">
+          <Image priority height={113} width={120} src={`/images/pokedex.png`} />
+        </Box>
       </NavLink>
       <NavLink href="/all-pokemon" label="All pokemon">
-        <AllPokemonNavIcon w="10" />
+        <Box w="10">
+          <Image priority height={200} width={200} src={`/images/pokeball.png`} />
+        </Box>
       </NavLink>
       <NavLink href="/profil" label="Profil">
-        <ProfilNavIcon w="10" />
+        <Box w="12" borderWidth="2px" borderRadius="99999px" overflow="hidden">
+          <Image priority height={150} width={150} src={`/images/${user?.character}-avatar.png`} />
+        </Box>
       </NavLink>
       <Spacer display={{ base: 'none', lg: 'block' }} />
       <ColorModeButton

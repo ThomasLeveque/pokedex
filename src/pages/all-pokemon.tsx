@@ -12,7 +12,7 @@ import {
 } from '@chakra-ui/react';
 import { SearchIcon } from '@chakra-ui/icons';
 
-import Layout from '@components/layout';
+import PrivateLayout from '@components/private-layout';
 import { getPokemons } from '@libs/pokeapi/db';
 import { Pokemon } from '@data-types/pokemon.type';
 import PokemonItem from '@components/pokemon-item';
@@ -57,7 +57,7 @@ const PokemonsPage: NextPage<PokemonsPageProps> = ({ pokemons }) => {
   );
 
   return (
-    <Layout>
+    <PrivateLayout title="Search for any pokemon you have seen.">
       <InputGroup mb="6">
         <InputLeftElement pointerEvents="none">
           <SearchIcon color="gray.300" />
@@ -93,7 +93,7 @@ const PokemonsPage: NextPage<PokemonsPageProps> = ({ pokemons }) => {
           </Text>
         )
       )}
-    </Layout>
+    </PrivateLayout>
   );
 };
 
