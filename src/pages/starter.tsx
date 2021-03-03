@@ -96,7 +96,7 @@ const Starter: NextPage<StarterPageProps> = ({ starters }) => {
           mr={{ base: '0', md: '10' }}
           mb={{ base: '10', md: '0' }}
         >
-          <Image src="/images/chen.png" width={268} height={500} />
+          <Image priority src="/images/chen.png" width={268} height={500} />
         </Box>
         <Center flexDirection="column">
           <Text fontSize="lg" mb="6" textAlign="center">

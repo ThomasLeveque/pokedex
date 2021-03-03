@@ -23,7 +23,7 @@ const CharactersCheckboxList: React.FC<CharactersCheckboxListProps> = memo(
               onClick={() => onChecked(character)}
               isChecked={characterChecked}
             >
-              <Image src={`/images/${character}.png`} width={500} height={500} />
+              <Image priority src={`/images/${character}.png`} width={500} height={500} />
             </RadioCharacter>
           );
         })}
