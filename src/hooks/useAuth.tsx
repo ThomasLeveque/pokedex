@@ -189,7 +189,8 @@ const AuthProvider = memo(({ children }) => {
       if (pokedexReward) {
         toast({
           position: 'top-right',
-          duration: 8000,
+          duration: 6000,
+          isClosable: true,
           render: () => <PokdexRewardToast {...pokedexReward} />,
         });
       }

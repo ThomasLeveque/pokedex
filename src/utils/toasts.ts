@@ -15,7 +15,7 @@ export const errorToast = ({ title, description, duration, isClosable }: ToastPr
     title: title || 'An error occured.',
     description: description || null,
     status: 'error',
-    duration: duration || 5000,
+    duration: duration || 4000,
     isClosable: isClosable || true,
   });
 };
@@ -26,7 +26,7 @@ export const warningToast = ({ title, description, duration, isClosable }: Toast
     title: title || 'Warning (!)',
     description: description || null,
     status: 'warning',
-    duration: duration || 5000,
+    duration: duration || 4000,
     isClosable: isClosable || true,
   });
 };
@@ -37,7 +37,7 @@ export const infoToast = ({ title, description, duration, isClosable }: ToastPro
     title: title || 'Info (i)',
     description: description || null,
     status: 'info',
-    duration: duration || 5000,
+    duration: duration || 4000,
     isClosable: isClosable || true,
   });
 };
@@ -48,7 +48,7 @@ export const successToast = ({ title, description, duration, isClosable }: Toast
     title: title || 'Success (o)',
     description: description || null,
     status: 'success',
-    duration: duration || 5000,
+    duration: duration || 4000,
     isClosable: isClosable || true,
   });
 };
