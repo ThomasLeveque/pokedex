@@ -1,6 +1,6 @@
 # Pokedex app
 
-[![pokemon-logo](./public/images/pokemon-logo.svg)](http://forthebadge.com)
+[![pokemon-logo](./public/images/pokemon-logo.svg)](http://my-pokedex.app/)
 
 A pokedex to remember all pokemon you have seen during your adventure
 
